@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useShop } from "@/context/ShopContext";
+import { CATEGORIES } from "@/data/products";
 
 export function Footer() {
   const { setSelectedCategory } = useShop();
@@ -15,7 +16,7 @@ export function Footer() {
     if (pathname !== "/products") {
       router.push(`/products?category=${encodeURIComponent(cat)}`);
     } else {
-      const el = document.getElementById("products-catalog");
+      const el = document.getElementById("products-catalog") || document.getElementById("products");
       if (el) el.scrollIntoView({ behavior: "smooth" });
     }
   };
@@ -35,41 +36,28 @@ export function Footer() {
           </Link>
 
           {/* Links */}
-          <div className="flex flex-wrap items-center justify-center gap-6 font-semibold uppercase text-[11px] text-zinc-400">
-            <Link href="/" className="hover:text-white transition-colors">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 font-semibold uppercase text-[11px] text-zinc-400">
+            <Link
+              href="/"
+              className="hover:text-white transition-colors"
+            >
               Home
             </Link>
-            <Link
-              href="/products"
-              onClick={() => setSelectedCategory("All")}
+            <button
+              onClick={() => handleCategoryClick("All")}
               className="hover:text-white transition-colors"
             >
               All Products
-            </Link>
-            <button
-              onClick={() => handleCategoryClick("Audio & Tech")}
-              className="hover:text-white transition-colors"
-            >
-              Audio & Tech
             </button>
-            <button
-              onClick={() => handleCategoryClick("Smart Wearables")}
-              className="hover:text-white transition-colors"
-            >
-              Wearables
-            </button>
-            <button
-              onClick={() => handleCategoryClick("Fashion & Footwear")}
-              className="hover:text-white transition-colors"
-            >
-              Fashion
-            </button>
-            <button
-              onClick={() => handleCategoryClick("Home & Ambient")}
-              className="hover:text-white transition-colors"
-            >
-              Home
-            </button>
+            {CATEGORIES.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => handleCategoryClick(cat.name)}
+                className="hover:text-white transition-colors"
+              >
+                {cat.name}
+              </button>
+            ))}
           </div>
         </div>
 

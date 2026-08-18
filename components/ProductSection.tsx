@@ -65,31 +65,31 @@ export function ProductSection() {
           </div>
 
           {/* Sort Dropdown */}
-          <div className="flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-700 dark:text-zinc-300 self-start sm:self-auto font-mono">
+          <div className="h-9 inline-flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-3 text-xs text-zinc-700 dark:text-zinc-300 self-start sm:self-auto font-mono">
             <ArrowDownUp className="w-3.5 h-3.5 text-zinc-400" />
-            <span className="uppercase text-[10px]">Sort:</span>
+            <span className="uppercase text-[10px] text-zinc-500">Sort:</span>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="bg-transparent font-bold text-black dark:text-white focus:outline-none cursor-pointer"
+              className="bg-transparent font-bold text-black dark:text-white focus:outline-none cursor-pointer text-xs"
             >
-              <option value="featured">Featured Picks</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
-              <option value="rating">Top Rated</option>
+              <option value="featured" className="bg-white dark:bg-zinc-900 text-black dark:text-white">Featured Picks</option>
+              <option value="price-asc" className="bg-white dark:bg-zinc-900 text-black dark:text-white">Price: Low to High</option>
+              <option value="price-desc" className="bg-white dark:bg-zinc-900 text-black dark:text-white">Price: High to Low</option>
+              <option value="rating" className="bg-white dark:bg-zinc-900 text-black dark:text-white">Top Rated</option>
             </select>
           </div>
         </div>
 
         {/* Category Filter Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-3 no-scrollbar mb-8">
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar mb-8">
           {allCategories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold uppercase tracking-wider whitespace-nowrap transition-all ${
+              className={`h-9 px-3.5 inline-flex items-center justify-center rounded-lg text-xs font-mono font-bold uppercase tracking-wider whitespace-nowrap transition-all ${
                 selectedCategory === cat
-                  ? "bg-black dark:bg-white text-white dark:text-black shadow-sm"
+                  ? "bg-black dark:bg-white text-white dark:text-black shadow-xs"
                   : "bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-800 hover:border-black dark:hover:border-zinc-600"
               }`}
             >
