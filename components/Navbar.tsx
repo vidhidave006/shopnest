@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useShop } from "@/context/ShopContext";
 import { Search, ShoppingBag, Heart, X, Menu, Sun, Moon } from "lucide-react";
 import { CATEGORIES } from "@/data/products";
@@ -23,12 +24,25 @@ export function Navbar() {
   } = useShop();
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
   const handleCategorySelect = (catName: string) => {
     setSelectedCategory(catName);
     setIsMobileMenuOpen(false);
-    const el = document.getElementById("products");
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (pathname !== "/products") {
+      router.push(`/products?category=${encodeURIComponent(catName)}`);
+    } else {
+      const el = document.getElementById("products-catalog");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (pathname !== "/products") {
+      router.push(`/products?search=${encodeURIComponent(searchQuery)}`);
+    }
   };
 
   return (
@@ -57,22 +71,35 @@ export function Navbar() {
 
           {/* Desktop Nav Links */}
           <nav className="hidden md:flex items-center gap-6 text-xs font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400">
-            <button
-              onClick={() => handleCategorySelect("All")}
+            <Link
+              href="/"
               className={`hover:text-black dark:hover:text-white transition-colors ${
-                selectedCategory === "All"
+                pathname === "/"
                   ? "text-black dark:text-white underline underline-offset-8 decoration-2"
                   : ""
               }`}
             >
-              All
-            </button>
+              Home
+            </Link>
+
+            <Link
+              href="/products"
+              onClick={() => setSelectedCategory("All")}
+              className={`hover:text-black dark:hover:text-white transition-colors ${
+                pathname.startsWith("/products") && selectedCategory === "All"
+                  ? "text-black dark:text-white underline underline-offset-8 decoration-2"
+                  : ""
+              }`}
+            >
+              All Products
+            </Link>
+
             {CATEGORIES.slice(0, 4).map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => handleCategorySelect(cat.name)}
                 className={`hover:text-black dark:hover:text-white transition-colors ${
-                  selectedCategory === cat.name
+                  pathname.startsWith("/products") && selectedCategory === cat.name
                     ? "text-black dark:text-white underline underline-offset-8 decoration-2"
                     : ""
                 }`}
@@ -85,8 +112,8 @@ export function Navbar() {
           {/* Search, Theme Switcher & Actions */}
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Search Input */}
-            <div className="relative hidden sm:block w-44 lg:w-56">
-              <Search className="w-3.5 h-3.5 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <form onSubmit={handleSearchSubmit} className="relative hidden sm:block w-44 lg:w-56">
+              <Search className="w-3.5 h-3.5 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
                 placeholder="Search..."
@@ -96,13 +123,14 @@ export function Navbar() {
               />
               {searchQuery && (
                 <button
+                  type="button"
                   onClick={() => setSearchQuery("")}
                   className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
               )}
-            </div>
+            </form>
 
             {/* B&W Theme Switcher (Dark / Light) */}
             <button
@@ -163,17 +191,38 @@ export function Navbar() {
               />
             </div>
             <div className="flex flex-col space-y-1 text-xs font-semibold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
-              <button
-                onClick={() => handleCategorySelect("All")}
-                className="text-left px-2 py-1.5 rounded hover:bg-zinc-100 dark:hover:bg-zinc-900"
+              <Link
+                href="/"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`text-left px-2 py-1.5 rounded hover:bg-zinc-100 dark:hover:bg-zinc-900 ${
+                  pathname === "/" ? "text-black dark:text-white font-bold" : ""
+                }`}
+              >
+                Home
+              </Link>
+              <Link
+                href="/products"
+                onClick={() => {
+                  setSelectedCategory("All");
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`text-left px-2 py-1.5 rounded hover:bg-zinc-100 dark:hover:bg-zinc-900 ${
+                  pathname.startsWith("/products") && selectedCategory === "All"
+                    ? "text-black dark:text-white font-bold"
+                    : ""
+                }`}
               >
                 All Products
-              </button>
+              </Link>
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat.id}
                   onClick={() => handleCategorySelect(cat.name)}
-                  className="text-left px-2 py-1.5 rounded hover:bg-zinc-100 dark:hover:bg-zinc-900"
+                  className={`text-left px-2 py-1.5 rounded hover:bg-zinc-100 dark:hover:bg-zinc-900 ${
+                    pathname.startsWith("/products") && selectedCategory === cat.name
+                      ? "text-black dark:text-white font-bold"
+                      : ""
+                  }`}
                 >
                   {cat.name}
                 </button>

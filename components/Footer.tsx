@@ -2,15 +2,22 @@
 
 import React from "react";
 import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 import { useShop } from "@/context/ShopContext";
 
 export function Footer() {
   const { setSelectedCategory } = useShop();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const handleCategoryClick = (cat: string) => {
     setSelectedCategory(cat);
-    const el = document.getElementById("products");
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (pathname !== "/products") {
+      router.push(`/products?category=${encodeURIComponent(cat)}`);
+    } else {
+      const el = document.getElementById("products-catalog");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -29,12 +36,16 @@ export function Footer() {
 
           {/* Links */}
           <div className="flex flex-wrap items-center justify-center gap-6 font-semibold uppercase text-[11px] text-zinc-400">
-            <button
-              onClick={() => handleCategoryClick("All")}
+            <Link href="/" className="hover:text-white transition-colors">
+              Home
+            </Link>
+            <Link
+              href="/products"
+              onClick={() => setSelectedCategory("All")}
               className="hover:text-white transition-colors"
             >
               All Products
-            </button>
+            </Link>
             <button
               onClick={() => handleCategoryClick("Audio & Tech")}
               className="hover:text-white transition-colors"

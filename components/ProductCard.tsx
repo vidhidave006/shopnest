@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Product } from "@/types/shop";
 import { useShop } from "@/context/ShopContext";
 import { Heart, ShoppingBag, Eye, Star } from "lucide-react";
@@ -38,16 +39,18 @@ export function ProductCard({ product }: ProductCardProps) {
     <div className="group relative bg-white dark:bg-zinc-900 rounded-2xl p-3 sm:p-4 border border-zinc-200 dark:border-zinc-800 hover:border-black dark:hover:border-zinc-500 transition-all duration-300 flex flex-col justify-between">
       {/* Product Image */}
       <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-950 mb-3.5">
-        <Image
-          src={displayImage}
-          alt={product.name}
-          fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-        />
+        <Link href={`/products/${product.id}`} className="block relative w-full h-full">
+          <Image
+            src={displayImage}
+            alt={product.name}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          />
+        </Link>
 
         {/* Monochrome Badges */}
-        <div className="absolute top-2.5 left-2.5 flex flex-col gap-1 z-10">
+        <div className="absolute top-2.5 left-2.5 flex flex-col gap-1 z-10 pointer-events-none">
           {product.isNew && (
             <span className="px-2 py-0.5 rounded bg-black dark:bg-white text-white dark:text-black text-[9px] font-mono font-black uppercase tracking-widest">
               NEW
@@ -103,12 +106,12 @@ export function ProductCard({ product }: ProductCardProps) {
             </div>
           </div>
 
-          <h3
-            onClick={() => openQuickView(product)}
-            className="font-bold text-black dark:text-white text-sm leading-snug line-clamp-1 mt-1 cursor-pointer hover:underline"
+          <Link
+            href={`/products/${product.id}`}
+            className="block font-bold text-black dark:text-white text-sm leading-snug line-clamp-1 mt-1 hover:underline"
           >
             {product.name}
-          </h3>
+          </Link>
 
           {/* Color swatches */}
           {product.colors && product.colors.length > 0 && (

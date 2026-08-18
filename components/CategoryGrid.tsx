@@ -2,45 +2,46 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { CATEGORIES } from "@/data/products";
 import { useShop } from "@/context/ShopContext";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 export function CategoryGrid() {
   const { setSelectedCategory } = useShop();
+  const router = useRouter();
 
   const handleCategoryClick = (categoryName: string) => {
     setSelectedCategory(categoryName);
-    const el = document.getElementById("featured-products");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
+    router.push(`/products?category=${encodeURIComponent(categoryName)}`);
   };
 
   return (
-    <section className="py-16 sm:py-20 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-14 sm:py-20 bg-zinc-50 dark:bg-black border-b border-zinc-200 dark:border-zinc-800 transition-colors">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-100/70 text-orange-700 text-xs font-bold uppercase tracking-wider mb-2">
-              <Sparkles className="w-3.5 h-3.5" /> Curated Collections
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-[10px] font-mono font-bold uppercase tracking-widest mb-2">
+              <Sparkles className="w-3 h-3" /> Curated Collections
             </div>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+            <h2 className="text-2xl sm:text-4xl font-black text-black dark:text-white tracking-tight uppercase">
               Explore by Category
             </h2>
-            <p className="text-sm sm:text-base text-slate-500 mt-1 max-w-xl">
+            <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1 max-w-xl">
               Hand-selected lifestyle objects designed to elevate your everyday routines.
             </p>
           </div>
 
-          <button
-            onClick={() => handleCategoryClick("All")}
-            className="inline-flex items-center gap-2 text-sm font-bold text-orange-600 hover:text-orange-700 group self-start sm:self-auto"
+          <Link
+            href="/products"
+            onClick={() => setSelectedCategory("All")}
+            className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-black dark:text-white hover:underline group self-start sm:self-auto"
           >
-            <span>View All Collections</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </button>
+            <span>View All ({CATEGORIES.length})</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
 
         {/* Category Cards Grid */}
@@ -49,7 +50,7 @@ export function CategoryGrid() {
             <div
               key={cat.id}
               onClick={() => handleCategoryClick(cat.name)}
-              className="group relative h-72 sm:h-80 rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-2xl transition-all duration-500 border border-slate-200/80 bg-slate-900"
+              className="group relative h-72 sm:h-80 rounded-2xl overflow-hidden cursor-pointer shadow-sm hover:shadow-2xl transition-all duration-500 border border-zinc-200 dark:border-zinc-800 bg-zinc-900"
             >
               {/* Background Image */}
               <Image
@@ -61,33 +62,31 @@ export function CategoryGrid() {
               />
 
               {/* Dynamic Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent transition-opacity duration-300 group-hover:opacity-95" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent transition-opacity duration-300 group-hover:opacity-90" />
 
               {/* Category Tag Badge */}
-              <div className="absolute top-4 right-4">
-                <span className="px-3 py-1 rounded-xl bg-white/90 backdrop-blur-md text-slate-900 text-xs font-bold shadow-md">
+              <div className="absolute top-3.5 right-3.5">
+                <span className="px-2.5 py-1 rounded-lg bg-black/80 dark:bg-white/90 backdrop-blur-md text-white dark:text-black text-[10px] font-mono font-bold uppercase tracking-wider shadow-md">
                   {cat.tag}
                 </span>
               </div>
 
               {/* Content Overlay */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col justify-end">
-                <span className="text-xs font-semibold text-orange-400 uppercase tracking-wider mb-1">
-                  {cat.itemCount} Items Available
+              <div className="absolute bottom-0 left-0 right-0 p-5 flex flex-col justify-end">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 mb-1">
+                  {cat.itemCount} Objects Cataloged
                 </span>
-                <h3 className="text-2xl font-bold text-white group-hover:text-orange-300 transition-colors">
+                <h3 className="text-xl font-bold text-white group-hover:underline transition-colors">
                   {cat.name}
                 </h3>
-                <p className="text-xs text-slate-300 mt-1 line-clamp-1 opacity-90 group-hover:opacity-100">
+                <p className="text-xs text-zinc-300 mt-1 line-clamp-1 opacity-90 group-hover:opacity-100 font-normal">
                   {cat.description}
                 </p>
 
                 {/* Explore pill on hover */}
-                <div className="mt-4 flex items-center gap-2 text-xs font-bold text-white group-hover:translate-x-1 transition-transform">
-                  <span className="underline underline-offset-4 decoration-orange-500">
-                    Explore Collection
-                  </span>
-                  <ArrowRight className="w-3.5 h-3.5 text-orange-400" />
+                <div className="mt-3 flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-white">
+                  <span>Explore Series</span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
             </div>
@@ -97,3 +96,4 @@ export function CategoryGrid() {
     </section>
   );
 }
+
