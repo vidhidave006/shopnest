@@ -266,17 +266,9 @@ export function Hero() {
             <span className="text-white font-bold">4.92 / 5.0 RATED</span>
             <span className="text-zinc-500">OVER 3,800+ PATRONS</span>
           </div>
-<<<<<<< HEAD
-          <span className="text-zinc-700 hidden sm:inline">&bull;</span>
-          <div className="flex items-center gap-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-white" />
-            <span>FREE EXPRESS SHIPPING ₹2,999+</span>
-=======
-
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-4 h-4 text-zinc-300" />
             <span>2-YEAR COMPREHENSIVE WARRANTY</span>
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
           </div>
 
           <div className="flex items-center gap-2">

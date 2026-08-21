@@ -5,7 +5,8 @@ import { CATEGORIES } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
 import { useShop } from "@/context/ShopContext";
 import { matchProductSearch } from "@/lib/searchUtils";
-import { ArrowDownUp, Search, X } from "lucide-react";
+import { CustomSelect } from "@/components/ui/CustomSelect";
+import { ArrowDownUp, Search, X, Sparkles, TrendingUp, Star, DollarSign } from "lucide-react";
 
 export function ProductSection() {
   const {
@@ -41,7 +42,7 @@ export function ProductSection() {
       if (sortBy === "rating") return b.rating - a.rating;
       return 0;
     });
-  }, [selectedCategory, searchQuery, sortBy]);
+  }, [products, selectedCategory, searchQuery, sortBy]);
 
   const allCategories = ["All", ...CATEGORIES.map((c) => c.name)];
 
@@ -62,20 +63,43 @@ export function ProductSection() {
             </p>
           </div>
 
-          {/* Sort Dropdown */}
-          <div className="h-9 inline-flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-3 text-xs text-zinc-700 dark:text-zinc-300 self-start sm:self-auto font-mono">
-            <ArrowDownUp className="w-3.5 h-3.5 text-zinc-400" />
-            <span className="uppercase text-[10px] text-zinc-500">Sort:</span>
-            <select
+          {/* Luxury Custom Sort Dropdown */}
+          <div className="w-56 self-start sm:self-auto">
+            <CustomSelect
+              size="sm"
+              icon={<ArrowDownUp className="w-3.5 h-3.5" />}
+              options={[
+                {
+                  value: "featured",
+                  label: "Featured Picks",
+                  description: "Editor curated selection",
+                  icon: <Sparkles className="w-3.5 h-3.5" />,
+                  badge: "Curated",
+                },
+                {
+                  value: "price-asc",
+                  label: "Price: Low to High",
+                  description: "Ascending price order",
+                  icon: <DollarSign className="w-3.5 h-3.5" />,
+                },
+                {
+                  value: "price-desc",
+                  label: "Price: High to Low",
+                  description: "Luxury flagship first",
+                  icon: <TrendingUp className="w-3.5 h-3.5" />,
+                },
+                {
+                  value: "rating",
+                  label: "Top Rated (4.8+)",
+                  description: "Patron verified ratings",
+                  icon: <Star className="w-3.5 h-3.5" />,
+                  badge: "★ 4.9",
+                },
+              ]}
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as any)}
-              className="bg-transparent font-bold text-black dark:text-white focus:outline-none cursor-pointer text-xs"
-            >
-              <option value="featured" className="bg-white dark:bg-zinc-900 text-black dark:text-white">Featured Picks</option>
-              <option value="price-asc" className="bg-white dark:bg-zinc-900 text-black dark:text-white">Price: Low to High</option>
-              <option value="price-desc" className="bg-white dark:bg-zinc-900 text-black dark:text-white">Price: High to Low</option>
-              <option value="rating" className="bg-white dark:bg-zinc-900 text-black dark:text-white">Top Rated</option>
-            </select>
+              onChange={(val) => setSortBy(val)}
+              menuClassName="w-64"
+            />
           </div>
         </div>
 
@@ -85,7 +109,7 @@ export function ProductSection() {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`h-9 px-3.5 inline-flex items-center justify-center rounded-lg text-xs font-mono font-bold uppercase tracking-wider whitespace-nowrap transition-all ${
+              className={`h-9 px-3.5 inline-flex items-center justify-center rounded-lg text-xs font-mono font-bold uppercase tracking-wider whitespace-nowrap transition-all cursor-pointer ${
                 selectedCategory === cat
                   ? "bg-black dark:bg-white text-white dark:text-black shadow-xs"
                   : "bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-800 hover:border-black dark:hover:border-zinc-600"
@@ -107,7 +131,7 @@ export function ProductSection() {
             </div>
             <button
               onClick={() => setSearchQuery("")}
-              className="text-zinc-400 hover:text-black dark:hover:text-white flex items-center gap-1 font-bold uppercase"
+              className="text-zinc-400 hover:text-black dark:hover:text-white flex items-center gap-1 font-bold uppercase cursor-pointer"
             >
               <X className="w-3.5 h-3.5" /> Clear
             </button>
@@ -122,16 +146,16 @@ export function ProductSection() {
             ))}
           </div>
         ) : (
-          <div className="text-center py-16 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 space-y-3">
-            <p className="text-sm font-mono text-zinc-400">
-              No matching products found.
+          <div className="text-center py-16 bg-white dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-8">
+            <p className="text-sm font-mono text-zinc-500 uppercase">
+              No matching objects registered in this tier.
             </p>
             <button
               onClick={() => {
                 setSelectedCategory("All");
                 setSearchQuery("");
               }}
-              className="px-4 py-2 rounded-lg bg-black dark:bg-white text-white dark:text-black text-xs font-mono font-bold uppercase tracking-wider"
+              className="mt-4 px-4 py-2 rounded-xl bg-black dark:bg-white text-white dark:text-black text-xs font-mono font-bold uppercase"
             >
               Reset Filters
             </button>

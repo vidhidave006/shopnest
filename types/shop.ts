@@ -80,12 +80,15 @@ export interface LookbookHotspot {
   image: string;
 }
 
-<<<<<<< HEAD
-export type OrderStatus = 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
-
-export interface OrderItem {
-=======
-export type OrderStatus = "confirmed" | "processing" | "in_transit" | "out_for_delivery" | "delivered";
+export type OrderStatus =
+  | "confirmed"
+  | "processing"
+  | "in_transit"
+  | "out_for_delivery"
+  | "delivered"
+  | "shipped"
+  | "pending"
+  | "cancelled";
 
 export interface TrackingStep {
   status: OrderStatus;
@@ -96,42 +99,48 @@ export interface TrackingStep {
 }
 
 export interface OrderItem {
-  id: string;
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
+  id?: string;
   productId: string;
   name: string;
   price: number;
   quantity: number;
-<<<<<<< HEAD
-  image: string;
-  selectedColor?: string;
-  selectedSize?: string;
-=======
   selectedColor?: string;
   selectedSize?: string;
   image: string;
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
+}
+
+export interface OrderCustomer {
+  fullName: string;
+  email: string;
+  phone: string;
+  address: string;
+  city?: string;
+  postalCode?: string;
+  country?: string;
 }
 
 export interface Order {
   id: string;
-<<<<<<< HEAD
-  orderNumber: string;
-  customerName: string;
-  customerEmail: string;
-  customerPhone?: string;
-  shippingAddress: string;
+  orderNumber?: string;
   date: string;
+  status: OrderStatus;
   items: OrderItem[];
   subtotal: number;
   discount: number;
-  tax: number;
   shipping: number;
+  tax: number;
   total: number;
-  status: OrderStatus;
+  customer?: OrderCustomer;
+  customerName?: string;
+  customerEmail?: string;
+  customerPhone?: string;
+  shippingAddress?: string;
+  shippingMethod?: string;
   paymentMethod: string;
-  paymentStatus: 'paid' | 'pending' | 'failed';
-  trackingNumber?: string;
+  paymentStatus?: 'paid' | 'pending' | 'failed';
+  trackingNumber: string;
+  estimatedDelivery?: string;
+  timeline?: TrackingStep[];
 }
 
 export interface PromoCode {
@@ -145,29 +154,3 @@ export interface PromoCode {
 }
 
 export type Currency = 'INR' | 'USD' | 'EUR' | 'GBP';
-=======
-  date: string;
-  status: OrderStatus;
-  items: OrderItem[];
-  subtotal: number;
-  discount: number;
-  shipping: number;
-  tax: number;
-  total: number;
-  customer: {
-    fullName: string;
-    email: string;
-    phone: string;
-    address: string;
-    city: string;
-    postalCode: string;
-    country: string;
-  };
-  shippingMethod: string;
-  paymentMethod: string;
-  trackingNumber: string;
-  estimatedDelivery: string;
-  timeline: TrackingStep[];
-}
-
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a

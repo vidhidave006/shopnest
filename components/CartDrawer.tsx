@@ -29,13 +29,10 @@ export function CartDrawer() {
     appliedCoupon,
     applyCoupon,
     removeCoupon,
-<<<<<<< HEAD
     addToast,
     addOrder,
-=======
     setIsCheckoutOpen,
     openQuickView,
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
   } = useShop();
 
   const [couponInput, setCouponInput] = useState("");
@@ -57,14 +54,9 @@ export function CartDrawer() {
 
   if (!isCartOpen) return null;
 
-<<<<<<< HEAD
-  const FREE_SHIPPING_THRESHOLD = 2999;
-  const freeShippingUnlocked = cartSubtotal >= FREE_SHIPPING_THRESHOLD;
-=======
-  const FREE_SHIPPING_THRESHOLD = 60; // ~₹5,100
+  const FREE_SHIPPING_THRESHOLD = 50;
   const freeShippingUnlocked =
     cartSubtotal >= FREE_SHIPPING_THRESHOLD || appliedCoupon?.isFreeShipping;
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
   const shippingRemaining = Math.max(0, FREE_SHIPPING_THRESHOLD - cartSubtotal);
   const shippingPercent = Math.min(
     100,
@@ -74,13 +66,8 @@ export function CartDrawer() {
   const discountAmount = appliedCoupon
     ? (cartSubtotal * appliedCoupon.discountPercent) / 100
     : 0;
-<<<<<<< HEAD
-  const shippingCost = freeShippingUnlocked || cart.length === 0 ? 0 : 199.00;
-  const estimatedTax = cartSubtotal * 0.18;
-=======
   const shippingCost = freeShippingUnlocked || cart.length === 0 ? 0 : 5.88;
   const estimatedTax = (cartSubtotal - discountAmount) * 0.18;
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
   const finalTotal = cartSubtotal - discountAmount + shippingCost + estimatedTax;
 
   const handleApplyCoupon = (e: React.FormEvent) => {
@@ -95,52 +82,11 @@ export function CartDrawer() {
     }
   };
 
-<<<<<<< HEAD
-  const handleCheckout = () => {
-    if (cart.length === 0) return;
-    setIsCheckingOut(true);
-
-    const orderItems = cart.map((item) => ({
-      productId: item.product.id,
-      name: item.product.name,
-      price: item.product.price,
-      quantity: item.quantity,
-      image: item.product.images[0] || "",
-      selectedColor: item.selectedColor,
-      selectedSize: item.selectedSize,
-    }));
-
-    setTimeout(() => {
-      const createdOrder = addOrder({
-        customerName: "Guest VIP Customer",
-        customerEmail: "guest.customer@shopnest.io",
-        customerPhone: "+1 (555) 019-2834",
-        shippingAddress: "900 Market Street, Suite 400, San Francisco, CA 94102",
-        items: orderItems,
-        subtotal: Number(cartSubtotal.toFixed(2)),
-        discount: Number(discountAmount.toFixed(2)),
-        tax: Number(estimatedTax.toFixed(2)),
-        shipping: shippingCost,
-        total: Number(finalTotal.toFixed(2)),
-        status: "pending",
-        paymentMethod: "Apple Pay (Express)",
-        paymentStatus: "paid",
-      });
-
-      setIsCheckingOut(false);
-      clearCart();
-      setIsCartOpen(false);
-      addToast(
-        "Order Confirmed!",
-        `Order #${createdOrder.orderNumber} placed successfully. Track in Admin.`,
-        "success"
-      );
-    }, 1000);
-=======
   const handleProceedToCheckout = () => {
     setIsCartOpen(false);
-    setIsCheckoutOpen(true);
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
+    if (setIsCheckoutOpen) {
+      setIsCheckoutOpen(true);
+    }
   };
 
   return (

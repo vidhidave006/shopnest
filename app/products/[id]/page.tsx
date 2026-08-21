@@ -42,12 +42,8 @@ export default function ProductDetailPage({
     setIsCheckoutOpen,
   } = useShop();
 
-<<<<<<< HEAD
-  // Find product by id or slug
-  const product = products.find(
-=======
-  const product = PRODUCTS.find(
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
+  const allProducts = products && products.length > 0 ? products : PRODUCTS;
+  const product = allProducts.find(
     (p) => p.id === unwrappedParams.id || p.slug === unwrappedParams.id
   );
 
@@ -111,12 +107,6 @@ export default function ProductDetailPage({
     }
   };
 
-<<<<<<< HEAD
-  // Related products from same category or fallback
-  const relatedProducts = products
-    .filter((p) => p.id !== product.id && (p.category === product.category || true))
-    .slice(0, 4);
-=======
   const handleAddBundle = () => {
     addToCart(product, 1, selectedColor, selectedSize);
     if (bundleCompanion) {
@@ -159,7 +149,6 @@ export default function ProductDetailPage({
   const relatedProducts = PRODUCTS.filter((p) => p.id !== product.id).slice(0, 4);
   const bundleOriginalTotal = product.price + bundleCompanion.price;
   const bundleDiscountedTotal = Math.round(bundleOriginalTotal * 0.85);
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
 
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-black text-black dark:text-white transition-colors duration-300">

@@ -138,18 +138,18 @@ function ProductsContent() {
             </div>
 
             {/* Sort & Grid Layout Toggle */}
-<<<<<<< HEAD
-            <div className="flex flex-wrap items-center gap-3">
-              {/* Custom Sort Selector */}
+            <div className="flex flex-wrap items-center gap-3.5 font-mono">
+              {/* Custom Luxury Sort Selector */}
               <div className="w-52">
                 <CustomSelect
                   size="sm"
+                  icon={<ArrowDownUp className="w-3.5 h-3.5" />}
                   options={[
-                    { value: "featured", label: "Featured Picks", description: "Editor curated selection", icon: <Sparkles className="w-3.5 h-3.5" />, badge: "Popular" },
+                    { value: "featured", label: "Curated Picks", description: "Editor curated selection" },
                     { value: "price-asc", label: "Price: Low to High", description: "Ascending price order" },
                     { value: "price-desc", label: "Price: High to Low", description: "Luxury flagship first" },
                     { value: "rating", label: "Top Rated (4.8+)", description: "Client verified favorites" },
-                    { value: "name", label: "Product Name (A-Z)", description: "Alphabetical directory" },
+                    { value: "name", label: "Object Title (A-Z)", description: "Alphabetical directory" },
                   ]}
                   value={sortBy}
                   onChange={(val) => setSortBy(val)}
@@ -158,29 +158,7 @@ function ProductsContent() {
               </div>
 
               {/* Grid Layout Toggle */}
-              <div className="hidden sm:flex items-center bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-1 h-8">
-=======
-            <div className="flex flex-wrap items-center gap-3.5 font-mono">
-              {/* Sort Selector */}
-              <div className="flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl px-3.5 py-2.5 text-xs shadow-sm">
-                <ArrowDownUp className="w-3.5 h-3.5" />
-                <span className="uppercase text-[10px] text-zinc-500 font-bold">Sort:</span>
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as any)}
-                  className="bg-transparent font-bold text-black dark:text-white focus:outline-none cursor-pointer"
-                >
-                  <option value="featured" className="bg-white dark:bg-zinc-900">Curated Picks</option>
-                  <option value="price-asc" className="bg-white dark:bg-zinc-900">Price: Low to High</option>
-                  <option value="price-desc" className="bg-white dark:bg-zinc-900">Price: High to Low</option>
-                  <option value="rating" className="bg-white dark:bg-zinc-900">Top Rated (4.8+)</option>
-                  <option value="name" className="bg-white dark:bg-zinc-900">Object Title (A-Z)</option>
-                </select>
-              </div>
-
-              {/* Grid Layout Toggle */}
               <div className="hidden sm:flex items-center bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-1 shadow-sm">
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
                 <button
                   onClick={() => setGridCols(3)}
                   className={`p-2 rounded-lg transition-colors cursor-pointer ${
@@ -235,17 +213,10 @@ function ProductsContent() {
                   <SlidersHorizontal className="w-3 h-3" /> Price Tier:
                 </span>
                 {[
-<<<<<<< HEAD
-                  { id: "all", label: "All" },
-                  { id: "under-10k", label: "< ₹10k" },
-                  { id: "10k-20k", label: "₹10k - ₹20k" },
-                  { id: "above-20k", label: "> ₹20k" },
-=======
                   { id: "all", label: "All Tiers" },
-                  { id: "under-100", label: "< ₹10,000" },
-                  { id: "100-300", label: "₹10,000 - ₹25,000" },
-                  { id: "above-300", label: "> ₹25,000" },
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
+                  { id: "under-100", label: "< $100" },
+                  { id: "100-300", label: "$100 - $300" },
+                  { id: "above-300", label: "> $300" },
                 ].map((tier) => (
                   <button
                     key={tier.id}

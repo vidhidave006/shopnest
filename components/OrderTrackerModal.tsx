@@ -168,7 +168,7 @@ export function OrderTrackerModal() {
               </h3>
 
               <div className="space-y-4 relative pl-6 before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-zinc-200 dark:before:bg-zinc-800">
-                {currentOrder.timeline.map((step, idx) => (
+                {(currentOrder.timeline || []).map((step, idx) => (
                   <div key={idx} className="relative flex items-start gap-4">
                     {/* Circle Indicator */}
                     <div
@@ -213,11 +213,12 @@ export function OrderTrackerModal() {
                   <MapPin className="w-3 h-3" /> Shipping Destination
                 </span>
                 <p className="font-bold text-black dark:text-white">
-                  {currentOrder.customer.fullName}
+                  {currentOrder.customer?.fullName || currentOrder.customerName || "Valued Client"}
                 </p>
                 <p className="text-zinc-500 dark:text-zinc-400 text-[11px]">
-                  {currentOrder.customer.address}, {currentOrder.customer.city},{" "}
-                  {currentOrder.customer.postalCode}
+                  {currentOrder.customer?.address || currentOrder.shippingAddress || "Registered Destination"}
+                  {currentOrder.customer?.city ? `, ${currentOrder.customer.city}` : ""}
+                  {currentOrder.customer?.postalCode ? ` ${currentOrder.customer.postalCode}` : ""}
                 </p>
               </div>
 

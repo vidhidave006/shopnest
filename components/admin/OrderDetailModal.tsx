@@ -223,7 +223,7 @@ export function OrderDetailModal({
                   <MapPin className="w-3.5 h-3.5" /> Shipping Destination
                 </div>
                 <button
-                  onClick={() => copyToClipboard(order.shippingAddress, "Address")}
+                  onClick={() => copyToClipboard(order.shippingAddress || order.customer?.address || "", "Address")}
                   className="text-zinc-400 hover:text-black dark:hover:text-white"
                   title="Copy address"
                 >
@@ -231,7 +231,7 @@ export function OrderDetailModal({
                 </button>
               </div>
               <p className="text-zinc-700 dark:text-zinc-300 text-xs leading-relaxed">
-                {order.shippingAddress}
+                {order.shippingAddress || order.customer?.address}
               </p>
               <div className="flex items-center gap-1 text-[10px] text-zinc-400 pt-1">
                 <ShieldCheck className="w-3 h-3 text-zinc-400" />

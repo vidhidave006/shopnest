@@ -656,7 +656,9 @@ export function CheckoutModal() {
               </h2>
               <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 max-w-md mx-auto">
                 Thank you for your patronage. An official GST invoice and dossier has been dispatched to{" "}
-                <strong className="text-black dark:text-white">{confirmedOrder?.customer.email}</strong>.
+                <strong className="text-black dark:text-white">
+                  {confirmedOrder?.customer?.email || confirmedOrder?.customerEmail || "your email"}
+                </strong>.
               </p>
             </div>
 
@@ -686,14 +688,14 @@ export function CheckoutModal() {
                   <div className="flex justify-between text-zinc-500">
                     <span>Estimated Delivery:</span>
                     <span className="text-black dark:text-white font-bold">
-                      {confirmedOrder.estimatedDelivery}
+                      {confirmedOrder.estimatedDelivery || "Within 2-3 Business Days"}
                     </span>
                   </div>
                   <div className="flex justify-between text-zinc-500">
                     <span>Dispatch Address:</span>
                     <span className="text-black dark:text-white truncate max-w-[240px]">
-                      {confirmedOrder.customer.address},{" "}
-                      {confirmedOrder.customer.city}
+                      {confirmedOrder.customer?.address || confirmedOrder.shippingAddress}
+                      {confirmedOrder.customer?.city ? `, ${confirmedOrder.customer.city}` : ""}
                     </span>
                   </div>
                   <div className="flex justify-between text-zinc-500">

@@ -47,11 +47,9 @@ export function FlashDeals() {
     return () => clearInterval(timer);
   }, []);
 
-<<<<<<< HEAD
-  const flashProducts = products.filter((p) => p.isFlashDeal);
-=======
-  const flashProducts = PRODUCTS.filter((p) => p.isFlashDeal).slice(0, 3);
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
+  const flashProducts = (products && products.length > 0 ? products : PRODUCTS)
+    .filter((p) => p.isFlashDeal)
+    .slice(0, 3);
 
   return (
     <section id="flash-deals" className="py-16 sm:py-24 bg-zinc-50 dark:bg-black border-b border-zinc-200 dark:border-zinc-900 transition-colors">

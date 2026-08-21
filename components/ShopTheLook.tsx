@@ -51,11 +51,7 @@ export function ShopTheLook() {
           {/* Hotspots */}
           {LOOKBOOK_HOTSPOTS.map((hotspot) => {
             const isActive = activeHotspotId === hotspot.id;
-<<<<<<< HEAD
-            const fullProduct = products.find((p) => p.id === hotspot.productId);
-=======
-            const fullProduct = PRODUCTS.find((p) => p.id === hotspot.productId) || PRODUCTS[0];
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
+            const fullProduct = products.find((p) => p.id === hotspot.productId) || products[0];
 
             return (
               <div

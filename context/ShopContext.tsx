@@ -1,12 +1,10 @@
 "use client";
 
-<<<<<<< HEAD
 import React, {
   createContext,
   useContext,
   useState,
   useEffect,
-  useCallback,
 } from "react";
 import {
   Product,
@@ -38,15 +36,85 @@ export const CURRENCY_RATES: Record<
   GBP: { symbol: "£", rate: 0.0095, label: "GBP (£ - British Pound)" },
 };
 
-=======
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { Product, CartItem, ToastNotification, Order, OrderItem } from "@/types/shop";
-import { PRODUCTS } from "@/data/products";
+function createDefaultOrder(): Order {
+  return {
+    id: "SN-982410",
+    orderNumber: "SN-982410",
+    date: new Date().toLocaleDateString("en-IN", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    }),
+    status: "in_transit",
+    trackingNumber: "BD-IN-9842019",
+    estimatedDelivery: "Tomorrow, by 7:00 PM",
+    customer: {
+      fullName: "Ananya Deshmukh",
+      email: "ananya.d@concierge.in",
+      phone: "+91 98201 44521",
+      address: "Penthouse 14, Prestige Ocean Heights, Worli",
+      city: "Mumbai",
+      postalCode: "400018",
+      country: "India",
+    },
+    shippingMethod: "BlueDart Priority Carbon-Neutral Express",
+    paymentMethod: "Razorpay (Credit Card Ending 4022)",
+    items: [
+      {
+        id: "item-1",
+        productId: "prod-1",
+        name: "Aura Studio Pro Wireless ANC Headphones",
+        price: 289,
+        quantity: 1,
+        selectedColor: "Matte Black",
+        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&auto=format&fit=crop&q=80",
+      },
+    ],
+    subtotal: 289,
+    discount: 0,
+    shipping: 0,
+    tax: 26.01,
+    total: 315.01,
+    timeline: [
+      {
+        status: "confirmed",
+        label: "Order Confirmed & Payment Verified",
+        date: "Today, 09:15 AM",
+        completed: true,
+        current: false,
+      },
+      {
+        status: "processing",
+        label: "Precision Inspection & White-Glove Packaging",
+        date: "Today, 11:30 AM",
+        completed: true,
+        current: false,
+      },
+      {
+        status: "in_transit",
+        label: "BlueDart Air Cargo Dispatch (BLR Hub)",
+        date: "Today, 02:45 PM",
+        completed: true,
+        current: true,
+      },
+      {
+        status: "out_for_delivery",
+        label: "Out for Local Hand-Delivery",
+        date: "Tomorrow Morning",
+        completed: false,
+        current: false,
+      },
+      {
+        status: "delivered",
+        label: "Delivered to Customer Doorstep",
+        date: "Tomorrow, 7:00 PM",
+        completed: false,
+        current: false,
+      },
+    ],
+  };
+}
 
-export type Currency = "INR";
-export type Theme = "dark" | "light";
-
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
 interface ShopContextType {
   // Store Products
   products: Product[];
@@ -104,7 +172,7 @@ interface ShopContextType {
   addPromoCode: (promo: Omit<PromoCode, "id" | "usageCount">) => void;
   togglePromoCode: (id: string) => void;
   deletePromoCode: (id: string) => void;
-  appliedCoupon: { code: string; discountPercent: number } | null;
+  appliedCoupon: { code: string; discountPercent: number; isFreeShipping?: boolean } | null;
   applyCoupon: (code: string) => { success: boolean; message: string };
   removeCoupon: () => void;
 
@@ -129,16 +197,11 @@ interface ShopContextType {
   setSearchQuery: (q: string) => void;
   selectedCategory: string;
   setSelectedCategory: (cat: string) => void;
-<<<<<<< HEAD
   theme: Theme;
   toggleTheme: () => void;
   resetToDefaultData: () => void;
-=======
-  appliedCoupon: { code: string; discountPercent: number; isFreeShipping?: boolean } | null;
-  applyCoupon: (code: string) => { success: boolean; message: string };
-  removeCoupon: () => void;
-  theme: Theme;
-  toggleTheme: () => void;
+
+  // Checkout & Tracking
   isCheckoutOpen: boolean;
   setIsCheckoutOpen: (open: boolean) => void;
   isOrderTrackerOpen: boolean;
@@ -148,13 +211,12 @@ interface ShopContextType {
   setActiveTrackingOrder: (order: Order | null) => void;
   placeOrder: (orderData: Omit<Order, "id" | "date" | "status" | "trackingNumber" | "estimatedDelivery" | "timeline">) => Order;
   trackOrderByNumber: (trackingOrId: string) => Order | null;
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
 }
 
 const ShopContext = createContext<ShopContextType | undefined>(undefined);
 
 export function ShopProvider({ children }: { children: React.ReactNode }) {
-  // Theme state
+  // Theme state: default dark luxury black & white
   const [theme, setTheme] = useState<Theme>("dark");
 
   // Products state (synchronized with localStorage)
@@ -183,13 +245,8 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
   // Toast state
   const [toasts, setToasts] = useState<ToastNotification[]>([]);
 
-<<<<<<< HEAD
   // Currency state: Default to Indian Rupee (INR ₹)
   const [currency, setCurrencyState] = useState<Currency>("INR");
-=======
-  // Exclusively Indian Rupee (INR)
-  const [currency, setCurrency] = useState<Currency>("INR");
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
 
   // Filtering / Search state
   const [searchQuery, setSearchQuery] = useState("");
@@ -242,7 +299,6 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-<<<<<<< HEAD
   // Set Currency wrapper with localStorage persistence
   const setCurrency = (newCurrency: Currency) => {
     setCurrencyState(newCurrency);
@@ -252,96 +308,6 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
   };
 
   // Load initial data from localStorage on client mount
-=======
-  // Indian Rupee Price Formatter
-  const formatPrice = (amountInUSD: number): string => {
-    const inrValue = Math.round(amountInUSD * 85);
-    return new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR",
-      maximumFractionDigits: 0,
-    }).format(inrValue);
-  };
-
-  // Sample default Indian order for instant testing
-  const createDefaultOrder = (): Order => ({
-    id: "SN-982410",
-    date: new Date(Date.now() - 3600 * 1000 * 24).toLocaleDateString("en-IN", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    }),
-    status: "in_transit",
-    items: [
-      {
-        id: "prod-1-matte-black",
-        productId: PRODUCTS[0].id,
-        name: PRODUCTS[0].name,
-        price: PRODUCTS[0].price,
-        quantity: 1,
-        selectedColor: "Matte Black",
-        image: PRODUCTS[0].images[0],
-      },
-    ],
-    subtotal: 289,
-    discount: 57.8,
-    shipping: 0,
-    tax: 16.18,
-    total: 247.38,
-    customer: {
-      fullName: "Aarav Sharma",
-      email: "aarav.sharma@atelier.in",
-      phone: "+91 98201 44821",
-      address: "42 Altamount Road, Cumballa Hill",
-      city: "Mumbai, Maharashtra",
-      postalCode: "400026",
-      country: "India",
-    },
-    shippingMethod: "BlueDart Aviation Priority Express (Free)",
-    paymentMethod: "UPI / HDFC Infinia Black (•••• 8421)",
-    trackingNumber: "BD-IN-9842019",
-    estimatedDelivery: "Tomorrow by 2:00 PM",
-    timeline: [
-      {
-        status: "confirmed",
-        label: "Acquisition Confirmed & UPI Payment Verified",
-        date: "Yesterday, 10:14 AM",
-        completed: true,
-        current: false,
-      },
-      {
-        status: "processing",
-        label: "Atelier Inspection & White-Glove Packaging",
-        date: "Yesterday, 3:30 PM",
-        completed: true,
-        current: false,
-      },
-      {
-        status: "in_transit",
-        label: "Dispatched from Mumbai Hub via BlueDart Air Cargo",
-        date: "Today, 6:45 AM",
-        completed: true,
-        current: true,
-      },
-      {
-        status: "out_for_delivery",
-        label: "Out for Courier Hand-Delivery",
-        date: "Tomorrow Morning",
-        completed: false,
-        current: false,
-      },
-      {
-        status: "delivered",
-        label: "Delivered to Residence",
-        date: "Estimated Tomorrow, 2:00 PM",
-        completed: false,
-        current: false,
-      },
-    ],
-  });
-
-  // Initialize with dummy cart, wishlist & orders for realistic look on first load
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
   useEffect(() => {
     try {
       const savedCurrency = localStorage.getItem("shopnest_currency") as Currency;
@@ -361,7 +327,14 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
 
       const savedOrders = localStorage.getItem("shopnest_orders");
       if (savedOrders) {
-        setOrders(JSON.parse(savedOrders));
+        const parsed = JSON.parse(savedOrders);
+        setOrders(parsed);
+        setPlacedOrders(parsed);
+        if (parsed.length > 0) setActiveTrackingOrder(parsed[0]);
+      } else {
+        const demoOrder = createDefaultOrder();
+        setPlacedOrders([demoOrder]);
+        setActiveTrackingOrder(demoOrder);
       }
 
       const savedPromos = localStorage.getItem("shopnest_promos");
@@ -377,39 +350,13 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
       const savedCart = localStorage.getItem("shopnest_cart");
       if (savedCart) {
         setCart(JSON.parse(savedCart));
-      } else {
-        setCart([
-          {
-            id: `${DEFAULT_PRODUCTS[0].id}-${DEFAULT_PRODUCTS[0].colors[0]?.name || "default"}-`,
-            product: DEFAULT_PRODUCTS[0],
-            quantity: 1,
-            selectedColor: DEFAULT_PRODUCTS[0].colors[0]?.name,
-          },
-        ]);
       }
 
       const savedWishlist = localStorage.getItem("shopnest_wishlist");
       if (savedWishlist) {
         setWishlist(JSON.parse(savedWishlist));
-      } else {
-        setWishlist([DEFAULT_PRODUCTS[1], DEFAULT_PRODUCTS[4]]);
       }
-<<<<<<< HEAD
     } catch { }
-=======
-
-      const savedOrders = localStorage.getItem("shopnest_orders");
-      if (savedOrders) {
-        const parsed = JSON.parse(savedOrders);
-        setPlacedOrders(parsed);
-        if (parsed.length > 0) setActiveTrackingOrder(parsed[0]);
-      } else {
-        const demoOrder = createDefaultOrder();
-        setPlacedOrders([demoOrder]);
-        setActiveTrackingOrder(demoOrder);
-      }
-    } catch {}
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
   }, []);
 
   // Save to localStorage whenever state changes
@@ -449,7 +396,6 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     } catch { }
   }, [wishlist]);
 
-<<<<<<< HEAD
   // Product Management Actions
   const addProduct = (newProductData: Omit<Product, "id"> & { id?: string }): Product => {
     const id = newProductData.id || `prod-${Date.now()}`;
@@ -632,14 +578,6 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
   };
 
   // Toast notifications
-=======
-  useEffect(() => {
-    try {
-      localStorage.setItem("shopnest_orders", JSON.stringify(placedOrders));
-    } catch {}
-  }, [placedOrders]);
-
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
   const addToast = (
     title: string,
     message: string,
@@ -750,7 +688,6 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     0
   );
 
-<<<<<<< HEAD
   // Indian Rupee & Multi-currency formatted prices
   const formatPrice = (amountInINR: number) => {
     const rateInfo = CURRENCY_RATES[currency] || CURRENCY_RATES.INR;
@@ -767,8 +704,6 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     })}`;
   };
 
-=======
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
   const applyCoupon = (code: string) => {
     const cleanCode = code.trim().toUpperCase();
     const found = promoCodes.find((p) => p.code === cleanCode);
@@ -784,45 +719,29 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
         };
       }
       setAppliedCoupon({ code: cleanCode, discountPercent: found.discountPercent });
-      // Update promo usage count
       setPromoCodes((prev) =>
         prev.map((p) => (p.id === found.id ? { ...p, usageCount: p.usageCount + 1 } : p))
       );
       addToast(
         "Code Applied",
-<<<<<<< HEAD
         `Code ${cleanCode} applied: ${found.discountPercent}% off.`,
-=======
-        `Code ${cleanCode} applied: 20% concession.`,
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
         "success"
       );
       return { success: true, message: `${found.discountPercent}% discount applied.` };
     }
-<<<<<<< HEAD
 
-    return { success: false, message: "Invalid promo code. Try 'NEST20'" };
-=======
     if (cleanCode === "WELCOME10") {
       setAppliedCoupon({ code: cleanCode, discountPercent: 10 });
-      addToast(
-        "Code Applied",
-        "Code WELCOME10 applied: 10% concession.",
-        "success"
-      );
+      addToast("Code Applied", "Code WELCOME10 applied: 10% off.", "success");
       return { success: true, message: "10% discount applied." };
     }
     if (cleanCode === "FREESHIP") {
       setAppliedCoupon({ code: cleanCode, discountPercent: 0, isFreeShipping: true });
-      addToast(
-        "Code Applied",
-        "Free Express Delivery across India unlocked.",
-        "success"
-      );
+      addToast("Code Applied", "Free Express Delivery unlocked.", "success");
       return { success: true, message: "Free Express Delivery unlocked." };
     }
-    return { success: false, message: "Invalid code. Try 'NEST20' or 'VIP20'" };
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
+
+    return { success: false, message: "Invalid promo code. Try 'NEST20' or 'VIP20'" };
   };
 
   const removeCoupon = () => {
@@ -901,7 +820,7 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     const found = placedOrders.find(
       (o) =>
         o.id.toUpperCase() === clean ||
-        o.trackingNumber.toUpperCase() === clean ||
+        (o.trackingNumber && o.trackingNumber.toUpperCase() === clean) ||
         o.id.toUpperCase().includes(clean)
     );
 
@@ -910,7 +829,6 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
       return found;
     }
 
-    // Default fallback order if searching default test code
     if (clean === "SN-982410" || clean === "BD-IN-9842019" || clean === "DEMO") {
       const demo = createDefaultOrder();
       setActiveTrackingOrder(demo);
@@ -971,9 +889,7 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
         removeCoupon,
         theme,
         toggleTheme,
-<<<<<<< HEAD
         resetToDefaultData,
-=======
         isCheckoutOpen,
         setIsCheckoutOpen,
         isOrderTrackerOpen,
@@ -983,7 +899,6 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
         setActiveTrackingOrder,
         placeOrder,
         trackOrderByNumber,
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
       }}
     >
       {children}

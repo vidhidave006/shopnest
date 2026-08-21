@@ -70,9 +70,9 @@ export function AdminOrders({ onSelectOrder }: AdminOrdersProps) {
         }
         if (search.trim()) {
           const q = search.toLowerCase();
-          const matchNum = ord.orderNumber.toLowerCase().includes(q);
-          const matchName = ord.customerName.toLowerCase().includes(q);
-          const matchEmail = ord.customerEmail.toLowerCase().includes(q);
+          const matchNum = (ord.orderNumber || ord.id || "").toLowerCase().includes(q);
+          const matchName = (ord.customerName || ord.customer?.fullName || "").toLowerCase().includes(q);
+          const matchEmail = (ord.customerEmail || ord.customer?.email || "").toLowerCase().includes(q);
           if (!matchNum && !matchName && !matchEmail) return false;
         }
         return true;

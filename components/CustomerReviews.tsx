@@ -2,13 +2,9 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-<<<<<<< HEAD
 import { useShop } from "@/context/ShopContext";
-import { Star, CheckCircle2, ThumbsUp, Sparkles } from "lucide-react";
-=======
 import { REVIEWS } from "@/data/products";
-import { Star, CheckCircle2, ThumbsUp, MessageSquare } from "lucide-react";
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
+import { Star, CheckCircle2, ThumbsUp, MessageSquare, Sparkles } from "lucide-react";
 
 export function CustomerReviews() {
   const { reviews } = useShop();
@@ -84,13 +80,8 @@ export function CustomerReviews() {
         </div>
 
         {/* Reviews Cards Grid */}
-<<<<<<< HEAD
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {reviews.map((rev) => {
-=======
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {REVIEWS.map((rev) => {
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
+          {(reviews && reviews.length > 0 ? reviews : REVIEWS).map((rev) => {
             const count =
               helpfulVotes[rev.id] !== undefined
                 ? helpfulVotes[rev.id]
