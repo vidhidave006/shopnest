@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useShop, Currency } from "@/context/ShopContext";
+import { useShop } from "@/context/ShopContext";
+import { Currency } from "@/types/shop";
 import { CustomSelect, CustomSelectOption } from "@/components/ui/CustomSelect";
 import {
   Settings,

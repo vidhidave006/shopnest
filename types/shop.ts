@@ -86,8 +86,13 @@ export type OrderStatus =
   | "in_transit"
   | "out_for_delivery"
   | "delivered"
+<<<<<<< HEAD
   | "pending"
   | "shipped"
+=======
+  | "shipped"
+  | "pending"
+>>>>>>> d1542023a8da1c7514cd484d5d4c3bcaf108c8b7
   | "cancelled";
 
 export interface TrackingStep {
@@ -98,6 +103,20 @@ export interface TrackingStep {
   current: boolean;
 }
 
+<<<<<<< HEAD
+=======
+export interface OrderItem {
+  id?: string;
+  productId: string;
+  name: string;
+  price: number;
+  quantity: number;
+  selectedColor?: string;
+  selectedSize?: string;
+  image: string;
+}
+
+>>>>>>> d1542023a8da1c7514cd484d5d4c3bcaf108c8b7
 export interface OrderCustomer {
   fullName: string;
   email: string;
@@ -106,6 +125,7 @@ export interface OrderCustomer {
   city?: string;
   postalCode?: string;
   country?: string;
+<<<<<<< HEAD
 }
 
 export interface OrderItem {
@@ -117,6 +137,8 @@ export interface OrderItem {
   selectedColor?: string;
   selectedSize?: string;
   image?: string;
+=======
+>>>>>>> d1542023a8da1c7514cd484d5d4c3bcaf108c8b7
 }
 
 export interface Order {
@@ -137,8 +159,13 @@ export interface Order {
   shippingAddress?: string;
   shippingMethod?: string;
   paymentMethod: string;
+<<<<<<< HEAD
   paymentStatus?: 'paid' | 'pending' | 'failed';
   trackingNumber?: string;
+=======
+  paymentStatus?: "paid" | "pending" | "failed";
+  trackingNumber: string;
+>>>>>>> d1542023a8da1c7514cd484d5d4c3bcaf108c8b7
   estimatedDelivery?: string;
   timeline?: TrackingStep[];
 }
