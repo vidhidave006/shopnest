@@ -6,6 +6,8 @@ import { ToastContainer } from "@/components/ToastContainer";
 import { CartDrawer } from "@/components/CartDrawer";
 import { QuickViewModal } from "@/components/QuickViewModal";
 import { WishlistDrawer } from "@/components/WishlistDrawer";
+import { CheckoutModal } from "@/components/CheckoutModal";
+import { OrderTrackerModal } from "@/components/OrderTrackerModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,6 +48,8 @@ export default function RootLayout({
           <CartDrawer />
           <QuickViewModal />
           <WishlistDrawer />
+          <CheckoutModal />
+          <OrderTrackerModal />
           <ToastContainer />
         </ShopProvider>
       </body>

@@ -5,9 +5,10 @@ import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useShop } from "@/context/ShopContext";
 import { CATEGORIES } from "@/data/products";
+import { MapPin } from "lucide-react";
 
 export function Footer() {
-  const { setSelectedCategory } = useShop();
+  const { setSelectedCategory, setIsOrderTrackerOpen } = useShop();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -16,44 +17,74 @@ export function Footer() {
     if (pathname !== "/products") {
       router.push(`/products?category=${encodeURIComponent(cat)}`);
     } else {
-      const el = document.getElementById("products-catalog") || document.getElementById("products");
+      const el =
+        document.getElementById("products-catalog") ||
+        document.getElementById("products");
       if (el) el.scrollIntoView({ behavior: "smooth" });
     }
   };
 
+  const flagships = [
+    { city: "Mumbai", address: "Altamount Road, Cumballa Hill" },
+    { city: "New Delhi", address: "Chanakyapuri, Diplomatic Enclave" },
+    { city: "Bengaluru", address: "Lavelle Road, Level 02" },
+    { city: "Hyderabad", address: "Jubilee Hills, Road No. 36" },
+  ];
+
   return (
-    <footer className="bg-black text-zinc-400 border-t border-zinc-800 py-12 text-xs font-mono">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-zinc-800/80">
+    <footer className="bg-black text-zinc-400 border-t border-zinc-900 py-16 text-xs font-mono">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-12">
+        {/* Top Flagship Boutiques Row */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pb-12 border-b border-zinc-900">
+          {flagships.map((f, idx) => (
+            <div key={idx} className="space-y-1">
+              <span className="text-[10px] text-zinc-300 font-bold uppercase tracking-[0.2em] flex items-center gap-1">
+                <MapPin className="w-3 h-3 text-zinc-400" /> {f.city}
+              </span>
+              <p className="text-[11px] text-zinc-500">{f.address}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Middle Navigation & Logo */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 pb-10 border-b border-zinc-900">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-white text-black flex items-center justify-center font-black text-xs">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-xl bg-white text-black flex items-center justify-center font-black text-xs font-mono shadow-sm">
               SN
             </div>
-            <span className="text-base font-black text-white tracking-tight">
-              SHOPNEST
-            </span>
-          </Link>
+            <div>
+              <span className="text-lg font-black text-white tracking-tight">
+                SHOPNEST
+              </span>
+              <span className="text-[9px] text-zinc-500 block tracking-[0.2em] uppercase font-bold">
+                ATELIER
+              </span>
+            </div>
+          </div>
 
-          {/* Links */}
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 font-semibold uppercase text-[11px] text-zinc-400">
-            <Link
-              href="/"
-              className="hover:text-white transition-colors"
-            >
+          {/* Quick Links */}
+          <div className="flex flex-wrap items-center justify-center gap-5 sm:gap-7 font-bold uppercase text-[10.5px] tracking-[0.14em] text-zinc-400">
+            <Link href="/" className="hover:text-white transition-colors">
               Home
             </Link>
             <button
               onClick={() => handleCategoryClick("All")}
-              className="hover:text-white transition-colors"
+              className="hover:text-white transition-colors cursor-pointer"
             >
-              All Products
+              Vault
+            </button>
+            <button
+              onClick={() => setIsOrderTrackerOpen(true)}
+              className="hover:text-white transition-colors cursor-pointer"
+            >
+              Track Order
             </button>
             {CATEGORIES.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => handleCategoryClick(cat.name)}
-                className="hover:text-white transition-colors"
+                className="hover:text-white transition-colors cursor-pointer"
               >
                 {cat.name}
               </button>
@@ -61,17 +92,17 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 text-[11px] text-zinc-600">
-          <p>&copy; {new Date().getFullYear()} SHOPNEST CORP. MONOCHROME EDITION.</p>
-          <div className="flex items-center gap-2 text-zinc-500 font-mono">
-            <span>VISA</span>
-            <span>&bull;</span>
-            <span>MASTERCARD</span>
-            <span>&bull;</span>
-            <span>APPLE PAY</span>
-            <span>&bull;</span>
-            <span>PAYPAL</span>
+        {/* Bottom Legal & Payment Badges */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[10.5px] text-zinc-500 font-mono tracking-wider">
+          <p>&copy; {new Date().getFullYear()} SHOPNEST ATELIER. ALL RIGHTS RESERVED.</p>
+          <div className="flex items-center gap-3 text-zinc-400">
+            <span>256-BIT ENCRYPTED</span>
+            <span>•</span>
+            <span>UPI INSTANT</span>
+            <span>•</span>
+            <span>RUPAY</span>
+            <span>•</span>
+            <span>VISA &amp; MC</span>
           </div>
         </div>
       </div>

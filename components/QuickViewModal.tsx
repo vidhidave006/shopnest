@@ -10,9 +10,6 @@ import {
   Minus,
   ShoppingBag,
   Heart,
-  Truck,
-  ShieldCheck,
-  Check,
 } from "lucide-react";
 
 export function QuickViewModal() {
@@ -23,7 +20,7 @@ export function QuickViewModal() {
     toggleWishlist,
     isInWishlist,
     formatPrice,
-    setIsCartOpen,
+    setIsCheckoutOpen,
   } = useShop();
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -59,7 +56,7 @@ export function QuickViewModal() {
   const handleInstantBuy = () => {
     addToCart(product, quantity, selectedColor, selectedSize);
     closeQuickView();
-    setIsCartOpen(true);
+    setIsCheckoutOpen(true);
   };
 
   return (
@@ -67,15 +64,15 @@ export function QuickViewModal() {
       {/* Backdrop */}
       <div
         onClick={closeQuickView}
-        className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 bg-black/85 backdrop-blur-md transition-opacity"
       />
 
       {/* Modal Box */}
-      <div className="relative bg-white dark:bg-zinc-950 text-black dark:text-white rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-2xl max-w-3xl w-full overflow-hidden z-10">
-        {/* Close */}
+      <div className="relative bg-white dark:bg-zinc-950 text-black dark:text-white rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-2xl max-w-3xl w-full overflow-hidden z-10 my-8">
+        {/* Close Button */}
         <button
           onClick={closeQuickView}
-          className="absolute top-4 right-4 z-20 p-2 rounded-lg bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors"
+          className="absolute top-4 right-4 z-20 p-2 rounded-xl bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors cursor-pointer border border-zinc-200 dark:border-zinc-800"
           aria-label="Close"
         >
           <X className="w-4 h-4" />
@@ -83,8 +80,8 @@ export function QuickViewModal() {
 
         <div className="grid grid-cols-1 md:grid-cols-2">
           {/* Left: Gallery */}
-          <div className="p-6 bg-zinc-100 dark:bg-zinc-900 border-b md:border-b-0 md:border-r border-zinc-200 dark:border-zinc-800 flex flex-col justify-between">
-            <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-zinc-200 dark:bg-zinc-950">
+          <div className="p-6 bg-zinc-100/60 dark:bg-black/60 border-b md:border-b-0 md:border-r border-zinc-200 dark:border-zinc-800 flex flex-col justify-between">
+            <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-black/40 border border-zinc-200 dark:border-zinc-800">
               <Image
                 src={product.images[activeImageIndex] || product.images[0]}
                 alt={product.name}
@@ -94,22 +91,22 @@ export function QuickViewModal() {
               />
 
               {discount > 0 && (
-                <div className="absolute top-3 left-3 px-2 py-0.5 rounded bg-black dark:bg-white text-white dark:text-black font-mono text-[10px] font-bold">
-                  -{discount}% OFF
+                <div className="absolute top-3.5 left-3.5 px-3 py-1 rounded-xl bg-black text-white border border-zinc-700 font-mono text-[10px] font-bold uppercase tracking-wider shadow-lg">
+                  -{discount}% CONCESSION
                 </div>
               )}
             </div>
 
             {/* Thumbnails */}
             {product.images.length > 1 && (
-              <div className="flex items-center gap-2 mt-3 overflow-x-auto pb-1">
+              <div className="flex items-center gap-2 mt-4 overflow-x-auto pb-1">
                 {product.images.map((img, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActiveImageIndex(idx)}
-                    className={`relative w-12 h-12 rounded-lg overflow-hidden shrink-0 border transition-all ${
+                    className={`relative w-14 h-14 rounded-xl overflow-hidden shrink-0 border transition-all cursor-pointer ${
                       activeImageIndex === idx
-                        ? "border-black dark:border-white ring-1 ring-black dark:ring-white"
+                        ? "border-black dark:border-white ring-2 ring-zinc-400"
                         : "border-zinc-300 dark:border-zinc-700 opacity-60 hover:opacity-100"
                     }`}
                   >
@@ -118,7 +115,7 @@ export function QuickViewModal() {
                       alt=""
                       fill
                       className="object-cover"
-                      sizes="48px"
+                      sizes="56px"
                     />
                   </button>
                 ))}
@@ -127,26 +124,28 @@ export function QuickViewModal() {
           </div>
 
           {/* Right: Config */}
-          <div className="p-6 flex flex-col justify-between space-y-5">
-            <div className="space-y-3">
+          <div className="p-6 flex flex-col justify-between space-y-6">
+            <div className="space-y-3.5">
               <div className="flex items-center justify-between text-xs font-mono text-zinc-500">
-                <span className="uppercase tracking-widest">{product.category}</span>
+                <span className="uppercase tracking-[0.2em] text-zinc-400 text-[10px] font-bold">
+                  {product.category}
+                </span>
                 <div className="flex items-center gap-1 text-black dark:text-white font-bold">
-                  <Star className="w-3.5 h-3.5 fill-current" />
+                  <Star className="w-3.5 h-3.5 fill-black dark:fill-white text-black dark:text-white" />
                   <span>{product.rating}</span>
                 </div>
               </div>
 
               <div>
-                <span className="text-[10px] font-mono uppercase text-zinc-400">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-400">
                   {product.brand}
                 </span>
-                <h2 className="text-xl font-black text-black dark:text-white leading-tight mt-0.5">
+                <h2 className="text-xl font-black text-black dark:text-white tracking-tight leading-tight mt-0.5">
                   {product.name}
                 </h2>
               </div>
 
-              <div className="flex items-baseline gap-2 font-mono">
+              <div className="flex items-baseline gap-2.5 font-mono">
                 <span className="text-2xl font-black text-black dark:text-white">
                   {formatPrice(product.price)}
                 </span>
@@ -157,29 +156,29 @@ export function QuickViewModal() {
                 )}
               </div>
 
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-normal">
                 {product.description}
               </p>
 
               {/* Colors */}
               {product.colors && product.colors.length > 0 && (
-                <div className="space-y-1.5">
-                  <span className="text-[11px] font-mono font-bold uppercase">
-                    Color: <strong className="text-black dark:text-white">{selectedColor}</strong>
+                <div className="space-y-1.5 font-mono">
+                  <span className="text-[11px] font-bold uppercase text-zinc-500">
+                    Finish: <strong className="text-black dark:text-white font-normal">{selectedColor}</strong>
                   </span>
                   <div className="flex items-center gap-2">
                     {product.colors.map((c) => (
                       <button
                         key={c.name}
                         onClick={() => setSelectedColor(c.name)}
-                        className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-mono transition-all ${
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs transition-all cursor-pointer ${
                           selectedColor === c.name
                             ? "border-black dark:border-white bg-zinc-100 dark:bg-zinc-900 font-bold"
-                            : "border-zinc-200 dark:border-zinc-800 text-zinc-500"
+                            : "border-zinc-200 dark:border-zinc-800 text-zinc-500 hover:border-zinc-400"
                         }`}
                       >
                         <span
-                          className="w-2.5 h-2.5 rounded-full border border-zinc-400"
+                          className="w-3 h-3 rounded-full border border-black/20"
                           style={{ backgroundColor: c.hex }}
                         />
                         <span>{c.name}</span>
@@ -191,18 +190,18 @@ export function QuickViewModal() {
 
               {/* Sizes */}
               {product.sizes && product.sizes.length > 0 && (
-                <div className="space-y-1.5">
-                  <span className="text-[11px] font-mono font-bold uppercase">
-                    Size: <strong className="text-black dark:text-white">{selectedSize}</strong>
+                <div className="space-y-1.5 font-mono">
+                  <span className="text-[11px] font-bold uppercase text-zinc-500">
+                    Scale / Size: <strong className="text-black dark:text-white font-normal">{selectedSize}</strong>
                   </span>
                   <div className="flex flex-wrap gap-1.5">
                     {product.sizes.map((sz) => (
                       <button
                         key={sz}
                         onClick={() => setSelectedSize(sz)}
-                        className={`px-2.5 py-1 rounded-lg border text-xs font-mono font-bold transition-all ${
+                        className={`px-3 py-1.5 rounded-xl border text-xs font-mono font-bold transition-all cursor-pointer ${
                           selectedSize === sz
-                            ? "bg-black dark:bg-white text-white dark:text-black border-black dark:border-white"
+                            ? "bg-black text-white dark:bg-white dark:text-black border-transparent shadow-xs"
                             : "border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400"
                         }`}
                       >
@@ -215,21 +214,21 @@ export function QuickViewModal() {
             </div>
 
             {/* Actions */}
-            <div className="space-y-2 pt-3 border-t border-zinc-200 dark:border-zinc-800">
-              <div className="flex items-center gap-2">
-                <div className="flex items-center border border-zinc-200 dark:border-zinc-800 rounded-lg p-0.5">
+            <div className="space-y-2.5 pt-4 border-t border-zinc-200 dark:border-zinc-800">
+              <div className="flex items-center gap-2.5">
+                <div className="flex items-center border border-zinc-200 dark:border-zinc-800 rounded-xl p-0.5">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="p-1.5 text-zinc-400 hover:text-black dark:hover:text-white"
+                    className="p-2 text-zinc-400 hover:text-black dark:hover:text-white cursor-pointer"
                   >
                     <Minus className="w-3.5 h-3.5" />
                   </button>
-                  <span className="px-2.5 text-xs font-mono font-bold">
+                  <span className="px-3 text-xs font-mono font-bold">
                     {quantity}
                   </span>
                   <button
                     onClick={() => setQuantity(quantity + 1)}
-                    className="p-1.5 text-zinc-400 hover:text-black dark:hover:text-white"
+                    className="p-2 text-zinc-400 hover:text-black dark:hover:text-white cursor-pointer"
                   >
                     <Plus className="w-3.5 h-3.5" />
                   </button>
@@ -237,17 +236,17 @@ export function QuickViewModal() {
 
                 <button
                   onClick={handleAddToCart}
-                  className="flex-1 py-2.5 px-3 rounded-lg bg-black dark:bg-white hover:bg-zinc-800 dark:hover:bg-zinc-200 text-white dark:text-black font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors"
+                  className="flex-1 py-3 px-4 rounded-xl bg-black hover:bg-zinc-800 text-white dark:bg-white dark:hover:bg-zinc-200 dark:text-black font-mono font-black text-xs uppercase tracking-[0.14em] flex items-center justify-center gap-2 transition-all shadow-sm cursor-pointer active:scale-95"
                 >
                   <ShoppingBag className="w-3.5 h-3.5" />
-                  <span>Add to Bag</span>
+                  <span>Add to Cart</span>
                 </button>
 
                 <button
                   onClick={() => toggleWishlist(product)}
-                  className={`p-2.5 rounded-lg border transition-all ${
+                  className={`p-3 rounded-xl border transition-all cursor-pointer ${
                     inWish
-                      ? "bg-black dark:bg-white text-white dark:text-black border-black dark:border-white"
+                      ? "bg-black text-white dark:bg-white dark:text-black border-black dark:border-white"
                       : "border-zinc-200 dark:border-zinc-800 text-zinc-500 hover:text-black dark:hover:text-white"
                   }`}
                   aria-label="Wishlist"
@@ -258,9 +257,9 @@ export function QuickViewModal() {
 
               <button
                 onClick={handleInstantBuy}
-                className="w-full py-2.5 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-black font-mono font-bold text-xs uppercase tracking-wider transition-colors"
+                className="w-full py-3 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 text-black dark:text-white font-mono font-bold text-xs uppercase tracking-[0.14em] transition-colors cursor-pointer border border-zinc-200 dark:border-zinc-800"
               >
-                Instant Buy
+                Direct Concierge Checkout
               </button>
             </div>
           </div>

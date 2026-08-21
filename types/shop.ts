@@ -79,3 +79,51 @@ export interface LookbookHotspot {
   price: number;
   image: string;
 }
+
+export type OrderStatus = "confirmed" | "processing" | "in_transit" | "out_for_delivery" | "delivered";
+
+export interface TrackingStep {
+  status: OrderStatus;
+  label: string;
+  date: string;
+  completed: boolean;
+  current: boolean;
+}
+
+export interface OrderItem {
+  id: string;
+  productId: string;
+  name: string;
+  price: number;
+  quantity: number;
+  selectedColor?: string;
+  selectedSize?: string;
+  image: string;
+}
+
+export interface Order {
+  id: string;
+  date: string;
+  status: OrderStatus;
+  items: OrderItem[];
+  subtotal: number;
+  discount: number;
+  shipping: number;
+  tax: number;
+  total: number;
+  customer: {
+    fullName: string;
+    email: string;
+    phone: string;
+    address: string;
+    city: string;
+    postalCode: string;
+    country: string;
+  };
+  shippingMethod: string;
+  paymentMethod: string;
+  trackingNumber: string;
+  estimatedDelivery: string;
+  timeline: TrackingStep[];
+}
+
