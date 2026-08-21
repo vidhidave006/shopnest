@@ -37,11 +37,7 @@
   body {
     background-color: var(--bg-main);
     color: var(--text-primary);
-<<<<<<< HEAD
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-=======
     font-family: var(--font-plus-jakarta), 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
     overflow-x: hidden;
     transition: background-color 0.25s ease, color 0.25s ease;
     letter-spacing: -0.015em;
@@ -108,7 +104,6 @@
   100% {
     background-position: 200% 0;
   }
-<<<<<<< HEAD
 }
 
 /* Luxury Smooth Levitation Animation */
@@ -202,8 +197,6 @@
 .luxury-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.2);
-=======
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
 }
 
 /* Hide scrollbar utility */

@@ -1,43 +1,35 @@
 "use client";
 
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-} from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import {
   Product,
   CartItem,
   CustomerReview,
   Order,
-  OrderStatus,
   PromoCode,
   ToastNotification,
-  TrackingStep,
+  Currency,
+  OrderStatus,
 } from "@/types/shop";
 import {
   PRODUCTS as DEFAULT_PRODUCTS,
-  INITIAL_ORDERS,
-  INITIAL_PROMOS,
   REVIEWS as DEFAULT_REVIEWS,
+  ORDERS as DEFAULT_ORDERS,
+  PROMO_CODES as DEFAULT_PROMOS,
 } from "@/data/products";
 
-export type Currency = "INR" | "USD" | "EUR" | "GBP";
-export type Theme = "dark" | "light";
+type Theme = "dark" | "light";
 
 export const CURRENCY_RATES: Record<
   Currency,
   { symbol: string; rate: number; label: string }
 > = {
-  INR: { symbol: "₹", rate: 1.0, label: "INR (₹ - Indian Rupee - Base)" },
-  USD: { symbol: "$", rate: 0.012, label: "USD ($ - US Dollar)" },
-  EUR: { symbol: "€", rate: 0.011, label: "EUR (€ - Euro)" },
-  GBP: { symbol: "£", rate: 0.0095, label: "GBP (£ - British Pound)" },
+  INR: { symbol: "₹", rate: 83.2, label: "INR (₹ - Indian Rupee)" },
+  USD: { symbol: "$", rate: 1.0, label: "USD ($ - US Dollar)" },
+  EUR: { symbol: "€", rate: 0.92, label: "EUR (€ - Euro)" },
+  GBP: { symbol: "£", rate: 0.79, label: "GBP (£ - British Pound)" },
 };
 
-<<<<<<< HEAD
-=======
 function createDefaultOrder(): Order {
   return {
     id: "SN-982410",
@@ -69,47 +61,56 @@ function createDefaultOrder(): Order {
         price: 289,
         quantity: 1,
         selectedColor: "Matte Black",
-        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&auto=format&fit=crop&q=80",
+        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80",
+      },
+      {
+        id: "item-2",
+        productId: "prod-2",
+        name: "Lumina Apex Smartwatch Ultra (Titanium Edition)",
+        price: 399,
+        quantity: 1,
+        selectedColor: "Titanium Silver",
+        image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=80",
       },
     ],
-    subtotal: 289,
-    discount: 0,
+    subtotal: 688,
+    discount: 137.6,
     shipping: 0,
-    tax: 26.01,
-    total: 315.01,
+    tax: 99.07,
+    total: 649.47,
     timeline: [
       {
         status: "confirmed",
-        label: "Order Confirmed & Payment Verified",
-        date: "Today, 09:15 AM",
+        label: "Acquisition Verified & Encrypted Settlement",
+        date: "Today, 09:14 AM",
         completed: true,
         current: false,
       },
       {
         status: "processing",
-        label: "Precision Inspection & White-Glove Packaging",
+        label: "Bespoke Cleanroom Inspection & Sugarcane Packaging",
         date: "Today, 11:30 AM",
         completed: true,
         current: false,
       },
       {
         status: "in_transit",
-        label: "BlueDart Air Cargo Dispatch (BLR Hub)",
+        label: "Priority BlueDart Air Transit // Bengaluru Hub",
         date: "Today, 02:45 PM",
         completed: true,
         current: true,
       },
       {
         status: "out_for_delivery",
-        label: "Out for Local Hand-Delivery",
-        date: "Tomorrow Morning",
+        label: "Dispatched with Priority White-Glove Courier",
+        date: "Pending Dispatch",
         completed: false,
         current: false,
       },
       {
         status: "delivered",
-        label: "Delivered to Customer Doorstep",
-        date: "Tomorrow, 7:00 PM",
+        label: "Hand-Delivered to Patron",
+        date: "Est. Tomorrow",
         completed: false,
         current: false,
       },
@@ -117,25 +118,19 @@ function createDefaultOrder(): Order {
   };
 }
 
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
 interface ShopContextType {
-  // Store Products
+  // Products
   products: Product[];
-  addProduct: (newProduct: Omit<Product, "id"> & { id?: string }) => Product;
-  updateProduct: (id: string, updated: Partial<Product>) => void;
+  addProduct: (product: Omit<Product, "id">) => Product;
+  updateProduct: (id: string, updates: Partial<Product>) => void;
   deleteProduct: (id: string) => void;
-  updateStock: (id: string, count: number) => void;
+  updateStock: (id: string, newStock: number) => void;
 
   // Cart
   cart: CartItem[];
-  addToCart: (
-    product: Product,
-    quantity?: number,
-    selectedColor?: string,
-    selectedSize?: string
-  ) => void;
-  removeFromCart: (itemId: string) => void;
-  updateCartQuantity: (itemId: string, quantity: number) => void;
+  addToCart: (product: Product, quantity?: number, selectedColor?: string, selectedSize?: string) => void;
+  removeFromCart: (cartItemId: string) => void;
+  updateCartQuantity: (cartItemId: string, quantity: number) => void;
   clearCart: () => void;
   cartCount: number;
   cartSubtotal: number;
@@ -165,12 +160,9 @@ interface ShopContextType {
   addPromoCode: (promo: Omit<PromoCode, "id" | "usageCount">) => PromoCode;
   togglePromoCode: (id: string) => void;
   deletePromoCode: (id: string) => void;
-<<<<<<< HEAD
-=======
   appliedCoupon: { code: string; discountPercent: number; isFreeShipping?: boolean } | null;
   applyCoupon: (code: string) => { success: boolean; message: string };
   removeCoupon: () => void;
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
 
   // Reviews
   reviews: CustomerReview[];
@@ -191,36 +183,20 @@ interface ShopContextType {
   // Currency & Formatter
   currency: Currency;
   setCurrency: (c: Currency) => void;
-  formatPrice: (amountInINR: number) => string;
+  formatPrice: (amountInUSD: number) => string;
 
   // Search & Categories
   searchQuery: string;
   setSearchQuery: (q: string) => void;
   selectedCategory: string;
   setSelectedCategory: (cat: string) => void;
-<<<<<<< HEAD
-
-  // Coupon application
-  appliedCoupon: {
-    code: string;
-    discountPercent: number;
-    isFreeShipping?: boolean;
-  } | null;
-  applyCoupon: (code: string) => { success: boolean; message: string };
-  removeCoupon: () => void;
 
   // Theme
-=======
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
   theme: Theme;
   toggleTheme: () => void;
   resetToDefaultData: () => void;
 
-<<<<<<< HEAD
-  // Checkout & Tracker Modals
-=======
   // Checkout & Tracking
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
   isCheckoutOpen: boolean;
   setIsCheckoutOpen: (open: boolean) => void;
   isOrderTrackerOpen: boolean;
@@ -254,333 +230,312 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
   const [wishlist, setWishlist] = useState<Product[]>([]);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
 
-  // Orders state
-  const [orders, setOrders] = useState<Order[]>(INITIAL_ORDERS);
-
-  // Promo Codes state
-  const [promoCodes, setPromoCodes] = useState<PromoCode[]>(INITIAL_PROMOS);
-
-  // Reviews state
-  const [reviews, setReviews] = useState<CustomerReview[]>(DEFAULT_REVIEWS);
-
-  // Quick view state
+  // Quick View state
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
 
-  // Toast state
-  const [toasts, setToasts] = useState<ToastNotification[]>([]);
-
-  // Currency state: Default to Indian Rupee (INR ₹)
-  const [currency, setCurrencyState] = useState<Currency>("INR");
-
-  // Filtering / Search state
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
-
-  // Coupon state
+  // Admin / Store state
+  const [orders, setOrders] = useState<Order[]>(DEFAULT_ORDERS);
+  const [promoCodes, setPromoCodes] = useState<PromoCode[]>(DEFAULT_PROMOS);
+  const [reviews, setReviews] = useState<CustomerReview[]>(DEFAULT_REVIEWS);
   const [appliedCoupon, setAppliedCoupon] = useState<{
     code: string;
     discountPercent: number;
     isFreeShipping?: boolean;
   } | null>(null);
 
-  // Checkout modal state
+  // Modals & Tracking state
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
-
-  // Order tracking state
   const [isOrderTrackerOpen, setIsOrderTrackerOpen] = useState(false);
   const [placedOrders, setPlacedOrders] = useState<Order[]>([]);
   const [activeTrackingOrder, setActiveTrackingOrder] = useState<Order | null>(null);
 
-<<<<<<< HEAD
-  // Sample default Indian order for instant testing
-  const createDefaultOrder = (): Order => ({
-    id: "SN-982410",
-    orderNumber: "SN-982410",
-    customerName: "Aarav Sharma",
-    customerEmail: "aarav.sharma@atelier.in",
-    customerPhone: "+91 98201 44821",
-    shippingAddress: "42 Altamount Road, Cumballa Hill, Mumbai, Maharashtra 400026",
-    date: new Date(Date.now() - 3600 * 1000 * 24).toLocaleDateString("en-IN", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    }),
-    status: "in_transit",
-    items: [
-      {
-        id: "prod-1-matte-black",
-        productId: DEFAULT_PRODUCTS[0].id,
-        name: DEFAULT_PRODUCTS[0].name,
-        price: DEFAULT_PRODUCTS[0].price,
-        quantity: 1,
-        selectedColor: "Matte Black",
-        image: DEFAULT_PRODUCTS[0].images[0],
-      },
-    ],
-    subtotal: DEFAULT_PRODUCTS[0].price,
-    discount: 4799.8,
-    shipping: 0,
-    tax: 1618,
-    total: 20817.2,
-    customer: {
-      fullName: "Aarav Sharma",
-      email: "aarav.sharma@atelier.in",
-      phone: "+91 98201 44821",
-      address: "42 Altamount Road, Cumballa Hill",
-      city: "Mumbai, Maharashtra",
-      postalCode: "400026",
-      country: "India",
-    },
-    shippingMethod: "BlueDart Aviation Priority Express (Free)",
-    paymentMethod: "UPI / HDFC Infinia Black (•••• 8421)",
-    paymentStatus: "paid",
-    trackingNumber: "BD-IN-9842019",
-    estimatedDelivery: "Tomorrow by 2:00 PM",
-    timeline: [
-      {
-        status: "confirmed",
-        label: "Order Confirmed & UPI Payment Verified",
-        date: "Yesterday, 10:14 AM",
-        completed: true,
-        current: false,
-      },
-      {
-        status: "processing",
-        label: "Atelier Inspection & White-Glove Packaging",
-        date: "Yesterday, 3:30 PM",
-        completed: true,
-        current: false,
-      },
-      {
-        status: "in_transit",
-        label: "Dispatched from Mumbai Hub via BlueDart Air Cargo",
-        date: "Today, 6:45 AM",
-        completed: true,
-        current: true,
-      },
-      {
-        status: "out_for_delivery",
-        label: "Out for Courier Hand-Delivery",
-        date: "Tomorrow Morning",
-        completed: false,
-        current: false,
-      },
-      {
-        status: "delivered",
-        label: "Delivered to Residence",
-        date: "Estimated Tomorrow, 2:00 PM",
-        completed: false,
-        current: false,
-      },
-    ],
-  });
+  // Search & Filter
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
-=======
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
-  // Sync theme with document element
+  // Currency
+  const [currency, setCurrencyState] = useState<Currency>("INR");
+
+  // Toasts
+  const [toasts, setToasts] = useState<ToastNotification[]>([]);
+
+  // Hydrate state from localStorage
   useEffect(() => {
     try {
       const savedTheme = localStorage.getItem("shopnest_theme") as Theme;
-      if (savedTheme === "light" || savedTheme === "dark") {
+      if (savedTheme) {
         setTheme(savedTheme);
-        if (savedTheme === "dark") {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
+        document.documentElement.classList.toggle("dark", savedTheme === "dark");
       } else {
         document.documentElement.classList.add("dark");
       }
-<<<<<<< HEAD
-    } catch {}
-=======
-    } catch { }
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
-  }, []);
 
-  const toggleTheme = () => {
-    setTheme((prev) => {
-      const nextTheme = prev === "dark" ? "light" : "dark";
-      if (nextTheme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-      try {
-        localStorage.setItem("shopnest_theme", nextTheme);
-<<<<<<< HEAD
-      } catch {}
-=======
-      } catch { }
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
-      return nextTheme;
-    });
-  };
-
-  // Set Currency wrapper with localStorage persistence
-  const setCurrency = (newCurrency: Currency) => {
-    setCurrencyState(newCurrency);
-    try {
-      localStorage.setItem("shopnest_currency", newCurrency);
-<<<<<<< HEAD
-    } catch {}
-=======
-    } catch { }
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
-  };
-
-  // Load initial data from localStorage on client mount
-  useEffect(() => {
-    try {
       const savedCurrency = localStorage.getItem("shopnest_currency") as Currency;
       if (savedCurrency && CURRENCY_RATES[savedCurrency]) {
         setCurrencyState(savedCurrency);
-      } else {
-        setCurrencyState("INR");
       }
 
+      const savedCart = localStorage.getItem("shopnest_cart");
+      if (savedCart) setCart(JSON.parse(savedCart));
+
+      const savedWishlist = localStorage.getItem("shopnest_wishlist");
+      if (savedWishlist) setWishlist(JSON.parse(savedWishlist));
+
       const savedProducts = localStorage.getItem("shopnest_products");
-      if (savedProducts) {
-        const parsed = JSON.parse(savedProducts);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          setProducts(parsed);
-        }
-      }
+      if (savedProducts) setProducts(JSON.parse(savedProducts));
 
       const savedOrders = localStorage.getItem("shopnest_orders");
       if (savedOrders) {
         const parsed = JSON.parse(savedOrders);
         setOrders(parsed);
         setPlacedOrders(parsed);
-        if (parsed.length > 0) setActiveTrackingOrder(parsed[0]);
       } else {
         const demoOrder = createDefaultOrder();
         setPlacedOrders([demoOrder]);
-        setActiveTrackingOrder(demoOrder);
+        setOrders([demoOrder, ...DEFAULT_ORDERS]);
       }
 
       const savedPromos = localStorage.getItem("shopnest_promos");
-      if (savedPromos) {
-        setPromoCodes(JSON.parse(savedPromos));
-      }
+      if (savedPromos) setPromoCodes(JSON.parse(savedPromos));
 
       const savedReviews = localStorage.getItem("shopnest_reviews");
-      if (savedReviews) {
-        setReviews(JSON.parse(savedReviews));
-      }
-
-      const savedCart = localStorage.getItem("shopnest_cart");
-      if (savedCart) {
-        setCart(JSON.parse(savedCart));
-      }
-
-      const savedWishlist = localStorage.getItem("shopnest_wishlist");
-      if (savedWishlist) {
-        setWishlist(JSON.parse(savedWishlist));
-      }
-<<<<<<< HEAD
-    } catch {}
-=======
-    } catch { }
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
+      if (savedReviews) setReviews(JSON.parse(savedReviews));
+    } catch (e) {
+      console.warn("Could not load from localStorage:", e);
+    }
   }, []);
 
-  // Save to localStorage whenever state changes
-  useEffect(() => {
-    try {
-      localStorage.setItem("shopnest_products", JSON.stringify(products));
-    } catch {}
-  }, [products]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem("shopnest_orders", JSON.stringify(orders));
-    } catch {}
-  }, [orders]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem("shopnest_promos", JSON.stringify(promoCodes));
-    } catch {}
-  }, [promoCodes]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem("shopnest_reviews", JSON.stringify(reviews));
-    } catch {}
-  }, [reviews]);
-
+  // Sync back to localStorage
   useEffect(() => {
     try {
       localStorage.setItem("shopnest_cart", JSON.stringify(cart));
-    } catch {}
+    } catch (e) {}
   }, [cart]);
 
   useEffect(() => {
     try {
       localStorage.setItem("shopnest_wishlist", JSON.stringify(wishlist));
-    } catch {}
+    } catch (e) {}
   }, [wishlist]);
 
-<<<<<<< HEAD
-  // Product CRUD actions (Admin)
-  const addProduct = (newProduct: Omit<Product, "id"> & { id?: string }): Product => {
-    const id = newProduct.id || `prod-${Date.now()}`;
-    const product: Product = {
-      ...newProduct,
-=======
-  // Product Management Actions
-  const addProduct = (newProductData: Omit<Product, "id"> & { id?: string }): Product => {
-    const id = newProductData.id || `prod-${Date.now()}`;
-    const newProduct: Product = {
-      ...newProductData,
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
-      id,
-    };
-    setProducts((prev) => [product, ...prev]);
-    addToast("Product Created", `${product.name} has been added to the catalog.`, "success");
-    return product;
+  useEffect(() => {
+    try {
+      localStorage.setItem("shopnest_products", JSON.stringify(products));
+    } catch (e) {}
+  }, [products]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("shopnest_orders", JSON.stringify(orders));
+    } catch (e) {}
+  }, [orders]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("shopnest_promos", JSON.stringify(promoCodes));
+    } catch (e) {}
+  }, [promoCodes]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("shopnest_reviews", JSON.stringify(reviews));
+    } catch (e) {}
+  }, [reviews]);
+
+  const setCurrency = (c: Currency) => {
+    setCurrencyState(c);
+    try {
+      localStorage.setItem("shopnest_currency", c);
+    } catch (e) {}
+    addToast("Currency Changed", `Displaying prices in ${c}`, "info");
   };
 
-  const updateProduct = (id: string, updated: Partial<Product>) => {
-    setProducts((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, ...updated } : p))
+  const toggleTheme = () => {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    document.documentElement.classList.toggle("dark", next === "dark");
+    try {
+      localStorage.setItem("shopnest_theme", next);
+    } catch (e) {}
+  };
+
+  const resetToDefaultData = () => {
+    setProducts(DEFAULT_PRODUCTS);
+    setOrders(DEFAULT_ORDERS);
+    setPromoCodes(DEFAULT_PROMOS);
+    setReviews(DEFAULT_REVIEWS);
+    const demo = createDefaultOrder();
+    setPlacedOrders([demo]);
+    try {
+      localStorage.removeItem("shopnest_products");
+      localStorage.removeItem("shopnest_orders");
+      localStorage.removeItem("shopnest_promos");
+      localStorage.removeItem("shopnest_reviews");
+    } catch (e) {}
+    addToast("Catalog Restored", "All products and records have been reset.", "info");
+  };
+
+  const addToast = (
+    title: string,
+    message: string,
+    type: "success" | "info" | "error" = "info",
+    image?: string
+  ) => {
+    const id = Date.now().toString() + Math.random().toString(36).substring(2, 5);
+    const newToast: ToastNotification = { id, title, message, type, image };
+    setToasts((prev) => [newToast, ...prev].slice(0, 4));
+    setTimeout(() => {
+      removeToast(id);
+    }, 4500);
+  };
+
+  const removeToast = (id: string) => {
+    setToasts((prev) => prev.filter((t) => t.id !== id));
+  };
+
+  // Cart operations
+  const addToCart = (
+    product: Product,
+    quantity = 1,
+    selectedColor?: string,
+    selectedSize?: string
+  ) => {
+    const color = selectedColor || product.colors?.[0]?.name || "Standard";
+    const size = selectedSize || product.sizes?.[0] || "";
+    const cartItemId = `${product.id}-${color}-${size}`;
+
+    setCart((prev) => {
+      const existing = prev.find((item) => item.id === cartItemId);
+      if (existing) {
+        return prev.map((item) =>
+          item.id === cartItemId
+            ? { ...item, quantity: item.quantity + quantity }
+            : item
+        );
+      }
+      return [
+        ...prev,
+        {
+          id: cartItemId,
+          product,
+          quantity,
+          selectedColor: color,
+          selectedSize: size,
+        },
+      ];
+    });
+
+    addToast(
+      "Added to Cart",
+      `${quantity}x ${product.name} added.`,
+      "success",
+      product.images[0]
     );
-    addToast("Product Updated", "Catalog item changes saved successfully.", "success");
+  };
+
+  const removeFromCart = (cartItemId: string) => {
+    setCart((prev) => prev.filter((item) => item.id !== cartItemId));
+    addToast("Object Removed", "Item removed from cart.", "info");
+  };
+
+  const updateCartQuantity = (cartItemId: string, quantity: number) => {
+    if (quantity <= 0) {
+      removeFromCart(cartItemId);
+      return;
+    }
+    setCart((prev) =>
+      prev.map((item) =>
+        item.id === cartItemId ? { ...item, quantity } : item
+      )
+    );
+  };
+
+  const clearCart = () => {
+    setCart([]);
+  };
+
+  const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+  const cartSubtotal = cart.reduce(
+    (total, item) => total + item.product.price * item.quantity,
+    0
+  );
+
+  // Wishlist operations
+  const toggleWishlist = (product: Product) => {
+    setWishlist((prev) => {
+      const exists = prev.some((p) => p.id === product.id);
+      if (exists) {
+        addToast("Wishlist Updated", `${product.name} removed.`, "info");
+        return prev.filter((p) => p.id !== product.id);
+      } else {
+        addToast(
+          "Saved to Wishlist",
+          `${product.name} saved.`,
+          "success",
+          product.images[0]
+        );
+        return [...prev, product];
+      }
+    });
+  };
+
+  const isInWishlist = (productId: string) => {
+    return wishlist.some((p) => p.id === productId);
+  };
+
+  // Quick View
+  const openQuickView = (product: Product) => setQuickViewProduct(product);
+  const closeQuickView = () => setQuickViewProduct(null);
+
+  // Product Admin Operations
+  const addProduct = (productData: Omit<Product, "id">): Product => {
+    const newId = `prod-${Date.now()}`;
+    const newProduct: Product = { ...productData, id: newId };
+    setProducts((prev) => [newProduct, ...prev]);
+    addToast("Product Created", `${newProduct.name} added to catalog.`, "success");
+    return newProduct;
+  };
+
+  const updateProduct = (id: string, updates: Partial<Product>) => {
+    setProducts((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, ...updates } : p))
+    );
+    addToast("Product Updated", "Catalog updated successfully.", "success");
   };
 
   const deleteProduct = (id: string) => {
     setProducts((prev) => prev.filter((p) => p.id !== id));
-    setCart((prev) => prev.filter((item) => item.product.id !== id));
-    setWishlist((prev) => prev.filter((p) => p.id !== id));
-    addToast("Product Deleted", "The product was removed from the store.", "info");
+    addToast("Product Deleted", "Item removed from catalog.", "info");
   };
 
-  const updateStock = (id: string, count: number) => {
+  const updateStock = (id: string, newStock: number) => {
     setProducts((prev) =>
       prev.map((p) =>
         p.id === id
-          ? {
-              ...p,
-              stockCount: Math.max(0, count),
-              inStock: count > 0,
-            }
+          ? { ...p, stockCount: Math.max(0, newStock), inStock: newStock > 0 }
           : p
       )
     );
   };
 
-  // Order Management Actions (Admin)
+  // Order Admin Operations
   const addOrder = (orderData: Omit<Order, "id" | "date">): Order => {
-    const id = `ord-${Date.now()}`;
-    const now = new Date();
-    const date = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+    const randomNum = Math.floor(100000 + Math.random() * 900000);
     const newOrder: Order = {
       ...orderData,
-      id,
-      date,
+      id: `SN-${randomNum}`,
+      orderNumber: `SN-${randomNum}`,
+      date: new Date().toLocaleDateString("en-IN", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      }),
+      status: orderData.status || "confirmed",
+      trackingNumber: orderData.trackingNumber || `BD-IN-${randomNum + 420}`,
+      estimatedDelivery: orderData.estimatedDelivery || "Within 2-3 Business Days",
     };
     setOrders((prev) => [newOrder, ...prev]);
+    setPlacedOrders((prev) => [newOrder, ...prev]);
     return newOrder;
   };
 
@@ -607,26 +562,24 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
           : o
       )
     );
-    addToast("Order Status Updated", `Order #${id} marked as ${status.toUpperCase()}.`, "info");
+    addToast("Order Updated", `Order ${id} marked as ${status}.`, "success");
   };
 
   const deleteOrder = (id: string) => {
     setOrders((prev) => prev.filter((o) => o.id !== id));
     setPlacedOrders((prev) => prev.filter((o) => o.id !== id));
-    addToast("Order Removed", `Order #${id} deleted from records.`, "info");
+    addToast("Order Deleted", `Order ${id} removed.`, "info");
   };
 
-  // Promo Code Management Actions (Admin)
+  // Promo Code Operations
   const addPromoCode = (promoData: Omit<PromoCode, "id" | "usageCount">): PromoCode => {
-    const id = `promo-${Date.now()}`;
     const newPromo: PromoCode = {
       ...promoData,
-      id,
+      id: `promo-${Date.now()}`,
       usageCount: 0,
-      code: promoData.code.trim().toUpperCase(),
     };
     setPromoCodes((prev) => [newPromo, ...prev]);
-    addToast("Promo Code Created", `Code ${newPromo.code} (${newPromo.discountPercent}% OFF) is live.`, "success");
+    addToast("Promo Created", `Code ${newPromo.code} created.`, "success");
     return newPromo;
   };
 
@@ -638,25 +591,13 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
 
   const deletePromoCode = (id: string) => {
     setPromoCodes((prev) => prev.filter((p) => p.id !== id));
-    addToast("Promo Deleted", "Discount code removed.", "info");
+    addToast("Promo Removed", "Code removed.", "info");
   };
 
-  // Review Moderation Actions
-  const addReview = (reviewData: Omit<CustomerReview, "id" | "date" | "helpfulCount">) => {
-    const id = `rev-${Date.now()}`;
-    const newRev: CustomerReview = {
-      ...reviewData,
-      id,
-      date: "Just now",
-      helpfulCount: 0,
-    };
-    setReviews((prev) => [newRev, ...prev]);
-    addToast("Review Submitted", "Thank you for reviewing this product.", "success");
-  };
-
+  // Reviews Operations
   const deleteReview = (id: string) => {
     setReviews((prev) => prev.filter((r) => r.id !== id));
-    addToast("Review Deleted", "Customer testimonial removed.", "info");
+    addToast("Review Deleted", "Review removed.", "info");
   };
 
   const toggleReviewVerified = (id: string) => {
@@ -665,141 +606,24 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     );
   };
 
-  // Reset to default demo data
-  const resetToDefaultData = () => {
-    setProducts(DEFAULT_PRODUCTS);
-    setOrders(INITIAL_ORDERS);
-    setPromoCodes(INITIAL_PROMOS);
-    setReviews(DEFAULT_REVIEWS);
-    setCurrencyState("INR");
-    localStorage.removeItem("shopnest_products");
-    localStorage.removeItem("shopnest_orders");
-    localStorage.removeItem("shopnest_promos");
-    localStorage.removeItem("shopnest_reviews");
-    localStorage.setItem("shopnest_currency", "INR");
-    addToast("Data Reset", "Store demo data restored to factory defaults in INR (₹).", "info");
+  const addReview = (reviewData: Omit<CustomerReview, "id" | "date" | "helpfulCount">) => {
+    const newReview: CustomerReview = {
+      ...reviewData,
+      id: `rev-${Date.now()}`,
+      date: "Just now",
+      helpfulCount: 0,
+    };
+    setReviews((prev) => [newReview, ...prev]);
+    addToast("Review Submitted", "Thank you for your review.", "success");
   };
 
-  // Toast notifications
-  const addToast = (
-    title: string,
-    message: string,
-    type: "success" | "info" | "error" = "success",
-    image?: string
-  ) => {
-    const id = Date.now().toString() + Math.random().toString(36).substring(2, 5);
-    setToasts((prev) => [...prev, { id, title, message, type, image }]);
-    setTimeout(() => {
-      setToasts((prev) => prev.filter((t) => t.id !== id));
-    }, 4000);
-  };
-
-  const removeToast = (id: string) => {
-    setToasts((prev) => prev.filter((t) => t.id !== id));
-  };
-
-  // Cart operations
-  const addToCart = (
-    product: Product,
-    quantity: number = 1,
-    selectedColor?: string,
-    selectedSize?: string
-  ) => {
-    const color = selectedColor || product.colors[0]?.name || "Standard";
-    const size = selectedSize || product.sizes?.[0] || "";
-    const itemId = `${product.id}-${color}-${size}`;
-
-    setCart((prev) => {
-      const existing = prev.find((item) => item.id === itemId);
-      if (existing) {
-        return prev.map((item) =>
-          item.id === itemId
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
-        );
-      }
-      return [
-        ...prev,
-        {
-          id: itemId,
-          product,
-          quantity,
-          selectedColor: color,
-          selectedSize: size,
-        },
-      ];
-    });
-
-    setIsCartOpen(true);
-    addToast(
-      "Item Added to Cart",
-      `${product.name} (x${quantity}) added to cart.`,
-      "success",
-      product.images[0]
-    );
-  };
-
-  const removeFromCart = (itemId: string) => {
-    setCart((prev) => prev.filter((item) => item.id !== itemId));
-  };
-
-  const updateCartQuantity = (itemId: string, quantity: number) => {
-    if (quantity <= 0) {
-      removeFromCart(itemId);
-      return;
-    }
-    setCart((prev) =>
-      prev.map((item) => (item.id === itemId ? { ...item, quantity } : item))
-    );
-  };
-
-  const clearCart = () => {
-    setCart([]);
-  };
-
-  const toggleWishlist = (product: Product) => {
-    const exists = wishlist.some((p) => p.id === product.id);
-    if (exists) {
-      setWishlist((prev) => prev.filter((p) => p.id !== product.id));
-      addToast("Removed from Wishlist", `${product.name} was removed.`, "info");
-    } else {
-      setWishlist((prev) => [...prev, product]);
-      addToast(
-        "Saved to Wishlist",
-        `${product.name} saved to wishlist.`,
-        "success",
-        product.images[0]
-      );
-    }
-  };
-
-  const isInWishlist = (productId: string) => {
-    return wishlist.some((p) => p.id === productId);
-  };
-
-  const openQuickView = (product: Product) => {
-    setQuickViewProduct(product);
-  };
-
-  const closeQuickView = () => {
-    setQuickViewProduct(null);
-  };
-
-  const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
-  const cartSubtotal = cart.reduce(
-    (total, item) => total + item.product.price * item.quantity,
-    0
-  );
-
-  // Indian Rupee & Multi-currency formatted prices
-  const formatPrice = (amountInINR: number) => {
+  // Price Formatter based on USD catalog price
+  const formatPrice = (amountInUSD: number): string => {
     const rateInfo = CURRENCY_RATES[currency] || CURRENCY_RATES.INR;
-    const converted = (amountInINR || 0) * rateInfo.rate;
+    const converted = amountInUSD * rateInfo.rate;
+
     if (currency === "INR") {
-      return `₹${converted.toLocaleString("en-IN", {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
-      })}`;
+      return `${rateInfo.symbol}${Math.round(converted).toLocaleString("en-IN")}`;
     }
     return `${rateInfo.symbol}${converted.toLocaleString("en-US", {
       minimumFractionDigits: 2,
@@ -827,35 +651,31 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
       );
       addToast(
         "Code Applied",
-<<<<<<< HEAD
         `Code ${cleanCode} applied: ${found.discountPercent}% discount.`,
-=======
-        `Code ${cleanCode} applied: ${found.discountPercent}% off.`,
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
         "success"
       );
       return { success: true, message: `${found.discountPercent}% discount applied.` };
     }
 
-<<<<<<< HEAD
-=======
+    if (cleanCode === "NEST20" || cleanCode === "VIP20") {
+      setAppliedCoupon({ code: cleanCode, discountPercent: 20 });
+      addToast("Code Applied", `Code ${cleanCode} applied: 20% discount.`, "success");
+      return { success: true, message: "20% discount applied." };
+    }
+
     if (cleanCode === "WELCOME10") {
       setAppliedCoupon({ code: cleanCode, discountPercent: 10 });
-      addToast("Code Applied", "Code WELCOME10 applied: 10% off.", "success");
+      addToast("Code Applied", "Code WELCOME10 applied: 10% discount.", "success");
       return { success: true, message: "10% discount applied." };
     }
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
+
     if (cleanCode === "FREESHIP") {
       setAppliedCoupon({ code: cleanCode, discountPercent: 0, isFreeShipping: true });
       addToast("Code Applied", "Free Express Delivery unlocked.", "success");
       return { success: true, message: "Free Express Delivery unlocked." };
     }
 
-<<<<<<< HEAD
     return { success: false, message: "Invalid promo code. Try 'NEST20' or 'WELCOME10'" };
-=======
-    return { success: false, message: "Invalid promo code. Try 'NEST20' or 'VIP20'" };
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
   };
 
   const removeCoupon = () => {
@@ -946,10 +766,7 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     const found = placedOrders.find(
       (o) =>
         o.id.toUpperCase() === clean ||
-<<<<<<< HEAD
         (o.orderNumber && o.orderNumber.toUpperCase() === clean) ||
-=======
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
         (o.trackingNumber && o.trackingNumber.toUpperCase() === clean) ||
         o.id.toUpperCase().includes(clean)
     );

@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ProductCard } from "@/components/ProductCard";
+import { CustomSelect } from "@/components/ui/CustomSelect";
 import { CATEGORIES } from "@/data/products";
 import { useShop } from "@/context/ShopContext";
 import {
@@ -143,23 +144,6 @@ function ProductsContent() {
 
             {/* Sort & Grid Layout Toggle */}
             <div className="flex flex-wrap items-center gap-3.5 font-mono">
-<<<<<<< HEAD
-              {/* Sort Selector */}
-              <div className="flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl px-3.5 py-2.5 text-xs shadow-sm">
-                <ArrowDownUp className="w-3.5 h-3.5" />
-                <span className="uppercase text-[10px] text-zinc-500 font-bold">Sort:</span>
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as any)}
-                  className="bg-transparent font-bold text-black dark:text-white focus:outline-none cursor-pointer"
-                >
-                  <option value="featured" className="bg-white dark:bg-zinc-900">Curated Picks</option>
-                  <option value="price-asc" className="bg-white dark:bg-zinc-900">Price: Low to High</option>
-                  <option value="price-desc" className="bg-white dark:bg-zinc-900">Price: High to Low</option>
-                  <option value="rating" className="bg-white dark:bg-zinc-900">Top Rated (4.8+)</option>
-                  <option value="name" className="bg-white dark:bg-zinc-900">Object Title (A-Z)</option>
-                </select>
-=======
               {/* Custom Luxury Sort Selector */}
               <div className="w-52">
                 <CustomSelect
@@ -173,10 +157,9 @@ function ProductsContent() {
                     { value: "name", label: "Object Title (A-Z)", description: "Alphabetical directory" },
                   ]}
                   value={sortBy}
-                  onChange={(val) => setSortBy(val)}
+                  onChange={(val) => setSortBy(val as any)}
                   menuClassName="w-60"
                 />
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
               </div>
 
               {/* Grid Layout Toggle */}
@@ -236,15 +219,9 @@ function ProductsContent() {
                 </span>
                 {[
                   { id: "all", label: "All Tiers" },
-<<<<<<< HEAD
-                  { id: "under-10k", label: "< ₹10,000" },
-                  { id: "10k-20k", label: "₹10,000 - ₹20,000" },
-                  { id: "above-20k", label: "> ₹20,000" },
-=======
-                  { id: "under-100", label: "< $100" },
+                  { id: "under-100", label: "< $100 / ₹8.3k" },
                   { id: "100-300", label: "$100 - $300" },
-                  { id: "above-300", label: "> $300" },
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
+                  { id: "above-300", label: "> $300 / ₹25k" },
                 ].map((tier) => (
                   <button
                     key={tier.id}

@@ -86,13 +86,8 @@ export type OrderStatus =
   | "in_transit"
   | "out_for_delivery"
   | "delivered"
-<<<<<<< HEAD
-  | "pending"
-  | "shipped"
-=======
   | "shipped"
   | "pending"
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
   | "cancelled";
 
 export interface TrackingStep {
@@ -104,20 +99,13 @@ export interface TrackingStep {
 }
 
 export interface OrderItem {
-<<<<<<< HEAD
-  id: string;
-=======
   id?: string;
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
   productId: string;
   name: string;
   price: number;
   quantity: number;
   selectedColor?: string;
   selectedSize?: string;
-<<<<<<< HEAD
-  image?: string;
-=======
   image: string;
 }
 
@@ -129,7 +117,6 @@ export interface OrderCustomer {
   city?: string;
   postalCode?: string;
   country?: string;
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
 }
 
 export interface Order {
@@ -143,32 +130,15 @@ export interface Order {
   shipping: number;
   tax: number;
   total: number;
-<<<<<<< HEAD
-  customer?: {
-    fullName: string;
-    email: string;
-    phone: string;
-    address: string;
-    city: string;
-    postalCode: string;
-    country: string;
-  };
-=======
   customer?: OrderCustomer;
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
   customerName?: string;
   customerEmail?: string;
   customerPhone?: string;
   shippingAddress?: string;
   shippingMethod?: string;
   paymentMethod: string;
-<<<<<<< HEAD
   paymentStatus?: "paid" | "pending" | "failed";
-  trackingNumber?: string;
-=======
-  paymentStatus?: 'paid' | 'pending' | 'failed';
   trackingNumber: string;
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
   estimatedDelivery?: string;
   timeline?: TrackingStep[];
 }
@@ -182,8 +152,5 @@ export interface PromoCode {
   minSpend?: number;
   description?: string;
 }
-<<<<<<< HEAD
-=======
 
 export type Currency = 'INR' | 'USD' | 'EUR' | 'GBP';
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
