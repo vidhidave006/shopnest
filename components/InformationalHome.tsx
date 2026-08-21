@@ -295,29 +295,17 @@ export function InformationalHome() {
 
   const faqs = [
     {
-<<<<<<< HEAD
       question: "Why does Cherry focus exclusively on monochrome design?",
-=======
-      question: "What makes ShopNest different from standard e-commerce marketplaces?",
->>>>>>> d1542023a8da1c7514cd484d5d4c3bcaf108c8b7
       answer:
         "Cherry is a curated design atelier rather than an open marketplace. Every single item across our 6 categories (Electronics, Fashion, Beauty, Home Appliances, Kids & Toys, Furniture) is directly verified for structural purity, certified materials, zero-plastic packaging, and enduring performance.",
     },
     {
-<<<<<<< HEAD
       question: "Where are Cherry products designed and manufactured?",
-=======
-      question: "How can I inspect full technical specifications of any product?",
->>>>>>> d1542023a8da1c7514cd484d5d4c3bcaf108c8b7
       answer:
         "Each product card in our catalog includes a technical specification summary table. You can click on 'Read Technical Dossier' or view any product's page to inspect dimensions, weight, battery capacity, material grades, and certified standards.",
     },
     {
-<<<<<<< HEAD
       question: "What is the Cherry Concierge Warranty policy?",
-=======
-      question: "What does the ShopNest 2-Year Concierge Warranty cover?",
->>>>>>> d1542023a8da1c7514cd484d5d4c3bcaf108c8b7
       answer:
         "All hardware essentials (Electronics, Home Appliances, and Furniture) include our 2-Year Direct Concierge Warranty with doorstep pickup across India, genuine modular component servicing, and priority technical support.",
     },
@@ -368,13 +356,8 @@ export function InformationalHome() {
             </h1>
 
             {/* Subtext */}
-<<<<<<< HEAD
             <p className="mt-6 text-base sm:text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl font-normal leading-relaxed">
               Cherry is an independent design laboratory exploring the convergence of aerospace metallurgy, acoustic fidelity, and radical minimalism. Built for those who find clarity in black and white.
-=======
-            <p className="mt-6 text-base sm:text-lg text-zinc-600 dark:text-zinc-400 max-w-3xl font-normal leading-relaxed">
-              Welcome to the official informational portal for ShopNest. Explore the design principles, material science, and technical specifications behind our curated catalog of spatial audio electronics, technical apparel, clean botanicals, culinary machines, Montessori play, and solid oak furniture.
->>>>>>> d1542023a8da1c7514cd484d5d4c3bcaf108c8b7
             </p>
 
             {/* Fast Anchor Navigation */}
@@ -469,11 +452,7 @@ export function InformationalHome() {
                 CURATORIAL TAXONOMY
               </span>
               <h2 className="text-3xl sm:text-4xl font-black uppercase text-black dark:text-white tracking-tight mt-1">
-<<<<<<< HEAD
                 The 6 Cherry Categories
-=======
-                The 6 ShopNest Categories
->>>>>>> d1542023a8da1c7514cd484d5d4c3bcaf108c8b7
               </h2>
               <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-2">
                 Click across our 6 core store categories to inspect their engineering specifications, material makeup, and curation standards.
@@ -798,11 +777,7 @@ export function InformationalHome() {
                   Material Science &amp; Purity
                 </h2>
                 <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1 max-w-xl">
-<<<<<<< HEAD
-                  Inspect the physical elements that constitute the Cherry monochrome hardware universe.
-=======
                   Inspect the physical elements that constitute the ShopNest hardware universe.
->>>>>>> d1542023a8da1c7514cd484d5d4c3bcaf108c8b7
                 </p>
               </div>
             </div>
@@ -918,51 +893,6 @@ export function InformationalHome() {
           </div>
         </section>
 
-<<<<<<< HEAD
-        {/* Section 5: Press & Acclaim */}
-        <section className="py-16 bg-zinc-900 text-white border-b border-zinc-800">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            <div className="text-center mb-10">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 font-bold">
-                CRITICAL RECOGNITION
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight mt-1">
-                In The Words of Curators & Press
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="p-6 rounded-2xl bg-black border border-zinc-800 space-y-3">
-                <div className="text-xs font-mono font-bold uppercase text-zinc-400">
-                  MINIMALISSIMO
-                </div>
-                <p className="text-xs text-zinc-300 italic leading-relaxed">
-                  "Cherry strips away every distraction until all that remains is pure, sublime tactile craftsmanship. A masterclass in restrained industrial design."
-                </p>
-              </div>
-
-              <div className="p-6 rounded-2xl bg-black border border-zinc-800 space-y-3">
-                <div className="text-xs font-mono font-bold uppercase text-zinc-400">
-                  MONOCLE MAGAZINE
-                </div>
-                <p className="text-xs text-zinc-300 italic leading-relaxed">
-                  "The tactile sensation of Cherry titanium audio hardware rivals the finest horological manufacturing in Geneva. Exceptional attention to detail."
-                </p>
-              </div>
-
-              <div className="p-6 rounded-2xl bg-black border border-zinc-800 space-y-3">
-                <div className="text-xs font-mono font-bold uppercase text-zinc-400">
-                  DESIGN CURATION AWARDS
-                </div>
-                <p className="text-xs text-zinc-300 italic leading-relaxed">
-                  "Selected for excellence in sustainable, single-material engineering and zero-plastic packaging architecture for 2026."
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-=======
->>>>>>> d1542023a8da1c7514cd484d5d4c3bcaf108c8b7
         {/* Section 6: Interactive FAQ */}
         <section id="faq" className="py-20 bg-white dark:bg-black border-b border-zinc-200 dark:border-zinc-800 transition-colors">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
