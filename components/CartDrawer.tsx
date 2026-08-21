@@ -31,6 +31,7 @@ export function CartDrawer() {
     applyCoupon,
     removeCoupon,
     addToast,
+    addOrder,
   } = useShop();
 
   const [couponInput, setCouponInput] = useState("");
@@ -39,7 +40,7 @@ export function CartDrawer() {
 
   if (!isCartOpen) return null;
 
-  const FREE_SHIPPING_THRESHOLD = 75;
+  const FREE_SHIPPING_THRESHOLD = 2999;
   const freeShippingUnlocked = cartSubtotal >= FREE_SHIPPING_THRESHOLD;
   const shippingRemaining = Math.max(0, FREE_SHIPPING_THRESHOLD - cartSubtotal);
   const shippingPercent = Math.min(
@@ -50,8 +51,8 @@ export function CartDrawer() {
   const discountAmount = appliedCoupon
     ? (cartSubtotal * appliedCoupon.discountPercent) / 100
     : 0;
-  const shippingCost = freeShippingUnlocked || cart.length === 0 ? 0 : 9.99;
-  const estimatedTax = cartSubtotal * 0.07;
+  const shippingCost = freeShippingUnlocked || cart.length === 0 ? 0 : 199.00;
+  const estimatedTax = cartSubtotal * 0.18;
   const finalTotal = cartSubtotal - discountAmount + shippingCost + estimatedTax;
 
   const handleApplyCoupon = (e: React.FormEvent) => {
@@ -67,17 +68,45 @@ export function CartDrawer() {
   };
 
   const handleCheckout = () => {
+    if (cart.length === 0) return;
     setIsCheckingOut(true);
+
+    const orderItems = cart.map((item) => ({
+      productId: item.product.id,
+      name: item.product.name,
+      price: item.product.price,
+      quantity: item.quantity,
+      image: item.product.images[0] || "",
+      selectedColor: item.selectedColor,
+      selectedSize: item.selectedSize,
+    }));
+
     setTimeout(() => {
+      const createdOrder = addOrder({
+        customerName: "Guest VIP Customer",
+        customerEmail: "guest.customer@shopnest.io",
+        customerPhone: "+1 (555) 019-2834",
+        shippingAddress: "900 Market Street, Suite 400, San Francisco, CA 94102",
+        items: orderItems,
+        subtotal: Number(cartSubtotal.toFixed(2)),
+        discount: Number(discountAmount.toFixed(2)),
+        tax: Number(estimatedTax.toFixed(2)),
+        shipping: shippingCost,
+        total: Number(finalTotal.toFixed(2)),
+        status: "pending",
+        paymentMethod: "Apple Pay (Express)",
+        paymentStatus: "paid",
+      });
+
       setIsCheckingOut(false);
       clearCart();
       setIsCartOpen(false);
       addToast(
-        "Order Confirmed",
-        "Your order has been placed successfully.",
+        "Order Confirmed!",
+        `Order #${createdOrder.orderNumber} placed successfully. Track in Admin.`,
         "success"
       );
-    }, 1200);
+    }, 1000);
   };
 
   return (

@@ -16,6 +16,7 @@ import {
 
 export function FlashDeals() {
   const {
+    products,
     addToCart,
     openQuickView,
     toggleWishlist,
@@ -27,7 +28,7 @@ export function FlashDeals() {
   const [timeLeft, setTimeLeft] = useState({
     hours: 14,
     minutes: 42,
-    seconds: 18,
+    seconds: 19,
   });
 
   useEffect(() => {
@@ -47,7 +48,7 @@ export function FlashDeals() {
     return () => clearInterval(timer);
   }, []);
 
-  const flashProducts = PRODUCTS.filter((p) => p.isFlashDeal);
+  const flashProducts = products.filter((p) => p.isFlashDeal);
 
   return (
     <section id="flash-deals" className="py-16 sm:py-20 bg-white border-y border-slate-200">

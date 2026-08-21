@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { LOOKBOOK_HOTSPOTS, PRODUCTS } from "@/data/products";
+import { LOOKBOOK_HOTSPOTS } from "@/data/products";
 import { useShop } from "@/context/ShopContext";
 import { ShoppingBag, Eye, Plus, Sparkles, X } from "lucide-react";
 
@@ -10,7 +10,7 @@ export function ShopTheLook() {
   const [activeHotspotId, setActiveHotspotId] = useState<string | null>(
     LOOKBOOK_HOTSPOTS[0].id
   );
-  const { addToCart, openQuickView, formatPrice } = useShop();
+  const { products, addToCart, openQuickView, formatPrice } = useShop();
 
   return (
     <section id="shop-the-look" className="py-16 sm:py-24 bg-slate-900 text-white relative overflow-hidden">
@@ -44,7 +44,7 @@ export function ShopTheLook() {
           {/* Hotspots */}
           {LOOKBOOK_HOTSPOTS.map((hotspot) => {
             const isActive = activeHotspotId === hotspot.id;
-            const fullProduct = PRODUCTS.find((p) => p.id === hotspot.productId);
+            const fullProduct = products.find((p) => p.id === hotspot.productId);
 
             return (
               <div

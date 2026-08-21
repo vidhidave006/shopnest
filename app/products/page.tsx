@@ -8,6 +8,8 @@ import { Footer } from "@/components/Footer";
 import { ProductCard } from "@/components/ProductCard";
 import { PRODUCTS, CATEGORIES } from "@/data/products";
 import { useShop } from "@/context/ShopContext";
+import { CustomSelect } from "@/components/ui/CustomSelect";
+import { matchProductSearch } from "@/lib/searchUtils";
 import {
   ArrowDownUp,
   Search,
@@ -23,6 +25,7 @@ import {
 function ProductsContent() {
   const searchParams = useSearchParams();
   const {
+    products,
     searchQuery,
     setSearchQuery,
     selectedCategory,
@@ -45,27 +48,22 @@ function ProductsContent() {
     "featured" | "price-asc" | "price-desc" | "rating" | "name"
   >("featured");
 
-  const [priceRange, setPriceRange] = useState<"all" | "under-100" | "100-300" | "above-300">("all");
+  const [priceRange, setPriceRange] = useState<"all" | "under-10k" | "10k-20k" | "above-20k">("all");
   const [onlyInStock, setOnlyInStock] = useState(false);
   const [gridCols, setGridCols] = useState<3 | 4>(4);
 
   const allCategories = ["All", ...CATEGORIES.map((c) => c.name)];
 
   const filteredProducts = useMemo(() => {
-    return PRODUCTS.filter((product) => {
+    return products.filter((product) => {
       // Category filter
       if (selectedCategory !== "All" && product.category !== selectedCategory) {
         return false;
       }
 
-      // Search query filter
+      // Semantic & Synonym-Aware Search Query Filter
       if (searchQuery.trim()) {
-        const q = searchQuery.toLowerCase();
-        const matchName = product.name.toLowerCase().includes(q);
-        const matchCat = product.category.toLowerCase().includes(q);
-        const matchBrand = product.brand.toLowerCase().includes(q);
-        const matchTags = product.tags?.some((t) => t.toLowerCase().includes(q));
-        if (!matchName && !matchCat && !matchBrand && !matchTags) {
+        if (!matchProductSearch(product, searchQuery)) {
           return false;
         }
       }
@@ -75,10 +73,10 @@ function ProductsContent() {
         return false;
       }
 
-      // Price range filter
-      if (priceRange === "under-100" && product.price >= 100) return false;
-      if (priceRange === "100-300" && (product.price < 100 || product.price > 300)) return false;
-      if (priceRange === "above-300" && product.price <= 300) return false;
+      // Price range filter (INR)
+      if (priceRange === "under-10k" && product.price >= 10000) return false;
+      if (priceRange === "10k-20k" && (product.price < 10000 || product.price > 20000)) return false;
+      if (priceRange === "above-20k" && product.price <= 20000) return false;
 
       return true;
     }).sort((a, b) => {
@@ -141,25 +139,25 @@ function ProductsContent() {
 
             {/* Sort & Grid Layout Toggle */}
             <div className="flex flex-wrap items-center gap-3">
-              {/* Sort Selector */}
-              <div className="flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-3 py-2 text-xs font-mono">
-                <ArrowDownUp className="w-3.5 h-3.5 text-zinc-400" />
-                <span className="uppercase text-[10px] text-zinc-500">Sort:</span>
-                <select
+              {/* Custom Sort Selector */}
+              <div className="w-52">
+                <CustomSelect
+                  size="sm"
+                  options={[
+                    { value: "featured", label: "Featured Picks", description: "Editor curated selection", icon: <Sparkles className="w-3.5 h-3.5" />, badge: "Popular" },
+                    { value: "price-asc", label: "Price: Low to High", description: "Ascending price order" },
+                    { value: "price-desc", label: "Price: High to Low", description: "Luxury flagship first" },
+                    { value: "rating", label: "Top Rated (4.8+)", description: "Client verified favorites" },
+                    { value: "name", label: "Product Name (A-Z)", description: "Alphabetical directory" },
+                  ]}
                   value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as any)}
-                  className="bg-transparent font-bold text-black dark:text-white focus:outline-none cursor-pointer"
-                >
-                  <option value="featured">Featured Picks</option>
-                  <option value="price-asc">Price: Low to High</option>
-                  <option value="price-desc">Price: High to Low</option>
-                  <option value="rating">Top Rated (4.8+)</option>
-                  <option value="name">Product Name (A-Z)</option>
-                </select>
+                  onChange={(val) => setSortBy(val)}
+                  menuClassName="w-60"
+                />
               </div>
 
               {/* Grid Layout Toggle */}
-              <div className="hidden sm:flex items-center bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-1">
+              <div className="hidden sm:flex items-center bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-1 h-8">
                 <button
                   onClick={() => setGridCols(3)}
                   className={`p-1.5 rounded transition-colors ${
@@ -215,9 +213,9 @@ function ProductsContent() {
                 </span>
                 {[
                   { id: "all", label: "All" },
-                  { id: "under-100", label: "< $100" },
-                  { id: "100-300", label: "$100 - $300" },
-                  { id: "above-300", label: "> $300" },
+                  { id: "under-10k", label: "< ₹10k" },
+                  { id: "10k-20k", label: "₹10k - ₹20k" },
+                  { id: "above-20k", label: "> ₹20k" },
                 ].map((tier) => (
                   <button
                     key={tier.id}

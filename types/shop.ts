@@ -79,3 +79,47 @@ export interface LookbookHotspot {
   price: number;
   image: string;
 }
+
+export type OrderStatus = 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
+
+export interface OrderItem {
+  productId: string;
+  name: string;
+  price: number;
+  quantity: number;
+  image: string;
+  selectedColor?: string;
+  selectedSize?: string;
+}
+
+export interface Order {
+  id: string;
+  orderNumber: string;
+  customerName: string;
+  customerEmail: string;
+  customerPhone?: string;
+  shippingAddress: string;
+  date: string;
+  items: OrderItem[];
+  subtotal: number;
+  discount: number;
+  tax: number;
+  shipping: number;
+  total: number;
+  status: OrderStatus;
+  paymentMethod: string;
+  paymentStatus: 'paid' | 'pending' | 'failed';
+  trackingNumber?: string;
+}
+
+export interface PromoCode {
+  id: string;
+  code: string;
+  discountPercent: number;
+  isActive: boolean;
+  usageCount: number;
+  minSpend?: number;
+  description?: string;
+}
+
+export type Currency = 'INR' | 'USD' | 'EUR' | 'GBP';

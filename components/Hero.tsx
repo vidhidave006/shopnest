@@ -53,7 +53,7 @@ export function Hero() {
           <span className="text-zinc-700 hidden sm:inline">&bull;</span>
           <div className="flex items-center gap-1.5">
             <ShieldCheck className="w-3.5 h-3.5 text-white" />
-            <span>GLOBAL FREE SHIPPING $75+</span>
+            <span>FREE EXPRESS SHIPPING ₹2,999+</span>
           </div>
           <span className="text-zinc-700 hidden sm:inline">&bull;</span>
           <div className="flex items-center gap-1.5">

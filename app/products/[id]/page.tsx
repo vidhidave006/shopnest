@@ -32,6 +32,7 @@ export default function ProductDetailPage({
   const unwrappedParams = use(params);
   const router = useRouter();
   const {
+    products,
     addToCart,
     setIsCartOpen,
     toggleWishlist,
@@ -41,7 +42,7 @@ export default function ProductDetailPage({
   } = useShop();
 
   // Find product by id or slug
-  const product = PRODUCTS.find(
+  const product = products.find(
     (p) => p.id === unwrappedParams.id || p.slug === unwrappedParams.id
   );
 
@@ -97,8 +98,10 @@ export default function ProductDetailPage({
     }
   };
 
-  // Related products from same category or random fallback
-  const relatedProducts = PRODUCTS.filter((p) => p.id !== product.id).slice(0, 4);
+  // Related products from same category or fallback
+  const relatedProducts = products
+    .filter((p) => p.id !== product.id && (p.category === product.category || true))
+    .slice(0, 4);
 
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-black text-black dark:text-white transition-colors duration-200">

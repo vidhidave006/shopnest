@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ShopProvider } from "@/context/ShopContext";
 import { ToastContainer } from "@/components/ToastContainer";
 import { CartDrawer } from "@/components/CartDrawer";
 import { QuickViewModal } from "@/components/QuickViewModal";
 import { WishlistDrawer } from "@/components/WishlistDrawer";
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,9 +44,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
+      className={`${plusJakartaSans.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
     >
-      <body className="min-h-full flex flex-col bg-white dark:bg-black text-black dark:text-white selection:bg-white selection:text-black dark:selection:bg-white dark:selection:text-black transition-colors duration-200">
+      <body className="min-h-full flex flex-col bg-white dark:bg-black text-black dark:text-white selection:bg-white selection:text-black dark:selection:bg-white dark:selection:text-black transition-colors duration-200 font-sans">
         <ShopProvider>
           {children}
           <CartDrawer />

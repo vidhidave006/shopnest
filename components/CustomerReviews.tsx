@@ -2,10 +2,11 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { REVIEWS } from "@/data/products";
+import { useShop } from "@/context/ShopContext";
 import { Star, CheckCircle2, ThumbsUp, Sparkles } from "lucide-react";
 
 export function CustomerReviews() {
+  const { reviews } = useShop();
   const [helpfulVotes, setHelpfulVotes] = useState<Record<string, number>>({});
 
   const handleHelpfulClick = (id: string, initialCount: number) => {
@@ -79,7 +80,7 @@ export function CustomerReviews() {
 
         {/* Reviews Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {REVIEWS.map((rev) => {
+          {reviews.map((rev) => {
             const count =
               helpfulVotes[rev.id] !== undefined
                 ? helpfulVotes[rev.id]

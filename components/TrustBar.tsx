@@ -8,7 +8,7 @@ export function TrustBar() {
     {
       icon: Truck,
       title: "FREE EXPRESS DELIVERY",
-      description: "On all global orders over $75",
+      description: "On all orders over ₹2,999",
     },
     {
       icon: RotateCcw,

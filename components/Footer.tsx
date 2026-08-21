@@ -58,6 +58,12 @@ export function Footer() {
                 {cat.name}
               </button>
             ))}
+            <Link
+              href="/admin"
+              className="text-white hover:underline transition-colors font-bold"
+            >
+              Admin Portal
+            </Link>
           </div>
         </div>
 

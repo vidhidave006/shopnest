@@ -1,13 +1,15 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { PRODUCTS, CATEGORIES } from "@/data/products";
+import { CATEGORIES } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
 import { useShop } from "@/context/ShopContext";
+import { matchProductSearch } from "@/lib/searchUtils";
 import { ArrowDownUp, Search, X } from "lucide-react";
 
 export function ProductSection() {
   const {
+    products,
     searchQuery,
     setSearchQuery,
     selectedCategory,
@@ -19,19 +21,15 @@ export function ProductSection() {
   >("featured");
 
   const filteredProducts = useMemo(() => {
-    return PRODUCTS.filter((product) => {
+    return products.filter((product) => {
       // Category filter
       if (selectedCategory !== "All" && product.category !== selectedCategory) {
         return false;
       }
 
-      // Search Query filter
+      // Semantic Search Query filter
       if (searchQuery.trim()) {
-        const q = searchQuery.toLowerCase();
-        const matchName = product.name.toLowerCase().includes(q);
-        const matchCat = product.category.toLowerCase().includes(q);
-        const matchBrand = product.brand.toLowerCase().includes(q);
-        if (!matchName && !matchCat && !matchBrand) {
+        if (!matchProductSearch(product, searchQuery)) {
           return false;
         }
       }
