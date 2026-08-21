@@ -359,6 +359,7 @@ export function OrderTrackerModal() {
           )}
         </div>
 
+<<<<<<< HEAD
         {/* Footer Close Action */}
         <div className="px-7 py-4 border-t border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 flex items-center justify-end">
           <button
@@ -368,6 +369,162 @@ export function OrderTrackerModal() {
             Close Tracker
           </button>
         </div>
+=======
+        {/* Order Details & Progress Timeline */}
+        {currentOrder ? (
+          <div className="p-7 space-y-6">
+            {/* Status Summary Banner */}
+            <div className="p-5 rounded-2xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-mono">
+              <div>
+                <div className="flex items-center gap-2.5">
+                  <span className="px-2.5 py-0.5 rounded-lg bg-black text-white dark:bg-white dark:text-black text-[10px] font-bold uppercase tracking-wider">
+                    {currentOrder.status.replace("_", " ")}
+                  </span>
+                  <span className="text-xs font-bold text-black dark:text-white">
+                    Acquisition {currentOrder.id}
+                  </span>
+                </div>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+                  Air Cargo Code: <strong>{currentOrder.trackingNumber}</strong>
+                </p>
+              </div>
+
+              <div className="text-left sm:text-right">
+                <span className="text-[10px] text-zinc-400 uppercase block tracking-wider">
+                  Estimated Arrival
+                </span>
+                <span className="text-sm font-black text-black dark:text-white">
+                  {currentOrder.estimatedDelivery}
+                </span>
+              </div>
+            </div>
+
+            {/* Visual Multi-Step Timeline */}
+            <div className="space-y-4 font-mono">
+              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400">
+                Milestone Telemetry
+              </h3>
+
+              <div className="space-y-4 relative pl-6 before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-zinc-200 dark:before:bg-zinc-800">
+                {(currentOrder.timeline || []).map((step, idx) => (
+                  <div key={idx} className="relative flex items-start gap-4">
+                    {/* Circle Indicator */}
+                    <div
+                      className={`absolute -left-6 top-0.5 w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                        step.completed
+                          ? "bg-black dark:bg-white border-black dark:border-white text-white dark:text-black shadow-xs"
+                          : step.current
+                          ? "bg-white dark:bg-black border-black dark:border-white ring-4 ring-zinc-400/20 text-black dark:text-white"
+                          : "bg-zinc-100 dark:bg-zinc-900 border-zinc-300 dark:border-zinc-700"
+                      }`}
+                    >
+                      {step.completed && (
+                        <CheckCircle2 className="w-3 h-3 stroke-[3]" />
+                      )}
+                    </div>
+
+                    <div className="flex-1">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                        <span
+                          className={`text-xs font-bold ${
+                            step.completed || step.current
+                              ? "text-black dark:text-white"
+                              : "text-zinc-400"
+                          }`}
+                        >
+                          {step.label}
+                        </span>
+                        <span className="text-[10px] text-zinc-400 font-normal">
+                          {step.date}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Destination & Package Items Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-zinc-200 dark:border-zinc-800 font-mono text-xs">
+              <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-1">
+                <span className="text-[10px] uppercase text-zinc-400 flex items-center gap-1 font-bold">
+                  <MapPin className="w-3 h-3" /> Shipping Destination
+                </span>
+                <p className="font-bold text-black dark:text-white">
+                  {currentOrder.customer?.fullName || currentOrder.customerName || "Valued Client"}
+                </p>
+                <p className="text-zinc-500 dark:text-zinc-400 text-[11px]">
+                  {currentOrder.customer?.address || currentOrder.shippingAddress || "Registered Destination"}
+                  {currentOrder.customer?.city ? `, ${currentOrder.customer.city}` : ""}
+                  {currentOrder.customer?.postalCode ? ` ${currentOrder.customer.postalCode}` : ""}
+                </p>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-1">
+                <span className="text-[10px] uppercase text-zinc-400 flex items-center gap-1 font-bold">
+                  <Package className="w-3 h-3" /> Carrier Service
+                </span>
+                <p className="font-bold text-black dark:text-white">
+                  {currentOrder.shippingMethod}
+                </p>
+                <p className="text-zinc-500 dark:text-zinc-400 text-[11px]">
+                  Settlement: {currentOrder.paymentMethod} &bull; Total:{" "}
+                  {formatPrice(currentOrder.total)}
+                </p>
+              </div>
+            </div>
+
+            {/* Package Contents */}
+            <div className="space-y-2.5 font-mono">
+              <span className="text-[10px] uppercase tracking-widest text-zinc-400 font-bold">
+                Package Contents ({currentOrder.items.length} items)
+              </span>
+              <div className="space-y-2">
+                {currentOrder.items.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="p-3.5 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-between text-xs"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="relative w-11 h-11 rounded-xl overflow-hidden shrink-0 bg-white dark:bg-black border border-zinc-200 dark:border-zinc-800">
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          fill
+                          className="object-cover"
+                          sizes="44px"
+                        />
+                      </div>
+                      <div>
+                        <span className="font-bold text-black dark:text-white block truncate max-w-[200px] sm:max-w-md">
+                          {item.name}
+                        </span>
+                        <span className="text-[10px] text-zinc-400">
+                          Qty: {item.quantity}{" "}
+                          {item.selectedColor && `• ${item.selectedColor}`}
+                        </span>
+                      </div>
+                    </div>
+                    <span className="font-bold text-black dark:text-white">
+                      {formatPrice(item.price * item.quantity)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="p-12 text-center space-y-3 font-mono">
+            <Package className="w-10 h-10 text-zinc-400 mx-auto" />
+            <h3 className="text-sm font-bold uppercase text-black dark:text-white">
+              No Record Selected
+            </h3>
+            <p className="text-xs text-zinc-400 max-w-sm mx-auto">
+              Please enter an acquisition identification or tracking code above to monitor live transit.
+            </p>
+          </div>
+        )}
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
       </div>
     </div>
   );

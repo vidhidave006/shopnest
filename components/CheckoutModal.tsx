@@ -656,7 +656,13 @@ export function CheckoutModal() {
               </h2>
               <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 max-w-md mx-auto">
                 Thank you for your patronage. An official GST invoice and dossier has been dispatched to{" "}
+<<<<<<< HEAD
                 <strong className="text-black dark:text-white">{confirmedOrder?.customer?.email || confirmedOrder?.customerEmail}</strong>.
+=======
+                <strong className="text-black dark:text-white">
+                  {confirmedOrder?.customer?.email || confirmedOrder?.customerEmail || "your email"}
+                </strong>.
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
               </p>
             </div>
 
@@ -686,13 +692,17 @@ export function CheckoutModal() {
                   <div className="flex justify-between text-zinc-500">
                     <span>Estimated Delivery:</span>
                     <span className="text-black dark:text-white font-bold">
-                      {confirmedOrder.estimatedDelivery}
+                      {confirmedOrder.estimatedDelivery || "Within 2-3 Business Days"}
                     </span>
                   </div>
                   <div className="flex justify-between text-zinc-500">
                     <span>Dispatch Address:</span>
                     <span className="text-black dark:text-white truncate max-w-[240px]">
+<<<<<<< HEAD
                       {confirmedOrder.customer?.address || confirmedOrder.shippingAddress || "Registered Address"}
+=======
+                      {confirmedOrder.customer?.address || confirmedOrder.shippingAddress}
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
                       {confirmedOrder.customer?.city ? `, ${confirmedOrder.customer.city}` : ""}
                     </span>
                   </div>

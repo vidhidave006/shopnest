@@ -65,8 +65,13 @@ export const PRODUCTS: Product[] = [
     slug: "aura-studio-pro-wireless-anc-headphones",
     brand: "SonicWave",
     category: "Electronic",
+<<<<<<< HEAD
     price: 23999.00,
     originalPrice: 28999.00,
+=======
+    price: 289,
+    originalPrice: 349,
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
     rating: 4.9,
     reviewsCount: 328,
     inStock: true,
@@ -106,8 +111,13 @@ export const PRODUCTS: Product[] = [
     slug: "lumina-apex-smartwatch-ultra",
     brand: "ChronosTech",
     category: "Electronic",
+<<<<<<< HEAD
     price: 32999.00,
     originalPrice: 39999.00,
+=======
+    price: 399,
+    originalPrice: 479,
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
     rating: 4.85,
     reviewsCount: 215,
     inStock: true,
@@ -187,8 +197,13 @@ export const PRODUCTS: Product[] = [
     slug: "cloudstride-neo-pulse-running-sneakers",
     brand: "AeroForm",
     category: "Fashion",
+<<<<<<< HEAD
     price: 13999.00,
     originalPrice: 16999.00,
+=======
+    price: 165,
+    originalPrice: 195,
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
     rating: 4.92,
     reviewsCount: 440,
     inStock: true,
@@ -226,8 +241,13 @@ export const PRODUCTS: Product[] = [
     slug: "heritage-full-grain-leather-weekender-bag",
     brand: "Vanguard Craft",
     category: "Fashion",
+<<<<<<< HEAD
     price: 18499.00,
     originalPrice: 22999.00,
+=======
+    price: 345,
+    originalPrice: 420,
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
     rating: 4.95,
     reviewsCount: 189,
     inStock: true,
@@ -264,8 +284,13 @@ export const PRODUCTS: Product[] = [
     slug: "atelier-organic-raw-linen-shirt",
     brand: "Maison Blanc",
     category: "Fashion",
+<<<<<<< HEAD
     price: 8999.00,
     originalPrice: 11499.00,
+=======
+    price: 110,
+    originalPrice: 140,
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
     rating: 4.82,
     reviewsCount: 156,
     inStock: true,
@@ -418,8 +443,13 @@ export const PRODUCTS: Product[] = [
     slug: "aetheria-ultrasonic-ceramic-aroma-diffuser",
     brand: "Aura Home",
     category: "Beauty",
+<<<<<<< HEAD
     price: 6499.00,
     originalPrice: 8499.00,
+=======
+    price: 88,
+    originalPrice: 110,
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
     rating: 4.86,
     reviewsCount: 198,
     inStock: true,
@@ -486,7 +516,11 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
+<<<<<<< HEAD
     id: "prod-17",
+=======
+    id: "prod-12",
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
     name: "AeroPure HEPA Silent Smart Air Purifier",
     slug: "aeropure-hepa-silent-smart-air-purifier",
     brand: "Luce Studio",
@@ -740,7 +774,7 @@ export const LOOKBOOK_HOTSPOTS: LookbookHotspot[] = [
     y: 35,
     productId: "prod-1",
     title: "Aura Studio Pro Headphones",
-    price: 23999.00,
+    price: 289,
     image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&auto=format&fit=crop&q=80",
   },
   {
@@ -749,7 +783,7 @@ export const LOOKBOOK_HOTSPOTS: LookbookHotspot[] = [
     y: 60,
     productId: "prod-4",
     title: "Nordic Amber Lamp",
-    price: 6999.00,
+    price: 129,
     image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=300&auto=format&fit=crop&q=80",
   },
   {
@@ -758,7 +792,7 @@ export const LOOKBOOK_HOTSPOTS: LookbookHotspot[] = [
     y: 78,
     productId: "prod-7",
     title: "Keychron Mechanical Keyboard",
-    price: 16499.00,
+    price: 179,
     image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=300&auto=format&fit=crop&q=80",
   },
 ];
@@ -777,7 +811,7 @@ export const INITIAL_ORDERS: Order[] = [
         id: "item-1001-1",
         productId: "prod-1",
         name: "Aura Studio Pro Wireless ANC Headphones",
-        price: 23999.00,
+        price: 289,
         quantity: 1,
         image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80",
         selectedColor: "Matte Black",
@@ -786,17 +820,17 @@ export const INITIAL_ORDERS: Order[] = [
         id: "item-1001-2",
         productId: "prod-4",
         name: "Nordic Amber Minimalist Desk Lamp",
-        price: 6999.00,
+        price: 129,
         quantity: 1,
         image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=800&auto=format&fit=crop&q=80",
         selectedColor: "Slate Grey",
       },
     ],
-    subtotal: 30998.00,
-    discount: 6199.60,
-    tax: 1735.89,
+    subtotal: 418,
+    discount: 41.8,
+    tax: 37.62,
     shipping: 0,
-    total: 26534.29,
+    total: 413.82,
     status: "processing",
     paymentMethod: "UPI / Apple Pay",
     paymentStatus: "paid",
@@ -815,22 +849,27 @@ export const INITIAL_ORDERS: Order[] = [
         id: "item-1002-1",
         productId: "prod-2",
         name: "Lumina Apex Smartwatch Ultra",
-        price: 32999.00,
+        price: 399,
         quantity: 1,
         image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=80",
+<<<<<<< HEAD
         selectedColor: "Titanium Silver",
+=======
+        selectedColor: "Stealth Black",
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
       },
     ],
-    subtotal: 32999.00,
+    subtotal: 399,
     discount: 0,
-    tax: 2309.93,
+    tax: 35.91,
     shipping: 0,
-    total: 35308.93,
+    total: 434.91,
     status: "shipped",
     paymentMethod: "Credit Card (Visa)",
     paymentStatus: "paid",
     trackingNumber: "TRK-74198234",
   },
+<<<<<<< HEAD
   {
     id: "ord-1003",
     orderNumber: "SN-98243",
@@ -898,6 +937,8 @@ export const INITIAL_ORDERS: Order[] = [
     paymentMethod: "UPI Instant",
     paymentStatus: "paid",
   },
+=======
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
 ];
 
 export const INITIAL_PROMOS: PromoCode[] = [
@@ -907,8 +948,8 @@ export const INITIAL_PROMOS: PromoCode[] = [
     discountPercent: 20,
     isActive: true,
     usageCount: 142,
-    minSpend: 2999,
-    description: "20% off storewide on orders over ₹2,999",
+    minSpend: 50,
+    description: "20% off storewide on orders over $50",
   },
   {
     id: "promo-2",
@@ -916,7 +957,7 @@ export const INITIAL_PROMOS: PromoCode[] = [
     discountPercent: 20,
     isActive: true,
     usageCount: 89,
-    minSpend: 4999,
+    minSpend: 100,
     description: "Exclusive VIP concierge discount",
   },
   {
@@ -925,7 +966,7 @@ export const INITIAL_PROMOS: PromoCode[] = [
     discountPercent: 10,
     isActive: true,
     usageCount: 310,
-    minSpend: 1999,
+    minSpend: 30,
     description: "10% off for first-time shoppers",
   },
   {
@@ -934,7 +975,7 @@ export const INITIAL_PROMOS: PromoCode[] = [
     discountPercent: 25,
     isActive: false,
     usageCount: 54,
-    minSpend: 7999,
+    minSpend: 150,
     description: "End of season festival discount",
   },
 ];

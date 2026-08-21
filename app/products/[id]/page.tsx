@@ -42,8 +42,13 @@ export default function ProductDetailPage({
     setIsCheckoutOpen,
   } = useShop();
 
+<<<<<<< HEAD
   // Find product by id or slug
   const product = products.find(
+=======
+  const allProducts = products && products.length > 0 ? products : PRODUCTS;
+  const product = allProducts.find(
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
     (p) => p.id === unwrappedParams.id || p.slug === unwrappedParams.id
   ) || PRODUCTS.find((p) => p.id === unwrappedParams.id || p.slug === unwrappedParams.id);
 

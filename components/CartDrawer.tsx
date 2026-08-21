@@ -29,6 +29,11 @@ export function CartDrawer() {
     appliedCoupon,
     applyCoupon,
     removeCoupon,
+<<<<<<< HEAD
+=======
+    addToast,
+    addOrder,
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
     setIsCheckoutOpen,
     openQuickView,
   } = useShop();
@@ -52,7 +57,11 @@ export function CartDrawer() {
 
   if (!isCartOpen) return null;
 
+<<<<<<< HEAD
   const FREE_SHIPPING_THRESHOLD = 2999;
+=======
+  const FREE_SHIPPING_THRESHOLD = 50;
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
   const freeShippingUnlocked =
     cartSubtotal >= FREE_SHIPPING_THRESHOLD || appliedCoupon?.isFreeShipping;
   const shippingRemaining = Math.max(0, FREE_SHIPPING_THRESHOLD - cartSubtotal);
@@ -64,7 +73,11 @@ export function CartDrawer() {
   const discountAmount = appliedCoupon
     ? (cartSubtotal * appliedCoupon.discountPercent) / 100
     : 0;
+<<<<<<< HEAD
   const shippingCost = freeShippingUnlocked || cart.length === 0 ? 0 : 199.00;
+=======
+  const shippingCost = freeShippingUnlocked || cart.length === 0 ? 0 : 5.88;
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
   const estimatedTax = (cartSubtotal - discountAmount) * 0.18;
   const finalTotal = cartSubtotal - discountAmount + shippingCost + estimatedTax;
 
@@ -82,7 +95,13 @@ export function CartDrawer() {
 
   const handleProceedToCheckout = () => {
     setIsCartOpen(false);
+<<<<<<< HEAD
     setIsCheckoutOpen(true);
+=======
+    if (setIsCheckoutOpen) {
+      setIsCheckoutOpen(true);
+    }
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
   };
 
   return (

@@ -36,6 +36,88 @@ export const CURRENCY_RATES: Record<
   GBP: { symbol: "£", rate: 0.0095, label: "GBP (£ - British Pound)" },
 };
 
+<<<<<<< HEAD
+=======
+function createDefaultOrder(): Order {
+  return {
+    id: "SN-982410",
+    orderNumber: "SN-982410",
+    date: new Date().toLocaleDateString("en-IN", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    }),
+    status: "in_transit",
+    trackingNumber: "BD-IN-9842019",
+    estimatedDelivery: "Tomorrow, by 7:00 PM",
+    customer: {
+      fullName: "Ananya Deshmukh",
+      email: "ananya.d@concierge.in",
+      phone: "+91 98201 44521",
+      address: "Penthouse 14, Prestige Ocean Heights, Worli",
+      city: "Mumbai",
+      postalCode: "400018",
+      country: "India",
+    },
+    shippingMethod: "BlueDart Priority Carbon-Neutral Express",
+    paymentMethod: "Razorpay (Credit Card Ending 4022)",
+    items: [
+      {
+        id: "item-1",
+        productId: "prod-1",
+        name: "Aura Studio Pro Wireless ANC Headphones",
+        price: 289,
+        quantity: 1,
+        selectedColor: "Matte Black",
+        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&auto=format&fit=crop&q=80",
+      },
+    ],
+    subtotal: 289,
+    discount: 0,
+    shipping: 0,
+    tax: 26.01,
+    total: 315.01,
+    timeline: [
+      {
+        status: "confirmed",
+        label: "Order Confirmed & Payment Verified",
+        date: "Today, 09:15 AM",
+        completed: true,
+        current: false,
+      },
+      {
+        status: "processing",
+        label: "Precision Inspection & White-Glove Packaging",
+        date: "Today, 11:30 AM",
+        completed: true,
+        current: false,
+      },
+      {
+        status: "in_transit",
+        label: "BlueDart Air Cargo Dispatch (BLR Hub)",
+        date: "Today, 02:45 PM",
+        completed: true,
+        current: true,
+      },
+      {
+        status: "out_for_delivery",
+        label: "Out for Local Hand-Delivery",
+        date: "Tomorrow Morning",
+        completed: false,
+        current: false,
+      },
+      {
+        status: "delivered",
+        label: "Delivered to Customer Doorstep",
+        date: "Tomorrow, 7:00 PM",
+        completed: false,
+        current: false,
+      },
+    ],
+  };
+}
+
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
 interface ShopContextType {
   // Store Products
   products: Product[];
@@ -83,6 +165,12 @@ interface ShopContextType {
   addPromoCode: (promo: Omit<PromoCode, "id" | "usageCount">) => PromoCode;
   togglePromoCode: (id: string) => void;
   deletePromoCode: (id: string) => void;
+<<<<<<< HEAD
+=======
+  appliedCoupon: { code: string; discountPercent: number; isFreeShipping?: boolean } | null;
+  applyCoupon: (code: string) => { success: boolean; message: string };
+  removeCoupon: () => void;
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
 
   // Reviews
   reviews: CustomerReview[];
@@ -110,6 +198,7 @@ interface ShopContextType {
   setSearchQuery: (q: string) => void;
   selectedCategory: string;
   setSelectedCategory: (cat: string) => void;
+<<<<<<< HEAD
 
   // Coupon application
   appliedCoupon: {
@@ -121,11 +210,17 @@ interface ShopContextType {
   removeCoupon: () => void;
 
   // Theme
+=======
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
   theme: Theme;
   toggleTheme: () => void;
   resetToDefaultData: () => void;
 
+<<<<<<< HEAD
   // Checkout & Tracker Modals
+=======
+  // Checkout & Tracking
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
   isCheckoutOpen: boolean;
   setIsCheckoutOpen: (open: boolean) => void;
   isOrderTrackerOpen: boolean;
@@ -145,7 +240,7 @@ interface ShopContextType {
 const ShopContext = createContext<ShopContextType | undefined>(undefined);
 
 export function ShopProvider({ children }: { children: React.ReactNode }) {
-  // Theme state
+  // Theme state: default dark luxury black & white
   const [theme, setTheme] = useState<Theme>("dark");
 
   // Products state (synchronized with localStorage)
@@ -196,6 +291,7 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
   const [placedOrders, setPlacedOrders] = useState<Order[]>([]);
   const [activeTrackingOrder, setActiveTrackingOrder] = useState<Order | null>(null);
 
+<<<<<<< HEAD
   // Sample default Indian order for instant testing
   const createDefaultOrder = (): Order => ({
     id: "SN-982410",
@@ -279,6 +375,8 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     ],
   });
 
+=======
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
   // Sync theme with document element
   useEffect(() => {
     try {
@@ -293,7 +391,11 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
       } else {
         document.documentElement.classList.add("dark");
       }
+<<<<<<< HEAD
     } catch {}
+=======
+    } catch { }
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
   }, []);
 
   const toggleTheme = () => {
@@ -306,7 +408,11 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
       }
       try {
         localStorage.setItem("shopnest_theme", nextTheme);
+<<<<<<< HEAD
       } catch {}
+=======
+      } catch { }
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
       return nextTheme;
     });
   };
@@ -316,7 +422,11 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     setCurrencyState(newCurrency);
     try {
       localStorage.setItem("shopnest_currency", newCurrency);
+<<<<<<< HEAD
     } catch {}
+=======
+    } catch { }
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
   };
 
   // Load initial data from localStorage on client mount
@@ -362,24 +472,17 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
       const savedCart = localStorage.getItem("shopnest_cart");
       if (savedCart) {
         setCart(JSON.parse(savedCart));
-      } else {
-        setCart([
-          {
-            id: `${DEFAULT_PRODUCTS[0].id}-${DEFAULT_PRODUCTS[0].colors[0]?.name || "default"}-`,
-            product: DEFAULT_PRODUCTS[0],
-            quantity: 1,
-            selectedColor: DEFAULT_PRODUCTS[0].colors[0]?.name,
-          },
-        ]);
       }
 
       const savedWishlist = localStorage.getItem("shopnest_wishlist");
       if (savedWishlist) {
         setWishlist(JSON.parse(savedWishlist));
-      } else {
-        setWishlist([DEFAULT_PRODUCTS[1], DEFAULT_PRODUCTS[4]]);
       }
+<<<<<<< HEAD
     } catch {}
+=======
+    } catch { }
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
   }, []);
 
   // Save to localStorage whenever state changes
@@ -419,11 +522,19 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     } catch {}
   }, [wishlist]);
 
+<<<<<<< HEAD
   // Product CRUD actions (Admin)
   const addProduct = (newProduct: Omit<Product, "id"> & { id?: string }): Product => {
     const id = newProduct.id || `prod-${Date.now()}`;
     const product: Product = {
       ...newProduct,
+=======
+  // Product Management Actions
+  const addProduct = (newProductData: Omit<Product, "id"> & { id?: string }): Product => {
+    const id = newProductData.id || `prod-${Date.now()}`;
+    const newProduct: Product = {
+      ...newProductData,
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
       id,
     };
     setProducts((prev) => [product, ...prev]);
@@ -711,29 +822,40 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
         };
       }
       setAppliedCoupon({ code: cleanCode, discountPercent: found.discountPercent });
-      // Update promo usage count
       setPromoCodes((prev) =>
         prev.map((p) => (p.id === found.id ? { ...p, usageCount: p.usageCount + 1 } : p))
       );
       addToast(
         "Code Applied",
+<<<<<<< HEAD
         `Code ${cleanCode} applied: ${found.discountPercent}% discount.`,
+=======
+        `Code ${cleanCode} applied: ${found.discountPercent}% off.`,
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
         "success"
       );
       return { success: true, message: `${found.discountPercent}% discount applied.` };
     }
 
+<<<<<<< HEAD
+=======
+    if (cleanCode === "WELCOME10") {
+      setAppliedCoupon({ code: cleanCode, discountPercent: 10 });
+      addToast("Code Applied", "Code WELCOME10 applied: 10% off.", "success");
+      return { success: true, message: "10% discount applied." };
+    }
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
     if (cleanCode === "FREESHIP") {
       setAppliedCoupon({ code: cleanCode, discountPercent: 0, isFreeShipping: true });
-      addToast(
-        "Code Applied",
-        "Free Express Delivery across India unlocked.",
-        "success"
-      );
+      addToast("Code Applied", "Free Express Delivery unlocked.", "success");
       return { success: true, message: "Free Express Delivery unlocked." };
     }
 
+<<<<<<< HEAD
     return { success: false, message: "Invalid promo code. Try 'NEST20' or 'WELCOME10'" };
+=======
+    return { success: false, message: "Invalid promo code. Try 'NEST20' or 'VIP20'" };
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
   };
 
   const removeCoupon = () => {
@@ -824,7 +946,10 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     const found = placedOrders.find(
       (o) =>
         o.id.toUpperCase() === clean ||
+<<<<<<< HEAD
         (o.orderNumber && o.orderNumber.toUpperCase() === clean) ||
+=======
+>>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
         (o.trackingNumber && o.trackingNumber.toUpperCase() === clean) ||
         o.id.toUpperCase().includes(clean)
     );
@@ -834,7 +959,6 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
       return found;
     }
 
-    // Default fallback order if searching default test code
     if (clean === "SN-982410" || clean === "BD-IN-9842019" || clean === "DEMO") {
       const demo = createDefaultOrder();
       setActiveTrackingOrder(demo);
