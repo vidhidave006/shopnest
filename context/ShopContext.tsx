@@ -1,12 +1,10 @@
 "use client";
 
-<<<<<<< HEAD
 import React, {
   createContext,
   useContext,
   useState,
   useEffect,
-  useCallback,
 } from "react";
 import {
   Product,
@@ -16,7 +14,7 @@ import {
   OrderStatus,
   PromoCode,
   ToastNotification,
-  Currency,
+  TrackingStep,
 } from "@/types/shop";
 import {
   PRODUCTS as DEFAULT_PRODUCTS,
@@ -25,7 +23,7 @@ import {
   REVIEWS as DEFAULT_REVIEWS,
 } from "@/data/products";
 
-export type { Currency };
+export type Currency = "INR" | "USD" | "EUR" | "GBP";
 export type Theme = "dark" | "light";
 
 export const CURRENCY_RATES: Record<
@@ -38,15 +36,6 @@ export const CURRENCY_RATES: Record<
   GBP: { symbol: "£", rate: 0.0095, label: "GBP (£ - British Pound)" },
 };
 
-=======
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { Product, CartItem, ToastNotification, Order, OrderItem } from "@/types/shop";
-import { PRODUCTS } from "@/data/products";
-
-export type Currency = "INR";
-export type Theme = "dark" | "light";
-
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
 interface ShopContextType {
   // Store Products
   products: Product[];
@@ -78,42 +67,30 @@ interface ShopContextType {
   isWishlistOpen: boolean;
   setIsWishlistOpen: (open: boolean) => void;
 
-  // Quick View Modal
+  // Quick View
   quickViewProduct: Product | null;
   openQuickView: (product: Product) => void;
   closeQuickView: () => void;
 
   // Orders
   orders: Order[];
-  addOrder: (
-    order: Omit<Order, "id" | "orderNumber" | "date"> & {
-      id?: string;
-      orderNumber?: string;
-      date?: string;
-    }
-  ) => Order;
-  updateOrderStatus: (
-    id: string,
-    status: OrderStatus,
-    trackingNumber?: string
-  ) => void;
+  addOrder: (order: Omit<Order, "id" | "date">) => Order;
+  updateOrderStatus: (id: string, status: OrderStatus, trackingNumber?: string) => void;
   deleteOrder: (id: string) => void;
 
-  // Promo codes
+  // Promo Codes
   promoCodes: PromoCode[];
-  addPromoCode: (promo: Omit<PromoCode, "id" | "usageCount">) => void;
+  addPromoCode: (promo: Omit<PromoCode, "id" | "usageCount">) => PromoCode;
   togglePromoCode: (id: string) => void;
   deletePromoCode: (id: string) => void;
-  appliedCoupon: { code: string; discountPercent: number } | null;
-  applyCoupon: (code: string) => { success: boolean; message: string };
-  removeCoupon: () => void;
 
-  // Customer Reviews
+  // Reviews
   reviews: CustomerReview[];
+  addReview?: (review: Omit<CustomerReview, "id" | "date" | "helpfulCount">) => void;
   deleteReview: (id: string) => void;
   toggleReviewVerified: (id: string) => void;
 
-  // General & Utility
+  // Toast Notifications
   toasts: ToastNotification[];
   addToast: (
     title: string,
@@ -122,23 +99,33 @@ interface ShopContextType {
     image?: string
   ) => void;
   removeToast: (id: string) => void;
+
+  // Currency & Formatter
   currency: Currency;
   setCurrency: (c: Currency) => void;
   formatPrice: (amountInINR: number) => string;
+
+  // Search & Categories
   searchQuery: string;
   setSearchQuery: (q: string) => void;
   selectedCategory: string;
   setSelectedCategory: (cat: string) => void;
-<<<<<<< HEAD
+
+  // Coupon application
+  appliedCoupon: {
+    code: string;
+    discountPercent: number;
+    isFreeShipping?: boolean;
+  } | null;
+  applyCoupon: (code: string) => { success: boolean; message: string };
+  removeCoupon: () => void;
+
+  // Theme
   theme: Theme;
   toggleTheme: () => void;
   resetToDefaultData: () => void;
-=======
-  appliedCoupon: { code: string; discountPercent: number; isFreeShipping?: boolean } | null;
-  applyCoupon: (code: string) => { success: boolean; message: string };
-  removeCoupon: () => void;
-  theme: Theme;
-  toggleTheme: () => void;
+
+  // Checkout & Tracker Modals
   isCheckoutOpen: boolean;
   setIsCheckoutOpen: (open: boolean) => void;
   isOrderTrackerOpen: boolean;
@@ -146,9 +133,13 @@ interface ShopContextType {
   placedOrders: Order[];
   activeTrackingOrder: Order | null;
   setActiveTrackingOrder: (order: Order | null) => void;
-  placeOrder: (orderData: Omit<Order, "id" | "date" | "status" | "trackingNumber" | "estimatedDelivery" | "timeline">) => Order;
+  placeOrder: (
+    orderData: Omit<
+      Order,
+      "id" | "date" | "status" | "trackingNumber" | "estimatedDelivery" | "timeline"
+    >
+  ) => Order;
   trackOrderByNumber: (trackingOrId: string) => Order | null;
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
 }
 
 const ShopContext = createContext<ShopContextType | undefined>(undefined);
@@ -183,13 +174,8 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
   // Toast state
   const [toasts, setToasts] = useState<ToastNotification[]>([]);
 
-<<<<<<< HEAD
   // Currency state: Default to Indian Rupee (INR ₹)
   const [currency, setCurrencyState] = useState<Currency>("INR");
-=======
-  // Exclusively Indian Rupee (INR)
-  const [currency, setCurrency] = useState<Currency>("INR");
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
 
   // Filtering / Search state
   const [searchQuery, setSearchQuery] = useState("");
@@ -210,62 +196,14 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
   const [placedOrders, setPlacedOrders] = useState<Order[]>([]);
   const [activeTrackingOrder, setActiveTrackingOrder] = useState<Order | null>(null);
 
-  // Sync theme with document element
-  useEffect(() => {
-    try {
-      const savedTheme = localStorage.getItem("shopnest_theme") as Theme;
-      if (savedTheme === "light" || savedTheme === "dark") {
-        setTheme(savedTheme);
-        if (savedTheme === "dark") {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-      } else {
-        document.documentElement.classList.add("dark");
-      }
-    } catch { }
-  }, []);
-
-  const toggleTheme = () => {
-    setTheme((prev) => {
-      const nextTheme = prev === "dark" ? "light" : "dark";
-      if (nextTheme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-      try {
-        localStorage.setItem("shopnest_theme", nextTheme);
-      } catch { }
-      return nextTheme;
-    });
-  };
-
-<<<<<<< HEAD
-  // Set Currency wrapper with localStorage persistence
-  const setCurrency = (newCurrency: Currency) => {
-    setCurrencyState(newCurrency);
-    try {
-      localStorage.setItem("shopnest_currency", newCurrency);
-    } catch { }
-  };
-
-  // Load initial data from localStorage on client mount
-=======
-  // Indian Rupee Price Formatter
-  const formatPrice = (amountInUSD: number): string => {
-    const inrValue = Math.round(amountInUSD * 85);
-    return new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR",
-      maximumFractionDigits: 0,
-    }).format(inrValue);
-  };
-
   // Sample default Indian order for instant testing
   const createDefaultOrder = (): Order => ({
     id: "SN-982410",
+    orderNumber: "SN-982410",
+    customerName: "Aarav Sharma",
+    customerEmail: "aarav.sharma@atelier.in",
+    customerPhone: "+91 98201 44821",
+    shippingAddress: "42 Altamount Road, Cumballa Hill, Mumbai, Maharashtra 400026",
     date: new Date(Date.now() - 3600 * 1000 * 24).toLocaleDateString("en-IN", {
       month: "short",
       day: "numeric",
@@ -275,19 +213,19 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     items: [
       {
         id: "prod-1-matte-black",
-        productId: PRODUCTS[0].id,
-        name: PRODUCTS[0].name,
-        price: PRODUCTS[0].price,
+        productId: DEFAULT_PRODUCTS[0].id,
+        name: DEFAULT_PRODUCTS[0].name,
+        price: DEFAULT_PRODUCTS[0].price,
         quantity: 1,
         selectedColor: "Matte Black",
-        image: PRODUCTS[0].images[0],
+        image: DEFAULT_PRODUCTS[0].images[0],
       },
     ],
-    subtotal: 289,
-    discount: 57.8,
+    subtotal: DEFAULT_PRODUCTS[0].price,
+    discount: 4799.8,
     shipping: 0,
-    tax: 16.18,
-    total: 247.38,
+    tax: 1618,
+    total: 20817.2,
     customer: {
       fullName: "Aarav Sharma",
       email: "aarav.sharma@atelier.in",
@@ -299,12 +237,13 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     },
     shippingMethod: "BlueDart Aviation Priority Express (Free)",
     paymentMethod: "UPI / HDFC Infinia Black (•••• 8421)",
+    paymentStatus: "paid",
     trackingNumber: "BD-IN-9842019",
     estimatedDelivery: "Tomorrow by 2:00 PM",
     timeline: [
       {
         status: "confirmed",
-        label: "Acquisition Confirmed & UPI Payment Verified",
+        label: "Order Confirmed & UPI Payment Verified",
         date: "Yesterday, 10:14 AM",
         completed: true,
         current: false,
@@ -340,8 +279,47 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     ],
   });
 
-  // Initialize with dummy cart, wishlist & orders for realistic look on first load
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
+  // Sync theme with document element
+  useEffect(() => {
+    try {
+      const savedTheme = localStorage.getItem("shopnest_theme") as Theme;
+      if (savedTheme === "light" || savedTheme === "dark") {
+        setTheme(savedTheme);
+        if (savedTheme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      } else {
+        document.documentElement.classList.add("dark");
+      }
+    } catch {}
+  }, []);
+
+  const toggleTheme = () => {
+    setTheme((prev) => {
+      const nextTheme = prev === "dark" ? "light" : "dark";
+      if (nextTheme === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+      try {
+        localStorage.setItem("shopnest_theme", nextTheme);
+      } catch {}
+      return nextTheme;
+    });
+  };
+
+  // Set Currency wrapper with localStorage persistence
+  const setCurrency = (newCurrency: Currency) => {
+    setCurrencyState(newCurrency);
+    try {
+      localStorage.setItem("shopnest_currency", newCurrency);
+    } catch {}
+  };
+
+  // Load initial data from localStorage on client mount
   useEffect(() => {
     try {
       const savedCurrency = localStorage.getItem("shopnest_currency") as Currency;
@@ -361,7 +339,14 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
 
       const savedOrders = localStorage.getItem("shopnest_orders");
       if (savedOrders) {
-        setOrders(JSON.parse(savedOrders));
+        const parsed = JSON.parse(savedOrders);
+        setOrders(parsed);
+        setPlacedOrders(parsed);
+        if (parsed.length > 0) setActiveTrackingOrder(parsed[0]);
+      } else {
+        const demoOrder = createDefaultOrder();
+        setPlacedOrders([demoOrder]);
+        setActiveTrackingOrder(demoOrder);
       }
 
       const savedPromos = localStorage.getItem("shopnest_promos");
@@ -394,118 +379,70 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
       } else {
         setWishlist([DEFAULT_PRODUCTS[1], DEFAULT_PRODUCTS[4]]);
       }
-<<<<<<< HEAD
-    } catch { }
-=======
-
-      const savedOrders = localStorage.getItem("shopnest_orders");
-      if (savedOrders) {
-        const parsed = JSON.parse(savedOrders);
-        setPlacedOrders(parsed);
-        if (parsed.length > 0) setActiveTrackingOrder(parsed[0]);
-      } else {
-        const demoOrder = createDefaultOrder();
-        setPlacedOrders([demoOrder]);
-        setActiveTrackingOrder(demoOrder);
-      }
     } catch {}
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
   }, []);
 
   // Save to localStorage whenever state changes
   useEffect(() => {
     try {
       localStorage.setItem("shopnest_products", JSON.stringify(products));
-    } catch { }
+    } catch {}
   }, [products]);
 
   useEffect(() => {
     try {
       localStorage.setItem("shopnest_orders", JSON.stringify(orders));
-    } catch { }
+    } catch {}
   }, [orders]);
 
   useEffect(() => {
     try {
       localStorage.setItem("shopnest_promos", JSON.stringify(promoCodes));
-    } catch { }
+    } catch {}
   }, [promoCodes]);
 
   useEffect(() => {
     try {
       localStorage.setItem("shopnest_reviews", JSON.stringify(reviews));
-    } catch { }
+    } catch {}
   }, [reviews]);
 
   useEffect(() => {
     try {
       localStorage.setItem("shopnest_cart", JSON.stringify(cart));
-    } catch { }
+    } catch {}
   }, [cart]);
 
   useEffect(() => {
     try {
       localStorage.setItem("shopnest_wishlist", JSON.stringify(wishlist));
-    } catch { }
+    } catch {}
   }, [wishlist]);
 
-<<<<<<< HEAD
-  // Product Management Actions
-  const addProduct = (newProductData: Omit<Product, "id"> & { id?: string }): Product => {
-    const id = newProductData.id || `prod-${Date.now()}`;
-    const newProduct: Product = {
-      ...newProductData,
+  // Product CRUD actions (Admin)
+  const addProduct = (newProduct: Omit<Product, "id"> & { id?: string }): Product => {
+    const id = newProduct.id || `prod-${Date.now()}`;
+    const product: Product = {
+      ...newProduct,
       id,
-      slug:
-        newProductData.slug ||
-        newProductData.name
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/(^-|-$)/g, ""),
-      rating: newProductData.rating || 5.0,
-      reviewsCount: newProductData.reviewsCount || 0,
-      inStock: newProductData.inStock !== false,
-      stockCount: newProductData.stockCount ?? 15,
-      images:
-        newProductData.images && newProductData.images.length > 0
-          ? newProductData.images
-          : ["https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80"],
-      colors: newProductData.colors && newProductData.colors.length > 0 ? newProductData.colors : [{ name: "Standard", hex: "#000000" }],
-      tags: newProductData.tags || ["minimal", "luxury"],
-      features: newProductData.features || ["Crafted with high-precision aerospace standards"],
-      specs: newProductData.specs || {
-        Material: "Anodized Aerospace Titanium",
-        Origin: "Crafted in India",
-      },
     };
-
-    setProducts((prev) => [newProduct, ...prev]);
-    addToast("Product Added", `${newProduct.name} is now live in store.`, "success");
-    return newProduct;
+    setProducts((prev) => [product, ...prev]);
+    addToast("Product Created", `${product.name} has been added to the catalog.`, "success");
+    return product;
   };
 
   const updateProduct = (id: string, updated: Partial<Product>) => {
     setProducts((prev) =>
-      prev.map((p) => {
-        if (p.id === id) {
-          const updatedProduct = { ...p, ...updated };
-          if (updated.stockCount !== undefined) {
-            updatedProduct.inStock = updated.stockCount > 0;
-          }
-          return updatedProduct;
-        }
-        return p;
-      })
+      prev.map((p) => (p.id === id ? { ...p, ...updated } : p))
     );
-    addToast("Product Updated", "Inventory item updated successfully.", "success");
+    addToast("Product Updated", "Catalog item changes saved successfully.", "success");
   };
 
   const deleteProduct = (id: string) => {
-    const target = products.find((p) => p.id === id);
     setProducts((prev) => prev.filter((p) => p.id !== id));
     setCart((prev) => prev.filter((item) => item.product.id !== id));
     setWishlist((prev) => prev.filter((p) => p.id !== id));
-    addToast("Product Deleted", `${target?.name || "Product"} was removed.`, "info");
+    addToast("Product Deleted", "The product was removed from the store.", "info");
   };
 
   const updateStock = (id: string, count: number) => {
@@ -513,84 +450,73 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
       prev.map((p) =>
         p.id === id
           ? {
-            ...p,
-            stockCount: Math.max(0, count),
-            inStock: count > 0,
-          }
+              ...p,
+              stockCount: Math.max(0, count),
+              inStock: count > 0,
+            }
           : p
       )
     );
   };
 
-  // Order Management Actions
-  const addOrder = (
-    orderData: Omit<Order, "id" | "orderNumber" | "date"> & {
-      id?: string;
-      orderNumber?: string;
-      date?: string;
-    }
-  ): Order => {
-    const randomNum = Math.floor(10000 + Math.random() * 90000);
+  // Order Management Actions (Admin)
+  const addOrder = (orderData: Omit<Order, "id" | "date">): Order => {
+    const id = `ord-${Date.now()}`;
     const now = new Date();
-    const formattedDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(
-      2,
-      "0"
-    )}-${String(now.getDate()).padStart(2, "0")} ${String(now.getHours()).padStart(
-      2,
-      "0"
-    )}:${String(now.getMinutes()).padStart(2, "0")}`;
-
+    const date = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
     const newOrder: Order = {
       ...orderData,
-      id: orderData.id || `ord-${Date.now()}`,
-      orderNumber: orderData.orderNumber || `SN-${randomNum}`,
-      date: orderData.date || formattedDate,
-      status: orderData.status || "processing",
-      paymentStatus: orderData.paymentStatus || "paid",
+      id,
+      date,
     };
-
     setOrders((prev) => [newOrder, ...prev]);
     return newOrder;
   };
 
-  const updateOrderStatus = (
-    id: string,
-    status: OrderStatus,
-    trackingNumber?: string
-  ) => {
+  const updateOrderStatus = (id: string, status: OrderStatus, trackingNumber?: string) => {
     setOrders((prev) =>
-      prev.map((ord) => {
-        if (ord.id === id) {
-          return {
-            ...ord,
-            status,
-            trackingNumber:
-              trackingNumber !== undefined
-                ? trackingNumber
-                : ord.trackingNumber,
-          };
-        }
-        return ord;
-      })
+      prev.map((o) =>
+        o.id === id
+          ? {
+              ...o,
+              status,
+              ...(trackingNumber ? { trackingNumber } : {}),
+            }
+          : o
+      )
     );
-    addToast("Order Updated", `Order #${id} status changed to ${status}.`, "success");
+    setPlacedOrders((prev) =>
+      prev.map((o) =>
+        o.id === id
+          ? {
+              ...o,
+              status,
+              ...(trackingNumber ? { trackingNumber } : {}),
+            }
+          : o
+      )
+    );
+    addToast("Order Status Updated", `Order #${id} marked as ${status.toUpperCase()}.`, "info");
   };
 
   const deleteOrder = (id: string) => {
     setOrders((prev) => prev.filter((o) => o.id !== id));
-    addToast("Order Deleted", `Order #${id} removed from registry.`, "info");
+    setPlacedOrders((prev) => prev.filter((o) => o.id !== id));
+    addToast("Order Removed", `Order #${id} deleted from records.`, "info");
   };
 
-  // Promo Code Actions
-  const addPromoCode = (promo: Omit<PromoCode, "id" | "usageCount">) => {
+  // Promo Code Management Actions (Admin)
+  const addPromoCode = (promoData: Omit<PromoCode, "id" | "usageCount">): PromoCode => {
+    const id = `promo-${Date.now()}`;
     const newPromo: PromoCode = {
-      ...promo,
-      id: `promo-${Date.now()}`,
-      code: promo.code.toUpperCase().trim(),
+      ...promoData,
+      id,
       usageCount: 0,
+      code: promoData.code.trim().toUpperCase(),
     };
     setPromoCodes((prev) => [newPromo, ...prev]);
-    addToast("Promo Created", `Code ${newPromo.code} created (${newPromo.discountPercent}% off).`, "success");
+    addToast("Promo Code Created", `Code ${newPromo.code} (${newPromo.discountPercent}% OFF) is live.`, "success");
+    return newPromo;
   };
 
   const togglePromoCode = (id: string) => {
@@ -605,6 +531,18 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
   };
 
   // Review Moderation Actions
+  const addReview = (reviewData: Omit<CustomerReview, "id" | "date" | "helpfulCount">) => {
+    const id = `rev-${Date.now()}`;
+    const newRev: CustomerReview = {
+      ...reviewData,
+      id,
+      date: "Just now",
+      helpfulCount: 0,
+    };
+    setReviews((prev) => [newRev, ...prev]);
+    addToast("Review Submitted", "Thank you for reviewing this product.", "success");
+  };
+
   const deleteReview = (id: string) => {
     setReviews((prev) => prev.filter((r) => r.id !== id));
     addToast("Review Deleted", "Customer testimonial removed.", "info");
@@ -632,14 +570,6 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
   };
 
   // Toast notifications
-=======
-  useEffect(() => {
-    try {
-      localStorage.setItem("shopnest_orders", JSON.stringify(placedOrders));
-    } catch {}
-  }, [placedOrders]);
-
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
   const addToast = (
     title: string,
     message: string,
@@ -691,8 +621,8 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
 
     setIsCartOpen(true);
     addToast(
-      "Item Added to Bag",
-      `${product.name} (x${quantity}) added to bag.`,
+      "Item Added to Cart",
+      `${product.name} (x${quantity}) added to cart.`,
       "success",
       product.images[0]
     );
@@ -750,15 +680,14 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     0
   );
 
-<<<<<<< HEAD
   // Indian Rupee & Multi-currency formatted prices
   const formatPrice = (amountInINR: number) => {
     const rateInfo = CURRENCY_RATES[currency] || CURRENCY_RATES.INR;
     const converted = (amountInINR || 0) * rateInfo.rate;
     if (currency === "INR") {
       return `₹${converted.toLocaleString("en-IN", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
       })}`;
     }
     return `${rateInfo.symbol}${converted.toLocaleString("en-US", {
@@ -767,8 +696,6 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     })}`;
   };
 
-=======
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
   const applyCoupon = (code: string) => {
     const cleanCode = code.trim().toUpperCase();
     const found = promoCodes.find((p) => p.code === cleanCode);
@@ -790,28 +717,12 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
       );
       addToast(
         "Code Applied",
-<<<<<<< HEAD
-        `Code ${cleanCode} applied: ${found.discountPercent}% off.`,
-=======
-        `Code ${cleanCode} applied: 20% concession.`,
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
+        `Code ${cleanCode} applied: ${found.discountPercent}% discount.`,
         "success"
       );
       return { success: true, message: `${found.discountPercent}% discount applied.` };
     }
-<<<<<<< HEAD
 
-    return { success: false, message: "Invalid promo code. Try 'NEST20'" };
-=======
-    if (cleanCode === "WELCOME10") {
-      setAppliedCoupon({ code: cleanCode, discountPercent: 10 });
-      addToast(
-        "Code Applied",
-        "Code WELCOME10 applied: 10% concession.",
-        "success"
-      );
-      return { success: true, message: "10% discount applied." };
-    }
     if (cleanCode === "FREESHIP") {
       setAppliedCoupon({ code: cleanCode, discountPercent: 0, isFreeShipping: true });
       addToast(
@@ -821,8 +732,8 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
       );
       return { success: true, message: "Free Express Delivery unlocked." };
     }
-    return { success: false, message: "Invalid code. Try 'NEST20' or 'VIP20'" };
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
+
+    return { success: false, message: "Invalid promo code. Try 'NEST20' or 'WELCOME10'" };
   };
 
   const removeCoupon = () => {
@@ -830,7 +741,12 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     addToast("Code Removed", "Discount removed.", "info");
   };
 
-  const placeOrder = (orderData: Omit<Order, "id" | "date" | "status" | "trackingNumber" | "estimatedDelivery" | "timeline">): Order => {
+  const placeOrder = (
+    orderData: Omit<
+      Order,
+      "id" | "date" | "status" | "trackingNumber" | "estimatedDelivery" | "timeline"
+    >
+  ): Order => {
     const randomNum = Math.floor(100000 + Math.random() * 900000);
     const orderId = `SN-${randomNum}`;
     const trackingNumber = `BD-IN-${randomNum + 420}`;
@@ -843,8 +759,14 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     const newOrder: Order = {
       ...orderData,
       id: orderId,
+      orderNumber: orderId,
+      customerName: orderData.customer?.fullName || orderData.customerName || "Customer",
+      customerEmail: orderData.customer?.email || orderData.customerEmail || "",
+      customerPhone: orderData.customer?.phone || orderData.customerPhone || "",
+      shippingAddress: orderData.customer?.address || orderData.shippingAddress || "",
       date: today,
       status: "confirmed",
+      paymentStatus: "paid",
       trackingNumber,
       estimatedDelivery: "Within 2-3 Business Days",
       timeline: [
@@ -887,6 +809,7 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     };
 
     setPlacedOrders((prev) => [newOrder, ...prev]);
+    setOrders((prev) => [newOrder, ...prev]);
     setActiveTrackingOrder(newOrder);
     clearCart();
     setAppliedCoupon(null);
@@ -901,7 +824,8 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     const found = placedOrders.find(
       (o) =>
         o.id.toUpperCase() === clean ||
-        o.trackingNumber.toUpperCase() === clean ||
+        (o.orderNumber && o.orderNumber.toUpperCase() === clean) ||
+        (o.trackingNumber && o.trackingNumber.toUpperCase() === clean) ||
         o.id.toUpperCase().includes(clean)
     );
 
@@ -954,6 +878,7 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
         togglePromoCode,
         deletePromoCode,
         reviews,
+        addReview,
         deleteReview,
         toggleReviewVerified,
         toasts,
@@ -971,9 +896,7 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
         removeCoupon,
         theme,
         toggleTheme,
-<<<<<<< HEAD
         resetToDefaultData,
-=======
         isCheckoutOpen,
         setIsCheckoutOpen,
         isOrderTrackerOpen,
@@ -983,7 +906,6 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
         setActiveTrackingOrder,
         placeOrder,
         trackOrderByNumber,
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
       }}
     >
       {children}

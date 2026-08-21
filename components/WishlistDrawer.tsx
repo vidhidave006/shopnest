@@ -183,7 +183,7 @@ export function WishlistDrawer() {
               className="px-8 py-3.5 rounded-2xl bg-black hover:bg-zinc-800 text-white dark:bg-white dark:hover:bg-zinc-200 dark:text-black font-mono font-black text-xs uppercase tracking-[0.14em] flex items-center justify-center gap-2 shadow-lg cursor-pointer active:scale-95 transition-all sm:w-auto w-full"
             >
               <ShoppingBag className="w-4 h-4" />
-              <span>Move All to Bag ({wishlist.length})</span>
+              <span>Move All to Cart ({wishlist.length})</span>
             </button>
           </div>
         )}

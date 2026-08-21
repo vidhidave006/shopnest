@@ -36,7 +36,7 @@ export function ProductCard({ product }: ProductCardProps) {
     product.images[currentImageIndex] || product.images[0];
 
   return (
-    <div className="group relative bg-white dark:bg-zinc-950 rounded-3xl p-4 sm:p-5 border border-zinc-200/80 dark:border-zinc-800/80 hover:border-zinc-400 dark:hover:border-zinc-600 transition-all duration-300 flex flex-col justify-between shadow-xs hover:shadow-xl">
+    <div className="group relative bg-white dark:bg-zinc-950 rounded-3xl p-4 sm:p-5 border border-zinc-200/80 dark:border-zinc-800/80 hover:border-zinc-400 dark:hover:border-zinc-600 transition-all duration-300 flex flex-col justify-between shadow-xs luxury-card">
       {/* Product Image Frame */}
       <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-zinc-100 dark:bg-black mb-4">
         <Link href={`/products/${product.id}`} className="block relative w-full h-full">
@@ -85,10 +85,10 @@ export function ProductCard({ product }: ProductCardProps) {
         </button>
 
         {/* Quick View Button Hover Overlay */}
-        <div className="absolute inset-x-3 bottom-3 opacity-0 group-hover:opacity-100 transition-all duration-200 z-10">
+        <div className="absolute inset-x-3 bottom-3 opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 translate-y-2 group-hover:translate-y-0">
           <button
             onClick={() => openQuickView(product)}
-            className="w-full py-2.5 rounded-xl bg-black/90 dark:bg-white/95 text-white dark:text-black text-xs font-mono font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 backdrop-blur-md shadow-xl cursor-pointer"
+            className="w-full py-2.5 rounded-xl bg-black/90 dark:bg-white/95 text-white dark:text-black text-xs font-mono font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 backdrop-blur-md shadow-xl cursor-pointer luxury-btn-shine"
           >
             <Eye className="w-3.5 h-3.5" /> Quick Preview
           </button>
@@ -160,7 +160,7 @@ export function ProductCard({ product }: ProductCardProps) {
                 product.sizes ? product.sizes[0] : undefined
               )
             }
-            className="px-3.5 py-2 rounded-xl bg-black hover:bg-zinc-800 text-white dark:bg-white dark:hover:bg-zinc-200 dark:text-black text-xs font-bold font-mono uppercase tracking-[0.1em] flex items-center gap-1.5 transition-all shadow-xs cursor-pointer active:scale-95"
+            className="px-3.5 py-2 rounded-xl bg-black hover:bg-zinc-800 text-white dark:bg-white dark:hover:bg-zinc-200 dark:text-black text-xs font-bold font-mono uppercase tracking-[0.1em] flex items-center gap-1.5 transition-all shadow-xs cursor-pointer active:scale-95 luxury-btn-shine"
           >
             <ShoppingBag className="w-3.5 h-3.5" />
             <span>Add</span>

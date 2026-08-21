@@ -101,8 +101,8 @@ export function AdminSettings() {
     }
   };
 
-  const [storeName, setStoreName] = useState("ShopNest Monochrome Edition");
-  const [supportEmail, setSupportEmail] = useState("concierge@shopnest.in");
+  const [storeName, setStoreName] = useState("Cherry Monochrome Edition");
+  const [supportEmail, setSupportEmail] = useState("concierge@cherry.in");
   const [freeShippingThreshold, setFreeShippingThreshold] = useState(2999);
   const [taxRate, setTaxRate] = useState(18.0); // Standard GST in India
   const [shippingProvider, setShippingProvider] = useState("bluedart-carbon");

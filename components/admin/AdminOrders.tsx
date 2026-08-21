@@ -70,9 +70,9 @@ export function AdminOrders({ onSelectOrder }: AdminOrdersProps) {
         }
         if (search.trim()) {
           const q = search.toLowerCase();
-          const matchNum = ord.orderNumber.toLowerCase().includes(q);
-          const matchName = ord.customerName.toLowerCase().includes(q);
-          const matchEmail = ord.customerEmail.toLowerCase().includes(q);
+          const matchNum = (ord.orderNumber || ord.id || "").toLowerCase().includes(q);
+          const matchName = (ord.customerName || ord.customer?.fullName || "").toLowerCase().includes(q);
+          const matchEmail = (ord.customerEmail || ord.customer?.email || "").toLowerCase().includes(q);
           if (!matchNum && !matchName && !matchEmail) return false;
         }
         return true;
@@ -260,7 +260,7 @@ export function AdminOrders({ onSelectOrder }: AdminOrdersProps) {
                                 className="relative w-8 h-8 rounded-lg overflow-hidden border border-white dark:border-zinc-900 bg-zinc-100 dark:bg-zinc-800"
                               >
                                 <Image
-                                  src={item.image}
+                                  src={item.image || "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800"}
                                   alt={item.name}
                                   fill
                                   className="object-cover"

@@ -223,7 +223,7 @@ export function OrderDetailModal({
                   <MapPin className="w-3.5 h-3.5" /> Shipping Destination
                 </div>
                 <button
-                  onClick={() => copyToClipboard(order.shippingAddress, "Address")}
+                  onClick={() => copyToClipboard(order.shippingAddress || order.customer?.address || "", "Address")}
                   className="text-zinc-400 hover:text-black dark:hover:text-white"
                   title="Copy address"
                 >
@@ -231,7 +231,7 @@ export function OrderDetailModal({
                 </button>
               </div>
               <p className="text-zinc-700 dark:text-zinc-300 text-xs leading-relaxed">
-                {order.shippingAddress}
+                {order.shippingAddress || order.customer?.address || "No address provided"}
               </p>
               <div className="flex items-center gap-1 text-[10px] text-zinc-400 pt-1">
                 <ShieldCheck className="w-3 h-3 text-zinc-400" />
@@ -250,7 +250,13 @@ export function OrderDetailModal({
                 <div key={idx} className="p-3.5 flex items-center justify-between gap-4 bg-white dark:bg-zinc-950">
                   <div className="flex items-center gap-3">
                     <div className="relative w-12 h-12 rounded-lg overflow-hidden shrink-0 border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900">
-                      <Image src={item.image} alt={item.name} fill className="object-cover" unoptimized />
+                      <Image
+                        src={item.image || "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800"}
+                        alt={item.name}
+                        fill
+                        className="object-cover"
+                        unoptimized
+                      />
                     </div>
                     <div>
                       <h4 className="font-bold text-black dark:text-white text-xs leading-snug line-clamp-1">

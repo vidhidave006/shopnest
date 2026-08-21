@@ -51,11 +51,11 @@ export function Footer() {
           {/* Logo */}
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-xl bg-white text-black flex items-center justify-center font-black text-xs font-mono shadow-sm">
-              SN
+              CH
             </div>
             <div>
               <span className="text-lg font-black text-white tracking-tight">
-                SHOPNEST
+                CHERRY
               </span>
               <span className="text-[9px] text-zinc-500 block tracking-[0.2em] uppercase font-bold">
                 ATELIER
@@ -100,7 +100,7 @@ export function Footer() {
 
         {/* Bottom Legal & Payment Badges */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[10.5px] text-zinc-500 font-mono tracking-wider">
-          <p>&copy; {new Date().getFullYear()} SHOPNEST ATELIER. ALL RIGHTS RESERVED.</p>
+          <p>&copy; {new Date().getFullYear()} CHERRY ATELIER. ALL RIGHTS RESERVED.</p>
           <div className="flex items-center gap-3 text-zinc-400">
             <span>256-BIT ENCRYPTED</span>
             <span>•</span>

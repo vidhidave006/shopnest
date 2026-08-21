@@ -50,7 +50,7 @@ export function CategoryGrid() {
             <div
               key={cat.id}
               onClick={() => handleCategoryClick(cat.name)}
-              className="group relative h-80 sm:h-96 rounded-3xl overflow-hidden cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500 border border-zinc-200 dark:border-zinc-800 bg-zinc-900"
+              className="group relative h-80 sm:h-96 rounded-3xl overflow-hidden cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500 border border-zinc-200 dark:border-zinc-800 bg-zinc-900 luxury-card"
             >
               {/* Background Image */}
               <Image

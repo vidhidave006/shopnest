@@ -151,7 +151,7 @@ export function ProductFormModal({
   }, []);
 
   const brandOptions: CustomSelectOption[] = [
-    { value: "ShopNest Studio", label: "ShopNest Studio", description: "In-house minimalist flagship", icon: <Briefcase className="w-3.5 h-3.5" /> },
+    { value: "Cherry Studio", label: "Cherry Studio", description: "In-house minimalist flagship", icon: <Briefcase className="w-3.5 h-3.5" /> },
     { value: "Aura Acoustic Labs", label: "Aura Acoustic Labs", description: "High-fidelity audio & acoustics" },
     { value: "Lumina Minimalist", label: "Lumina Minimalist", description: "Smart precision wearables" },
     { value: "Heritage Leathercraft", label: "Heritage Leathercraft", description: "Handcrafted artisan leather" },
@@ -161,7 +161,7 @@ export function ProductFormModal({
   ];
 
   const warrantyOptions: CustomSelectOption[] = [
-    { value: "2-Year ShopNest Global Concierge", label: "2-Year Global Concierge Warranty", description: "Full accidental & hardware repair", icon: <Shield className="w-3.5 h-3.5" /> },
+    { value: "2-Year Cherry Global Concierge", label: "2-Year Global Concierge Warranty", description: "Full accidental & hardware repair", icon: <Shield className="w-3.5 h-3.5" /> },
     { value: "3-Year Extended Luxury Care", label: "3-Year Extended Luxury Care", description: "VIP replacement guarantee", badge: "VIP" },
     { value: "1-Year Limited Craftsmanship Warranty", label: "1-Year Limited Craftsmanship Warranty", description: "Standard component protection" },
     { value: "Lifetime Leather Guarantee", label: "Lifetime Leather Guarantee", description: "Artisan repair for life" },
@@ -176,7 +176,7 @@ export function ProductFormModal({
   useEffect(() => {
     if (initialProduct) {
       setName(initialProduct.name);
-      setBrand(initialProduct.brand || "ShopNest Studio");
+      setBrand(initialProduct.brand || "Cherry Studio");
       setCategory(initialProduct.category);
       setPrice(initialProduct.price != null ? Number(initialProduct.price).toFixed(2) : "");
       setOriginalPrice(
@@ -196,11 +196,11 @@ export function ProductFormModal({
       setFeaturesInput((initialProduct.features || []).join("\n"));
       setColorName(initialProduct.colors[0]?.name || "Obsidian Black");
       setColorHex(initialProduct.colors[0]?.hex || "#111111");
-      setWarrantyTier(initialProduct.specs?.Warranty || "2-Year ShopNest Global Concierge");
+      setWarrantyTier(initialProduct.specs?.Warranty || "2-Year Cherry Global Concierge");
       setShippingTier(initialProduct.specs?.Shipping || "Complimentary Carbon-Neutral Express");
     } else {
       setName("");
-      setBrand("ShopNest Studio");
+      setBrand("Cherry Studio");
       setCategory(CATEGORIES[0].name);
       setPrice("23999.00");
       setOriginalPrice("");
@@ -216,12 +216,12 @@ export function ProductFormModal({
       setFeaturesInput("Precision CNC-machined enclosure\nHigh-fidelity acoustic tuning\nUSB-C Fast Charging");
       setColorName("Obsidian Black");
       setColorHex("#111111");
-      setWarrantyTier("2-Year ShopNest Global Concierge");
+      setWarrantyTier("2-Year Cherry Global Concierge");
       setShippingTier("Complimentary Carbon-Neutral Express");
     }
   }, [initialProduct, isOpen]);
 
-  const applyPreset = (preset: typeof samplePresets[0]) => {
+  const applyPreset = (preset: any) => {
     setName(preset.title);
     setBrand(preset.brand);
     setCategory(preset.category);

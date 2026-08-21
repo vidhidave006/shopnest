@@ -113,17 +113,17 @@ export function InformationalHome() {
 
   const faqs = [
     {
-      question: "Why does ShopNest focus exclusively on monochrome design?",
+      question: "Why does Cherry focus exclusively on monochrome design?",
       answer:
         "Color often acts as visual noise or fleeting trend decoration. By constraining our palette to pure blacks, titanium grays, and stark whites, we focus entirely on structural integrity, material texture, precision engineering, and enduring timelessness.",
     },
     {
-      question: "Where are ShopNest products designed and manufactured?",
+      question: "Where are Cherry products designed and manufactured?",
       answer:
         "Our industrial design and acoustic engineering teams operate out of Bengaluru, India. Enclosures are CNC-machined from certified aerospace-grade titanium and assembled under cleanroom conditions with strict multi-stage quality calibration.",
     },
     {
-      question: "What is the ShopNest Concierge Warranty policy?",
+      question: "What is the Cherry Concierge Warranty policy?",
       answer:
         "All hardware essentials include our 2-Year Comprehensive Concierge Warranty with doorstep pickup, genuine modular component servicing, and priority technical support.",
     },
@@ -164,7 +164,7 @@ export function InformationalHome() {
 
             {/* Subtext */}
             <p className="mt-6 text-base sm:text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl font-normal leading-relaxed">
-              ShopNest is an independent design laboratory exploring the convergence of aerospace metallurgy, acoustic fidelity, and radical minimalism. Built for those who find clarity in black and white.
+              Cherry is an independent design laboratory exploring the convergence of aerospace metallurgy, acoustic fidelity, and radical minimalism. Built for those who find clarity in black and white.
             </p>
 
             {/* Action CTAs */}
@@ -235,7 +235,7 @@ export function InformationalHome() {
                 CORE PHILOSOPHY
               </span>
               <h2 className="text-3xl sm:text-4xl font-black uppercase text-black dark:text-white tracking-tight mt-1">
-                The Three Pillars of ShopNest
+                The Three Pillars of Cherry
               </h2>
               <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-2">
                 Every hardware piece we develop is strictly governed by three non-negotiable design principles.
@@ -297,7 +297,7 @@ export function InformationalHome() {
                   Craftsmanship & Architecture
                 </h2>
                 <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1 max-w-xl">
-                  Inspect the physical elements that constitute the ShopNest monochrome hardware universe.
+                  Inspect the physical elements that constitute the Cherry monochrome hardware universe.
                 </p>
               </div>
             </div>
@@ -463,7 +463,7 @@ export function InformationalHome() {
                 CHRONOLOGY
               </span>
               <h2 className="text-3xl sm:text-4xl font-black uppercase text-black dark:text-white tracking-tight mt-1">
-                Evolution of ShopNest
+                Evolution of Cherry
               </h2>
               <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-2">
                 From an experimental design concept in Bengaluru to a celebrated monochrome hardware ecosystem.
@@ -509,7 +509,7 @@ export function InformationalHome() {
                   MINIMALISSIMO
                 </div>
                 <p className="text-xs text-zinc-300 italic leading-relaxed">
-                  "ShopNest strips away every distraction until all that remains is pure, sublime tactile craftsmanship. A masterclass in restrained industrial design."
+                  "Cherry strips away every distraction until all that remains is pure, sublime tactile craftsmanship. A masterclass in restrained industrial design."
                 </p>
               </div>
 
@@ -518,7 +518,7 @@ export function InformationalHome() {
                   MONOCLE MAGAZINE
                 </div>
                 <p className="text-xs text-zinc-300 italic leading-relaxed">
-                  "The tactile sensation of ShopNest titanium audio hardware rivals the finest horological manufacturing in Geneva. Exceptional attention to detail."
+                  "The tactile sensation of Cherry titanium audio hardware rivals the finest horological manufacturing in Geneva. Exceptional attention to detail."
                 </p>
               </div>
 
@@ -590,7 +590,7 @@ export function InformationalHome() {
                 </p>
               </div>
               <a
-                href="mailto:concierge@shopnest.in"
+                href="mailto:concierge@cherry.in"
                 className="px-5 py-2.5 rounded-xl bg-black dark:bg-white text-white dark:text-black font-mono font-bold uppercase text-xs tracking-wider hover:opacity-90 transition-opacity shadow-xs"
               >
                 Contact Concierge

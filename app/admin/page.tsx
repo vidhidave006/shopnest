@@ -164,12 +164,12 @@ export default function AdminPage() {
             className="flex items-center gap-3 text-left w-full group"
           >
             <div className="w-8 h-8 rounded-xl bg-black text-white flex items-center justify-center font-bold text-xs transition-transform group-hover:scale-105 shadow-xs font-mono">
-              SN
+              CH
             </div>
             <div>
               <div className="flex items-center gap-1.5">
                 <span className="font-bold text-sm tracking-tight text-black">
-                  SHOPNEST
+                  CHERRY
                 </span>
                 <span className="px-1.5 py-0.5 rounded bg-black text-white font-mono font-bold text-[9px] uppercase tracking-wider">
                   ADMIN
@@ -281,7 +281,7 @@ export default function AdminPage() {
                   title="Go to Admin Dashboard"
                 >
                   <div className="w-7 h-7 rounded-lg bg-black text-white flex items-center justify-center font-bold text-xs font-mono transition-transform group-hover:scale-105">
-                    SN
+                    CH
                   </div>
                   <span className="font-bold text-sm text-black">
                     ADMIN

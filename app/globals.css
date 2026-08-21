@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-plus-jakarta), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
 }
 
@@ -37,11 +37,7 @@
   body {
     background-color: var(--bg-main);
     color: var(--text-primary);
-<<<<<<< HEAD
-    font-family: var(--font-plus-jakarta), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-=======
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
     overflow-x: hidden;
     transition: background-color 0.25s ease, color 0.25s ease;
     letter-spacing: -0.015em;
@@ -97,8 +93,7 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-<<<<<<< HEAD
-  background: #71717a;
+  background: #3f3f46;
 }
 
 /* Subtle Shimmer for Skeleton loaders */
@@ -106,13 +101,102 @@
   0% {
     background-position: -200% 0;
   }
-
   100% {
     background-position: 200% 0;
   }
-=======
-  background: #3f3f46;
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
+}
+
+/* Luxury Smooth Levitation Animation */
+@keyframes luxuryFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(0.4deg);
+  }
+}
+
+/* Ambient Radial Glow Pulse */
+@keyframes ambientGlow {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.08);
+  }
+}
+
+/* Luxury Light Sheen Sweep */
+@keyframes sheenSweep {
+  0% {
+    transform: translateX(-150%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(250%) skewX(-20deg);
+  }
+}
+
+/* Subtle Breathing Halo */
+@keyframes breathingHalo {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05), inset 0 0 10px rgba(255, 255, 255, 0.02);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.15), inset 0 0 18px rgba(255, 255, 255, 0.08);
+  }
+}
+
+.animate-luxury-float {
+  animation: luxuryFloat 6s ease-in-out infinite;
+}
+
+.animate-ambient-glow {
+  animation: ambientGlow 8s ease-in-out infinite;
+}
+
+.animate-halo {
+  animation: breathingHalo 4s ease-in-out infinite;
+}
+
+/* Luxury Button with Interactive Light Sweep */
+.luxury-btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.luxury-btn-shine::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.22) 50%,
+    transparent 65%
+  );
+  transform: translateX(-150%) skewX(-20deg);
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.luxury-btn-shine:hover::after {
+  transform: translateX(150%) skewX(-20deg);
+}
+
+/* Luxury Card Glow on Hover */
+.luxury-card {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, box-shadow;
+}
+
+.luxury-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
 /* Hide scrollbar utility */

@@ -47,11 +47,10 @@ export function FlashDeals() {
     return () => clearInterval(timer);
   }, []);
 
-<<<<<<< HEAD
-  const flashProducts = products.filter((p) => p.isFlashDeal);
-=======
-  const flashProducts = PRODUCTS.filter((p) => p.isFlashDeal).slice(0, 3);
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
+  const flashProducts = (products.filter((p) => p.isFlashDeal).length > 0
+    ? products.filter((p) => p.isFlashDeal)
+    : products.slice(0, 3)
+  ).slice(0, 3);
 
   return (
     <section id="flash-deals" className="py-16 sm:py-24 bg-zinc-50 dark:bg-black border-b border-zinc-200 dark:border-zinc-900 transition-colors">
@@ -121,7 +120,7 @@ export function FlashDeals() {
             return (
               <div
                 key={product.id}
-                className="group relative bg-white dark:bg-zinc-950 rounded-3xl p-5 border border-zinc-200 dark:border-zinc-800/80 hover:border-zinc-400 dark:hover:border-zinc-600 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                className="group relative bg-white dark:bg-zinc-950 rounded-3xl p-5 border border-zinc-200 dark:border-zinc-800/80 hover:border-zinc-400 dark:hover:border-zinc-600 shadow-sm transition-all duration-300 flex flex-col justify-between luxury-card"
               >
                 {/* Image Frame */}
                 <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-zinc-100 dark:bg-black mb-4">
@@ -158,10 +157,10 @@ export function FlashDeals() {
                   </button>
 
                   {/* Quick Action Overlay */}
-                  <div className="absolute inset-x-3 bottom-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
+                  <div className="absolute inset-x-3 bottom-3 opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 translate-y-2 group-hover:translate-y-0">
                     <button
                       onClick={() => openQuickView(product)}
-                      className="w-full py-2.5 rounded-xl bg-black/90 dark:bg-white/95 text-white dark:text-black text-xs font-mono font-bold uppercase tracking-wider flex items-center justify-center gap-2 backdrop-blur-md shadow-xl cursor-pointer"
+                      className="w-full py-2.5 rounded-xl bg-black/90 dark:bg-white/95 text-white dark:text-black text-xs font-mono font-bold uppercase tracking-wider flex items-center justify-center gap-2 backdrop-blur-md shadow-xl cursor-pointer luxury-btn-shine"
                     >
                       <Eye className="w-4 h-4" /> Quick Preview
                     </button>
@@ -220,7 +219,7 @@ export function FlashDeals() {
 
                     <button
                       onClick={() => addToCart(product, 1)}
-                      className="px-4 py-2.5 rounded-xl bg-black hover:bg-zinc-800 text-white dark:bg-white dark:hover:bg-zinc-200 dark:text-black font-bold font-mono text-xs uppercase tracking-[0.12em] flex items-center gap-1.5 transition-all shadow-xs cursor-pointer active:scale-95"
+                      className="px-4 py-2.5 rounded-xl bg-black hover:bg-zinc-800 text-white dark:bg-white dark:hover:bg-zinc-200 dark:text-black font-bold font-mono text-xs uppercase tracking-[0.12em] flex items-center gap-1.5 transition-all shadow-xs cursor-pointer active:scale-95 luxury-btn-shine"
                     >
                       <ShoppingBag className="w-3.5 h-3.5" />
                       <span>Add to Cart</span>

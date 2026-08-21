@@ -7,11 +7,11 @@ import {
   X,
   Plus,
   Minus,
-  Trash2,
-  ShoppingBag,
+  ShoppingCart,
   ArrowRight,
-  Truck,
   ShieldCheck,
+  Truck,
+  Trash2,
   Tag,
 } from "lucide-react";
 
@@ -29,13 +29,8 @@ export function CartDrawer() {
     appliedCoupon,
     applyCoupon,
     removeCoupon,
-<<<<<<< HEAD
-    addToast,
-    addOrder,
-=======
     setIsCheckoutOpen,
     openQuickView,
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
   } = useShop();
 
   const [couponInput, setCouponInput] = useState("");
@@ -57,14 +52,9 @@ export function CartDrawer() {
 
   if (!isCartOpen) return null;
 
-<<<<<<< HEAD
   const FREE_SHIPPING_THRESHOLD = 2999;
-  const freeShippingUnlocked = cartSubtotal >= FREE_SHIPPING_THRESHOLD;
-=======
-  const FREE_SHIPPING_THRESHOLD = 60; // ~₹5,100
   const freeShippingUnlocked =
     cartSubtotal >= FREE_SHIPPING_THRESHOLD || appliedCoupon?.isFreeShipping;
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
   const shippingRemaining = Math.max(0, FREE_SHIPPING_THRESHOLD - cartSubtotal);
   const shippingPercent = Math.min(
     100,
@@ -74,13 +64,8 @@ export function CartDrawer() {
   const discountAmount = appliedCoupon
     ? (cartSubtotal * appliedCoupon.discountPercent) / 100
     : 0;
-<<<<<<< HEAD
   const shippingCost = freeShippingUnlocked || cart.length === 0 ? 0 : 199.00;
-  const estimatedTax = cartSubtotal * 0.18;
-=======
-  const shippingCost = freeShippingUnlocked || cart.length === 0 ? 0 : 5.88;
   const estimatedTax = (cartSubtotal - discountAmount) * 0.18;
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
   const finalTotal = cartSubtotal - discountAmount + shippingCost + estimatedTax;
 
   const handleApplyCoupon = (e: React.FormEvent) => {
@@ -95,52 +80,9 @@ export function CartDrawer() {
     }
   };
 
-<<<<<<< HEAD
-  const handleCheckout = () => {
-    if (cart.length === 0) return;
-    setIsCheckingOut(true);
-
-    const orderItems = cart.map((item) => ({
-      productId: item.product.id,
-      name: item.product.name,
-      price: item.product.price,
-      quantity: item.quantity,
-      image: item.product.images[0] || "",
-      selectedColor: item.selectedColor,
-      selectedSize: item.selectedSize,
-    }));
-
-    setTimeout(() => {
-      const createdOrder = addOrder({
-        customerName: "Guest VIP Customer",
-        customerEmail: "guest.customer@shopnest.io",
-        customerPhone: "+1 (555) 019-2834",
-        shippingAddress: "900 Market Street, Suite 400, San Francisco, CA 94102",
-        items: orderItems,
-        subtotal: Number(cartSubtotal.toFixed(2)),
-        discount: Number(discountAmount.toFixed(2)),
-        tax: Number(estimatedTax.toFixed(2)),
-        shipping: shippingCost,
-        total: Number(finalTotal.toFixed(2)),
-        status: "pending",
-        paymentMethod: "Apple Pay (Express)",
-        paymentStatus: "paid",
-      });
-
-      setIsCheckingOut(false);
-      clearCart();
-      setIsCartOpen(false);
-      addToast(
-        "Order Confirmed!",
-        `Order #${createdOrder.orderNumber} placed successfully. Track in Admin.`,
-        "success"
-      );
-    }, 1000);
-=======
   const handleProceedToCheckout = () => {
     setIsCartOpen(false);
     setIsCheckoutOpen(true);
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
   };
 
   return (
@@ -151,25 +93,25 @@ export function CartDrawer() {
         className="fixed inset-0 bg-black/85 backdrop-blur-md transition-opacity animate-in fade-in duration-200"
       />
 
-      {/* Centered Modal Card - Larger max-w-4xl */}
+      {/* Centered Modal Card - Spacious max-w-4xl */}
       <div className="relative bg-white dark:bg-zinc-950 text-black dark:text-white rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-2xl max-w-4xl w-full overflow-hidden z-10 my-auto flex flex-col max-h-[88vh] animate-in fade-in zoom-in-95 duration-200">
         {/* Header */}
         <div className="px-7 py-5 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between bg-zinc-50/50 dark:bg-zinc-900/50">
           <div className="flex items-center gap-3.5">
             <div className="w-10 h-10 rounded-2xl bg-black dark:bg-white text-white dark:text-black flex items-center justify-center border border-zinc-200 dark:border-zinc-800 shadow-xs">
-              <ShoppingBag className="w-5 h-5" />
+              <ShoppingCart className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2.5">
                 <h2 className="text-base font-bold uppercase tracking-[0.14em]">
-                  Curated Bag
+                  Shopping Cart
                 </h2>
                 <span className="px-2.5 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-mono font-bold">
                   {cartCount} {cartCount === 1 ? "ITEM" : "ITEMS"}
                 </span>
               </div>
               <span className="text-[11px] font-mono text-zinc-400">
-                {cartCount === 1 ? "1 OBJECT CURRENTLY RESERVED" : `${cartCount} OBJECTS CURRENTLY RESERVED`}
+                {cartCount === 1 ? "1 OBJECT IN CART" : `${cartCount} OBJECTS IN CART`}
               </span>
             </div>
           </div>
@@ -179,9 +121,9 @@ export function CartDrawer() {
               <button
                 onClick={clearCart}
                 className="text-xs font-mono text-zinc-400 hover:text-rose-500 px-2.5 py-1.5 rounded-lg hover:bg-rose-500/10 transition-colors cursor-pointer"
-                title="Empty entire bag"
+                title="Empty entire cart"
               >
-                Clear Bag
+                Clear Cart
               </button>
             )}
             <button
@@ -198,11 +140,11 @@ export function CartDrawer() {
           /* Empty State */
           <div className="py-20 px-6 text-center space-y-5 font-mono">
             <div className="w-16 h-16 rounded-2xl bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center mx-auto text-zinc-400 border border-zinc-200 dark:border-zinc-800">
-              <ShoppingBag className="w-7 h-7" />
+              <ShoppingCart className="w-7 h-7" />
             </div>
             <div className="space-y-1.5">
               <h3 className="text-base font-bold uppercase text-black dark:text-white">
-                Your Bag Is Empty
+                Your Cart Is Empty
               </h3>
               <p className="text-xs sm:text-sm text-zinc-400 max-w-sm mx-auto">
                 Discover our titanium timepieces, spatial audio, and minimalist apparel in the vault.
@@ -221,7 +163,7 @@ export function CartDrawer() {
             {/* Left Column: Items List */}
             <div className="md:col-span-7 flex flex-col overflow-hidden">
               <div className="px-6 py-3 bg-zinc-50/70 dark:bg-zinc-900/30 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between text-xs font-mono text-zinc-400">
-                <span>ITEMS IN BAG ({cart.length})</span>
+                <span>ITEMS IN CART ({cart.length})</span>
                 <span>UNIT / QTY</span>
               </div>
 
@@ -382,7 +324,7 @@ export function CartDrawer() {
                     <div className="flex items-center justify-between text-xs font-mono border border-zinc-700 bg-zinc-900 text-zinc-300 px-3 py-1.5 rounded-xl">
                       <span className="flex items-center gap-1.5">
                         <Tag className="w-3.5 h-3.5 text-emerald-400" />
-                        <span>PRIVILEGE {appliedCoupon.code} (-{appliedCoupon.discountPercent}%)</span>
+                        <span>CODE {appliedCoupon.code} (-{appliedCoupon.discountPercent}%)</span>
                       </span>
                       <button onClick={removeCoupon} className="text-zinc-400 hover:text-white cursor-pointer p-0.5">
                         <X className="w-3.5 h-3.5" />
@@ -401,14 +343,14 @@ export function CartDrawer() {
                   </div>
                   {appliedCoupon && (
                     <div className="flex justify-between text-emerald-600 dark:text-emerald-400 font-bold">
-                      <span>CONCESSION ({appliedCoupon.code})</span>
+                      <span>DISCOUNT ({appliedCoupon.code})</span>
                       <span>-{formatPrice(discountAmount)}</span>
                     </div>
                   )}
                   <div className="flex justify-between">
                     <span>AIR DISPATCH</span>
                     <span className="font-bold text-black dark:text-white">
-                      {shippingCost === 0 ? "COMPLIMENTARY" : formatPrice(shippingCost)}
+                      {shippingCost === 0 ? "FREE" : formatPrice(shippingCost)}
                     </span>
                   </div>
                   <div className="flex justify-between text-lg font-black text-black dark:text-white pt-2.5 border-t border-zinc-200 dark:border-zinc-800">

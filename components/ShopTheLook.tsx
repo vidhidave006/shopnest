@@ -51,11 +51,7 @@ export function ShopTheLook() {
           {/* Hotspots */}
           {LOOKBOOK_HOTSPOTS.map((hotspot) => {
             const isActive = activeHotspotId === hotspot.id;
-<<<<<<< HEAD
-            const fullProduct = products.find((p) => p.id === hotspot.productId);
-=======
-            const fullProduct = PRODUCTS.find((p) => p.id === hotspot.productId) || PRODUCTS[0];
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
+            const fullProduct = products.find((p) => p.id === hotspot.productId) || products[0];
 
             return (
               <div
@@ -114,7 +110,7 @@ export function ShopTheLook() {
                         onClick={() => {
                           if (fullProduct) addToCart(fullProduct, 1);
                         }}
-                        className="py-2.5 px-3 rounded-xl bg-white hover:bg-zinc-200 text-black text-[11px] font-black uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors shadow-sm cursor-pointer active:scale-95"
+                        className="py-2.5 px-3 rounded-xl bg-white hover:bg-zinc-200 text-black text-[11px] font-black uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors shadow-sm cursor-pointer active:scale-95 luxury-btn-shine"
                       >
                         <ShoppingBag className="w-3 h-3" />
                         <span>Add to Cart</span>

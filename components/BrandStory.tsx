@@ -38,7 +38,7 @@ export function BrandStory() {
             <div className="relative aspect-4/5 rounded-3xl overflow-hidden shadow-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-900">
               <Image
                 src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=1000&auto=format&fit=crop&q=80"
-                alt="ShopNest Craftsmanship"
+                alt="Cherry Craftsmanship"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 500px"

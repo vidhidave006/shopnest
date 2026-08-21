@@ -8,6 +8,7 @@ import { QuickViewModal } from "@/components/QuickViewModal";
 import { WishlistDrawer } from "@/components/WishlistDrawer";
 import { CheckoutModal } from "@/components/CheckoutModal";
 import { OrderTrackerModal } from "@/components/OrderTrackerModal";
+import { SnowfallBackground } from "@/components/SnowfallBackground";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
@@ -26,15 +27,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ShopNest — Monochrome Lifestyle & Curated Essentials",
+  title: "Cherry — Monochrome Lifestyle & Curated Essentials",
   description:
-    "Discover high-fidelity spatial audio, titanium smartwatches, and minimalist apparel at ShopNest.",
+    "Discover high-fidelity spatial audio, titanium smartwatches, and minimalist apparel at Cherry.",
   keywords: [
     "e-commerce",
     "monochrome",
     "black and white",
     "minimalist",
-    "shopnest",
+    "cherry",
   ],
 };
 
@@ -48,8 +49,9 @@ export default function RootLayout({
       lang="en"
       className={`${plusJakartaSans.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
     >
-      <body className="min-h-full flex flex-col bg-white dark:bg-black text-black dark:text-white selection:bg-white selection:text-black dark:selection:bg-white dark:selection:text-black transition-colors duration-200 font-sans">
+      <body className="min-h-full flex flex-col bg-white dark:bg-black text-black dark:text-white selection:bg-white selection:text-black dark:selection:bg-white dark:selection:text-black transition-colors duration-200 font-sans relative">
         <ShopProvider>
+          <SnowfallBackground />
           {children}
           <CartDrawer />
           <QuickViewModal />

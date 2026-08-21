@@ -14,6 +14,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Zap,
+  Sparkles,
 } from "lucide-react";
 
 export function Hero() {
@@ -84,7 +85,7 @@ export function Hero() {
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
               <Link
                 href="/products"
-                className="px-8 py-4 rounded-xl bg-white hover:bg-zinc-200 text-black text-xs font-mono font-black uppercase tracking-[0.16em] flex items-center gap-2.5 transition-all shadow-md hover:scale-[1.02] active:scale-95 cursor-pointer"
+                className="px-8 py-4 rounded-xl bg-white hover:bg-zinc-200 text-black text-xs font-mono font-black uppercase tracking-[0.16em] flex items-center gap-2.5 transition-all shadow-md hover:scale-[1.02] active:scale-95 cursor-pointer luxury-btn-shine"
               >
                 <span>Explore Collection</span>
                 <ArrowRight className="w-4 h-4" />
@@ -92,7 +93,7 @@ export function Hero() {
 
               <button
                 onClick={() => openQuickView(currentProduct)}
-                className="px-7 py-4 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 text-zinc-200 border border-zinc-800 text-xs font-mono font-bold uppercase tracking-[0.14em] transition-all flex items-center gap-2 backdrop-blur-md cursor-pointer active:scale-95 shadow-sm"
+                className="px-7 py-4 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 text-zinc-200 border border-zinc-800 text-xs font-mono font-bold uppercase tracking-[0.14em] transition-all flex items-center gap-2 backdrop-blur-md cursor-pointer active:scale-95 shadow-sm hover:border-zinc-600"
               >
                 <Eye className="w-4 h-4 text-zinc-400" />
                 <span>Inspect Object</span>
@@ -110,8 +111,8 @@ export function Hero() {
                   onClick={() => setActiveIndex(idx)}
                   className={`h-8 px-3.5 rounded-lg text-xs font-mono font-bold tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
                     activeIndex === idx
-                      ? "bg-zinc-800 text-white border border-zinc-600 shadow-sm"
-                      : "bg-zinc-950 text-zinc-500 hover:text-zinc-300 border border-zinc-900"
+                      ? "bg-zinc-800 text-white border border-zinc-500 shadow-xs scale-105"
+                      : "bg-zinc-950 text-zinc-500 hover:text-zinc-300 border border-zinc-900 hover:border-zinc-800"
                   }`}
                 >
                   <span className="text-zinc-300">0{idx + 1}</span>
@@ -124,12 +125,16 @@ export function Hero() {
           </div>
 
           {/* Right Column: Spotlight Product Glass Card */}
-          <div className="lg:col-span-5">
-            <div className="relative bg-zinc-950/95 backdrop-blur-2xl border border-zinc-800 hover:border-zinc-700 rounded-3xl p-6 shadow-2xl transition-all duration-300 group clean-card-hover">
+          <div className="lg:col-span-5 relative">
+            {/* Ambient backlight glow */}
+            <div className="absolute -inset-6 bg-gradient-to-tr from-white/15 via-zinc-400/10 to-transparent rounded-3xl blur-3xl animate-ambient-glow pointer-events-none" />
+
+            <div className="relative bg-zinc-950/95 backdrop-blur-2xl border border-zinc-800 hover:border-zinc-700 rounded-3xl p-6 shadow-2xl transition-all duration-500 group animate-luxury-float">
               {/* Top Banner inside card */}
               <div className="flex items-center justify-between mb-4">
-                <span className="px-3 py-1 rounded-full bg-zinc-900 text-zinc-300 text-[10px] font-mono font-bold uppercase tracking-widest border border-zinc-800">
-                  Curated Highlight
+                <span className="px-3 py-1 rounded-full bg-zinc-900 text-zinc-300 text-[10px] font-mono font-bold uppercase tracking-widest border border-zinc-800 flex items-center gap-1.5 animate-halo">
+                  <Sparkles className="w-3 h-3 text-white" />
+                  <span>Curated Highlight</span>
                 </span>
 
                 <div className="flex items-center gap-1.5">
@@ -139,7 +144,7 @@ export function Hero() {
                         (prev) => (prev - 1 + heroProducts.length) % heroProducts.length
                       )
                     }
-                    className="p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-300 transition-colors cursor-pointer border border-zinc-800"
+                    className="p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-300 transition-colors cursor-pointer border border-zinc-800 hover:border-zinc-700"
                     aria-label="Previous Spotlight"
                   >
                     <ChevronLeft className="w-4 h-4" />
@@ -148,7 +153,7 @@ export function Hero() {
                     onClick={() =>
                       setActiveIndex((prev) => (prev + 1) % heroProducts.length)
                     }
-                    className="p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-300 transition-colors cursor-pointer border border-zinc-800"
+                    className="p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-300 transition-colors cursor-pointer border border-zinc-800 hover:border-zinc-700"
                     aria-label="Next Spotlight"
                   >
                     <ChevronRight className="w-4 h-4" />
@@ -248,7 +253,7 @@ export function Hero() {
                         currentProduct.sizes ? currentProduct.sizes[0] : undefined
                       )
                     }
-                    className="flex-1 py-3 px-4 rounded-xl bg-white hover:bg-zinc-200 text-black text-xs font-mono font-black uppercase tracking-[0.14em] flex items-center justify-center gap-2 transition-all shadow-sm active:scale-95 cursor-pointer"
+                    className="flex-1 py-3 px-4 rounded-xl bg-white hover:bg-zinc-200 text-black text-xs font-mono font-black uppercase tracking-[0.14em] flex items-center justify-center gap-2 transition-all shadow-sm active:scale-95 cursor-pointer luxury-btn-shine"
                   >
                     <ShoppingBag className="w-3.5 h-3.5" />
                     <span>Add to Cart</span>
@@ -266,17 +271,9 @@ export function Hero() {
             <span className="text-white font-bold">4.92 / 5.0 RATED</span>
             <span className="text-zinc-500">OVER 3,800+ PATRONS</span>
           </div>
-<<<<<<< HEAD
-          <span className="text-zinc-700 hidden sm:inline">&bull;</span>
-          <div className="flex items-center gap-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-white" />
-            <span>FREE EXPRESS SHIPPING ₹2,999+</span>
-=======
-
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-4 h-4 text-zinc-300" />
             <span>2-YEAR COMPREHENSIVE WARRANTY</span>
->>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
           </div>
 
           <div className="flex items-center gap-2">
