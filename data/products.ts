@@ -2,70 +2,77 @@ import { Product, Category, CustomerReview, LookbookHotspot, Order, PromoCode } 
 
 export const CATEGORIES: Category[] = [
   {
-    id: "tech-audio",
-    name: "Audio & Tech",
-    slug: "audio-tech",
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80",
-    itemCount: 42,
-    description: "High-fidelity sound & modern smart gadgets",
+    id: "fashion",
+    name: "Fashion",
+    slug: "fashion",
+    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop&q=80",
+    itemCount: 48,
+    description: "Designer streetwear, footwear & minimalist apparel",
     tag: "Trending",
   },
   {
-    id: "wearables",
-    name: "Smart Wearables",
-    slug: "smart-wearables",
-    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=80",
-    itemCount: 28,
-    description: "Precision health tracking & connected elegance",
-    tag: "Popular",
+    id: "electronic",
+    name: "Electronic",
+    slug: "electronic",
+    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80",
+    itemCount: 56,
+    description: "Spatial acoustic monitors, smart wearables & precision tech",
+    tag: "Best Sellers",
   },
   {
-    id: "apparel-footwear",
-    name: "Fashion & Footwear",
-    slug: "fashion-footwear",
-    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop&q=80",
-    itemCount: 65,
-    description: "Minimalist apparel & premium athletic sneakers",
-    tag: "New Drops",
-  },
-  {
-    id: "home-living",
-    name: "Home & Ambient",
-    slug: "home-ambient",
-    image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=800&auto=format&fit=crop&q=80",
-    itemCount: 39,
-    description: "Scandinavian lighting & artisan essentials",
-    tag: "Curated",
-  },
-  {
-    id: "skincare-wellness",
-    name: "Beauty & Wellness",
-    slug: "beauty-wellness",
+    id: "beauty",
+    name: "Beauty",
+    slug: "beauty",
     image: "https://images.unsplash.com/photo-1608248597359-0a562efaa432?w=800&auto=format&fit=crop&q=80",
-    itemCount: 31,
-    description: "Organic formulations & revitalizing self-care",
+    itemCount: 34,
+    description: "Bio-active elixirs, organic skincare & botanical care",
     tag: "Clean",
   },
   {
-    id: "lifestyle-travel",
-    name: "Travel & Everyday",
-    slug: "travel-everyday",
-    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&auto=format&fit=crop&q=80",
-    itemCount: 24,
-    description: "Handcrafted bags & aerodynamic carry goods",
-    tag: "Must-Have",
+    id: "home-appliances",
+    name: "Home Appliances",
+    slug: "home-appliances",
+    image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=800&auto=format&fit=crop&q=80",
+    itemCount: 29,
+    description: "Artisan espresso machines, smart air purifiers & blenders",
+    tag: "Curated",
+  },
+  {
+    id: "kids-toys",
+    name: "Kids & Toys",
+    slug: "kids-toys",
+    image: "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=800&auto=format&fit=crop&q=80",
+    itemCount: 22,
+    description: "Educational robotics, wooden Montessori sets & smart play",
+    tag: "New Drops",
+  },
+  {
+    id: "furniture",
+    name: "Furniture",
+    slug: "furniture",
+    image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&auto=format&fit=crop&q=80",
+    itemCount: 38,
+    description: "Architectural lounge chairs, solid oak tables & ambient lighting",
+    tag: "Signatures",
   },
 ];
 
 export const PRODUCTS: Product[] = [
+  // 1. ELECTRONIC
   {
     id: "prod-1",
     name: "Aura Studio Pro Wireless ANC Headphones",
     slug: "aura-studio-pro-wireless-anc-headphones",
     brand: "SonicWave",
+<<<<<<< HEAD
     category: "Audio & Tech",
     price: 23999.00,
     originalPrice: 28999.00,
+=======
+    category: "Electronic",
+    price: 289,
+    originalPrice: 349,
+>>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
     rating: 4.9,
     reviewsCount: 328,
     inStock: true,
@@ -104,9 +111,15 @@ export const PRODUCTS: Product[] = [
     name: "Lumina Apex Smartwatch Ultra (Titanium Edition)",
     slug: "lumina-apex-smartwatch-ultra",
     brand: "ChronosTech",
+<<<<<<< HEAD
     category: "Smart Wearables",
     price: 32999.00,
     originalPrice: 39999.00,
+=======
+    category: "Electronic",
+    price: 399,
+    originalPrice: 479,
+>>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
     rating: 4.85,
     reviewsCount: 215,
     inStock: true,
@@ -140,13 +153,60 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
+    id: "prod-7",
+    name: "Keychron Aerofit Custom Mechanical Keyboard",
+    slug: "keychron-aerofit-custom-mechanical-keyboard",
+    brand: "AeroTech",
+    category: "Electronic",
+    price: 179,
+    originalPrice: 219,
+    rating: 4.89,
+    reviewsCount: 278,
+    inStock: true,
+    stockCount: 11,
+    isFlashDeal: true,
+    flashDiscountPercent: 18,
+    images: [
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=800&auto=format&fit=crop&q=80",
+    ],
+    colors: [
+      { name: "Nordic Grey", hex: "#475569" },
+      { name: "Retro Cream", hex: "#fef3c7" },
+      { name: "Cyberpunk Violet", hex: "#8b5cf6" },
+    ],
+    tags: ["Gasket Mounted", "Hot-Swappable", "Wireless 2.4G & BT", "South-Facing RGB"],
+    description:
+      "CNC milled anodized aluminum body with gasket-mount silicone dampening, factory-lubed linear switches, and dye-sub PBT keycaps for creamy, thocky acoustics.",
+    features: [
+      "Custom double-gasket acoustic dampening structure",
+      "Hot-swappable 5-pin PCB with South-facing per-key RGB",
+      "Seamless Mac / Windows OS switch toggling",
+      "4000mAh battery providing up to 200 hours wireless use",
+    ],
+    specs: {
+      Layout: "75% Compact (84 Keys)",
+      Switches: "Factory Lubed Banana Split Linears",
+      Connectivity: "Tri-mode (Type-C / 2.4Ghz Dongle / Bluetooth 5.1)",
+      Frame: "CNC Machined 6063 Aluminum",
+    },
+  },
+
+  // 2. FASHION
+  {
     id: "prod-3",
     name: "CloudStride Neo Pulse Running Sneakers",
     slug: "cloudstride-neo-pulse-running-sneakers",
     brand: "AeroForm",
+<<<<<<< HEAD
     category: "Fashion & Footwear",
     price: 13999.00,
     originalPrice: 16999.00,
+=======
+    category: "Fashion",
+    price: 165,
+    originalPrice: 195,
+>>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
     rating: 4.92,
     reviewsCount: 440,
     inStock: true,
@@ -179,6 +239,7 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
+<<<<<<< HEAD
     id: "prod-4",
     name: "Nordic Amber Minimalist Concrete Desk Lamp",
     slug: "nordic-amber-minimalist-desk-lamp",
@@ -217,13 +278,21 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
+=======
+>>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
     id: "prod-5",
     name: "Heritage Full-Grain Leather Weekender Bag",
     slug: "heritage-full-grain-leather-weekender-bag",
     brand: "Vanguard Craft",
+<<<<<<< HEAD
     category: "Travel & Everyday",
     price: 18499.00,
     originalPrice: 22999.00,
+=======
+    category: "Fashion",
+    price: 345,
+    originalPrice: 420,
+>>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
     rating: 4.95,
     reviewsCount: 189,
     inStock: true,
@@ -240,7 +309,7 @@ export const PRODUCTS: Product[] = [
     ],
     tags: ["Italian Leather", "TSA Approved Size", "YKK Brass Zippers", "Lifetime Warranty"],
     description:
-      "Meticulously hand-stitched from vegetable-tanned full-grain Tuscan leather that develops a rich, distinctive patina with every journey. Features dedicated shoe and laptop compartments.",
+      "Meticulously hand-stitched from vegetable-tanned full-grain Tuscan leather that develops a rich patina with every journey. Features dedicated shoe and laptop compartments.",
     features: [
       "Separate ventilated shoe compartment",
       "Padded 16-inch MacBook sleeve with microfiber lining",
@@ -255,6 +324,7 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
+<<<<<<< HEAD
     id: "prod-6",
     name: "Botanica Bio-Active Vitamin C Hydrating Elixir",
     slug: "botanica-bio-active-vitamin-c-serum",
@@ -367,13 +437,21 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
+=======
+>>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
     id: "prod-9",
     name: "Atelier Organic Raw Linen Relaxed Shirt",
     slug: "atelier-organic-raw-linen-shirt",
     brand: "Maison Blanc",
+<<<<<<< HEAD
     category: "Fashion & Footwear",
     price: 8999.00,
     originalPrice: 11499.00,
+=======
+    category: "Fashion",
+    price: 110,
+    originalPrice: 140,
+>>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
     rating: 4.82,
     reviewsCount: 156,
     inStock: true,
@@ -404,14 +482,58 @@ export const PRODUCTS: Product[] = [
       Care: "Machine Wash Cold / Air Dry Flat",
     },
   },
+
+  // 3. BEAUTY
+  {
+    id: "prod-6",
+    name: "Botanica Bio-Active Vitamin C Hydrating Elixir",
+    slug: "botanica-bio-active-vitamin-c-serum",
+    brand: "PureBotanics",
+    category: "Beauty",
+    price: 68,
+    originalPrice: 85,
+    rating: 4.88,
+    reviewsCount: 512,
+    inStock: true,
+    stockCount: 35,
+    isBestSeller: true,
+    images: [
+      "https://images.unsplash.com/photo-1608248597359-0a562efaa432?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&auto=format&fit=crop&q=80",
+    ],
+    colors: [
+      { name: "Glass Dropper 50ml", hex: "#fde047" },
+    ],
+    tags: ["15% THD Ascorbate", "Hyaluronic Acid", "Vegan & Cruelty-Free", "Clean Beauty"],
+    description:
+      "A potent lipid-soluble vitamin C antioxidant formula paired with botanical squalane, ferulic acid, and marine algae to brighten tone, fade spots, and seal deep hydration.",
+    features: [
+      "Stabilized 15% THD Ascorbate (50x more effective than L-ascorbic acid)",
+      "Zero synthetic fragrance, parabens, or sulfates",
+      "Dermatologically tested for sensitive barrier types",
+      "UV-protective amber glass packaging",
+    ],
+    specs: {
+      Volume: "50 ml / 1.7 fl. oz.",
+      "Key Ingredients": "THD Ascorbate 15%, Pure Squalane, Micro-Hyaluronic Acid",
+      Origin: "Formulated in Kyoto & Paris",
+      "Skin Type": "All skin types (Dry, Normal, Combination, Sensitive)",
+    },
+  },
   {
     id: "prod-10",
     name: "Aetheria Ultrasonic Ceramic Aroma Diffuser",
     slug: "aetheria-ultrasonic-ceramic-aroma-diffuser",
     brand: "Aura Home",
+<<<<<<< HEAD
     category: "Beauty & Wellness",
     price: 6499.00,
     originalPrice: 8499.00,
+=======
+    category: "Beauty",
+    price: 88,
+    originalPrice: 110,
+>>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
     rating: 4.86,
     reviewsCount: 198,
     inStock: true,
@@ -439,6 +561,7 @@ export const PRODUCTS: Product[] = [
       Dimensions: "18cm x 9cm x 9cm",
     },
   },
+<<<<<<< HEAD
   {
     id: "prod-11",
     name: "Vanguard Obsidian Minimalist Leather Chelsea Boots",
@@ -476,10 +599,49 @@ export const PRODUCTS: Product[] = [
       Sole: "Vibram Commando Rubber Outsole",
       Construction: "Goodyear Welted (Resoleable)",
       Origin: "Handcrafted in Florence, Italy",
+=======
+
+  // 4. HOME APPLIANCES
+  {
+    id: "prod-11",
+    name: "Barista Master Precision Thermal Espresso Machine",
+    slug: "barista-master-precision-espresso-machine",
+    brand: "Kurasu Pro",
+    category: "Home Appliances",
+    price: 499,
+    originalPrice: 599,
+    rating: 4.94,
+    reviewsCount: 168,
+    inStock: true,
+    stockCount: 9,
+    isBestSeller: true,
+    images: [
+      "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&auto=format&fit=crop&q=80",
+    ],
+    colors: [
+      { name: "Brushed Steel", hex: "#94a3b8" },
+      { name: "Matte Obsidian", hex: "#0f172a" },
+    ],
+    tags: ["15-Bar Italian Pump", "PID Temp Control", "Commercial Steam Wand", "Rapid Heat 3s"],
+    description:
+      "Dual-thermoblock heating system engineered for cafe-grade extraction pressure and silky micro-foam milk texturing in seconds.",
+    features: [
+      "Precision digital PID temperature stability (+/- 1°C)",
+      "Commercial grade 58mm stainless portafilter",
+      "Powerful 360-degree high-pressure steam wand",
+      "Integrated conical burr grinder with 30 grind steps",
+    ],
+    specs: {
+      Pressure: "15 Bar Italian ULKA Pump",
+      "Water Tank": "2.2 Liters Removable",
+      Power: "1600W ThermoJet Rapid Heat",
+>>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
     },
   },
   {
     id: "prod-12",
+<<<<<<< HEAD
     name: "Aura Retro Court Classic Leather Sneakers",
     slug: "aura-retro-court-classic-leather-sneakers",
     brand: "AeroForm",
@@ -515,6 +677,187 @@ export const PRODUCTS: Product[] = [
       Lining: "Soft Calfskin Leather Lining",
       Insole: "OrthoLite Eco Recycled Insole",
       Sole: "Natural Vulcanized Rubber Cupsole",
+=======
+    name: "AeroPure HEPA Silent Smart Air Purifier",
+    slug: "aeropure-hepa-silent-smart-air-purifier",
+    brand: "Luce Studio",
+    category: "Home Appliances",
+    price: 189,
+    originalPrice: 239,
+    rating: 4.88,
+    reviewsCount: 142,
+    inStock: true,
+    stockCount: 16,
+    isNew: true,
+    images: [
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=800&auto=format&fit=crop&q=80",
+    ],
+    colors: [
+      { name: "Pure White", hex: "#ffffff" },
+      { name: "Charcoal Grey", hex: "#334155" },
+    ],
+    tags: ["H13 True HEPA", "Quiet 21dB", "Smart App Control", "Captures 99.97% Particles"],
+    description:
+      "Medical-grade H13 True HEPA filtration capturing 99.97% of airborne pollutants, allergens, PM2.5, and odors with near-silent acoustic output.",
+    features: [
+      "Real-time laser particulate sensor with color air quality ring",
+      "Whisper-quiet sleep mode at just 21 decibels",
+      "Smart WiFi connectivity with voice assistant support",
+      "Covers up to 650 sq ft in 30 minutes",
+    ],
+    specs: {
+      Coverage: "Up to 650 sq ft",
+      "Filter Life": "6-12 Months (H13 3-Stage)",
+      CADR: "320 m3/h",
+    },
+  },
+
+  // 5. KIDS & TOYS
+  {
+    id: "prod-13",
+    name: "RoboCraft AI Programmable Educational Robot Kit",
+    slug: "robocraft-ai-programmable-robot-kit",
+    brand: "ChronosTech",
+    category: "Kids & Toys",
+    price: 139,
+    originalPrice: 179,
+    rating: 4.91,
+    reviewsCount: 224,
+    inStock: true,
+    stockCount: 18,
+    isNew: true,
+    isBestSeller: true,
+    images: [
+      "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=800&auto=format&fit=crop&q=80",
+    ],
+    colors: [
+      { name: "Cyber White", hex: "#f8fafc" },
+      { name: "Neon Yellow", hex: "#eab308" },
+    ],
+    tags: ["STEM Certified", "Block Coding & Python", "Ultrasonic Sensors", "Ages 8+"],
+    description:
+      "Award-winning STEM robotic creation kit with 14 modular sensor units, Bluetooth app control, and graphical drag-and-drop programming for budding inventors.",
+    features: [
+      "Hands-on building with 250+ precision snap-fit components",
+      "AI vision tracking and obstacle-avoidance ultrasonic sensors",
+      "Interactive curriculum covering Python and Scratch coding",
+      "Rechargeable lithium battery with 4-hour runtime",
+    ],
+    specs: {
+      "Age Range": "8 to 16 Years",
+      Connectivity: "Bluetooth 5.0 / USB-C",
+      Compatibility: "iOS, Android, macOS, Windows",
+    },
+  },
+  {
+    id: "prod-14",
+    name: "Nordic Montessori Solid Beech Wooden Castle Set",
+    slug: "nordic-montessori-wooden-castle-set",
+    brand: "Maison Blanc",
+    category: "Kids & Toys",
+    price: 79,
+    originalPrice: 99,
+    rating: 4.89,
+    reviewsCount: 135,
+    inStock: true,
+    stockCount: 21,
+    images: [
+      "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=800&auto=format&fit=crop&q=80",
+    ],
+    colors: [
+      { name: "Natural Beech Wood", hex: "#d6c7b2" },
+      { name: "Pastel Meadow", hex: "#cbd5e1" },
+    ],
+    tags: ["FSC Certified Wood", "Non-Toxic Water Inks", "Open-Ended Play", "Ages 3+"],
+    description:
+      "Handmade architectural building blocks crafted from sustainably harvested European solid beechwood with smooth, rounded edges for boundless creative storytelling.",
+    features: [
+      "100 pieces of solid beechwood blocks with organic linen storage sack",
+      "Non-toxic, saliva-resistant eco water-based stains",
+      "Encourages fine motor skills, spatial reasoning, and balance",
+      "100% plastic-free packaging",
+    ],
+    specs: {
+      Material: "FSC-Certified Solid European Beechwood",
+      "Piece Count": "100 Blocks + Canvas Tote",
+      Safety: "EN71 & ASTM F963 Toy Safety Certified",
+    },
+  },
+
+  // 6. FURNITURE
+  {
+    id: "prod-15",
+    name: "Nordic Minimalist Oak Architectural Lounge Chair",
+    slug: "nordic-minimalist-oak-lounge-chair",
+    brand: "Luce Studio",
+    category: "Furniture",
+    price: 449,
+    originalPrice: 549,
+    rating: 4.96,
+    reviewsCount: 88,
+    inStock: true,
+    stockCount: 5,
+    isBestSeller: true,
+    images: [
+      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&auto=format&fit=crop&q=80",
+    ],
+    colors: [
+      { name: "Oatmeal Linen & Oak", hex: "#e7e5e4" },
+      { name: "Charcoal Wool & Walnut", hex: "#3f3f46" },
+    ],
+    tags: ["Solid White Oak", "Belgian Linen Cushions", "Ergonomic Recline", "Crafted by Hand"],
+    description:
+      "Sculptural armchair defined by sweeping solid oak arms, mortise-and-tenon joinery, and premium high-density foam cushions upholstered in textured Belgian linen.",
+    features: [
+      "Hand-finished sustainably harvested European White Oak frame",
+      "Removable cushion covers for easy dry-cleaning",
+      "Ergonomically tuned 105-degree recline angle",
+      "Felt glider floor protectors pre-installed",
+    ],
+    specs: {
+      Dimensions: "82cm H x 76cm W x 84cm D",
+      SeatHeight: "42 cm",
+      WeightCapacity: "160 kg",
+      Frame: "Solid White Oak / Natural Matte Lacquer",
+    },
+  },
+  {
+    id: "prod-4",
+    name: "Nordic Amber Minimalist Concrete Desk Lamp",
+    slug: "nordic-amber-minimalist-desk-lamp",
+    brand: "Luce Studio",
+    category: "Furniture",
+    price: 129,
+    originalPrice: 159,
+    rating: 4.78,
+    reviewsCount: 164,
+    inStock: true,
+    stockCount: 19,
+    isNew: true,
+    images: [
+      "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=800&auto=format&fit=crop&q=80",
+    ],
+    colors: [
+      { name: "Warm Amber", hex: "#f59e0b" },
+      { name: "Slate Grey", hex: "#64748b" },
+      { name: "Sandstone", hex: "#fcd34d" },
+    ],
+    tags: ["Touch Dimming", "Warm 2700K Glow", "Solid Cast Concrete", "Energy A++"],
+    description:
+      "Architectural serenity for your workspace or nightstand. Hand-cast sculptural concrete base with a 360-degree diffused warm ambient filament bulb.",
+    features: [
+      "Stepless capacitive touch dimmer switch",
+      "Handmade textured aggregate concrete body",
+      "Flicker-free eye protection CRI 95+ LED technology",
+      "Braided charcoal textile cord (2.0 meters)",
+    ],
+    specs: {
+      "Color Temp": "2200K - 3200K Warm Dimming",
+      Power: "8W LED (Equivalent to 60W Incandescent)",
+      Material: "Cast Mineral Concrete & Hand-blown Glass",
+      Dimensions: "24cm x 14cm x 14cm",
+>>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
     },
   },
 ];

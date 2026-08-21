@@ -1,5 +1,6 @@
 "use client";
 
+<<<<<<< HEAD
 import React, {
   createContext,
   useContext,
@@ -37,6 +38,15 @@ export const CURRENCY_RATES: Record<
   GBP: { symbol: "£", rate: 0.0095, label: "GBP (£ - British Pound)" },
 };
 
+=======
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { Product, CartItem, ToastNotification, Order, OrderItem } from "@/types/shop";
+import { PRODUCTS } from "@/data/products";
+
+export type Currency = "INR";
+export type Theme = "dark" | "light";
+
+>>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
 interface ShopContextType {
   // Store Products
   products: Product[];
@@ -119,15 +129,32 @@ interface ShopContextType {
   setSearchQuery: (q: string) => void;
   selectedCategory: string;
   setSelectedCategory: (cat: string) => void;
+<<<<<<< HEAD
   theme: Theme;
   toggleTheme: () => void;
   resetToDefaultData: () => void;
+=======
+  appliedCoupon: { code: string; discountPercent: number; isFreeShipping?: boolean } | null;
+  applyCoupon: (code: string) => { success: boolean; message: string };
+  removeCoupon: () => void;
+  theme: Theme;
+  toggleTheme: () => void;
+  isCheckoutOpen: boolean;
+  setIsCheckoutOpen: (open: boolean) => void;
+  isOrderTrackerOpen: boolean;
+  setIsOrderTrackerOpen: (open: boolean) => void;
+  placedOrders: Order[];
+  activeTrackingOrder: Order | null;
+  setActiveTrackingOrder: (order: Order | null) => void;
+  placeOrder: (orderData: Omit<Order, "id" | "date" | "status" | "trackingNumber" | "estimatedDelivery" | "timeline">) => Order;
+  trackOrderByNumber: (trackingOrId: string) => Order | null;
+>>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
 }
 
 const ShopContext = createContext<ShopContextType | undefined>(undefined);
 
 export function ShopProvider({ children }: { children: React.ReactNode }) {
-  // Theme state: default dark luxury black & white
+  // Theme state
   const [theme, setTheme] = useState<Theme>("dark");
 
   // Products state (synchronized with localStorage)
@@ -156,8 +183,13 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
   // Toast state
   const [toasts, setToasts] = useState<ToastNotification[]>([]);
 
+<<<<<<< HEAD
   // Currency state: Default to Indian Rupee (INR ₹)
   const [currency, setCurrencyState] = useState<Currency>("INR");
+=======
+  // Exclusively Indian Rupee (INR)
+  const [currency, setCurrency] = useState<Currency>("INR");
+>>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
 
   // Filtering / Search state
   const [searchQuery, setSearchQuery] = useState("");
@@ -167,7 +199,16 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
   const [appliedCoupon, setAppliedCoupon] = useState<{
     code: string;
     discountPercent: number;
+    isFreeShipping?: boolean;
   } | null>(null);
+
+  // Checkout modal state
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+
+  // Order tracking state
+  const [isOrderTrackerOpen, setIsOrderTrackerOpen] = useState(false);
+  const [placedOrders, setPlacedOrders] = useState<Order[]>([]);
+  const [activeTrackingOrder, setActiveTrackingOrder] = useState<Order | null>(null);
 
   // Sync theme with document element
   useEffect(() => {
@@ -201,6 +242,7 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
+<<<<<<< HEAD
   // Set Currency wrapper with localStorage persistence
   const setCurrency = (newCurrency: Currency) => {
     setCurrencyState(newCurrency);
@@ -210,6 +252,96 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
   };
 
   // Load initial data from localStorage on client mount
+=======
+  // Indian Rupee Price Formatter
+  const formatPrice = (amountInUSD: number): string => {
+    const inrValue = Math.round(amountInUSD * 85);
+    return new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+      maximumFractionDigits: 0,
+    }).format(inrValue);
+  };
+
+  // Sample default Indian order for instant testing
+  const createDefaultOrder = (): Order => ({
+    id: "SN-982410",
+    date: new Date(Date.now() - 3600 * 1000 * 24).toLocaleDateString("en-IN", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    }),
+    status: "in_transit",
+    items: [
+      {
+        id: "prod-1-matte-black",
+        productId: PRODUCTS[0].id,
+        name: PRODUCTS[0].name,
+        price: PRODUCTS[0].price,
+        quantity: 1,
+        selectedColor: "Matte Black",
+        image: PRODUCTS[0].images[0],
+      },
+    ],
+    subtotal: 289,
+    discount: 57.8,
+    shipping: 0,
+    tax: 16.18,
+    total: 247.38,
+    customer: {
+      fullName: "Aarav Sharma",
+      email: "aarav.sharma@atelier.in",
+      phone: "+91 98201 44821",
+      address: "42 Altamount Road, Cumballa Hill",
+      city: "Mumbai, Maharashtra",
+      postalCode: "400026",
+      country: "India",
+    },
+    shippingMethod: "BlueDart Aviation Priority Express (Free)",
+    paymentMethod: "UPI / HDFC Infinia Black (•••• 8421)",
+    trackingNumber: "BD-IN-9842019",
+    estimatedDelivery: "Tomorrow by 2:00 PM",
+    timeline: [
+      {
+        status: "confirmed",
+        label: "Acquisition Confirmed & UPI Payment Verified",
+        date: "Yesterday, 10:14 AM",
+        completed: true,
+        current: false,
+      },
+      {
+        status: "processing",
+        label: "Atelier Inspection & White-Glove Packaging",
+        date: "Yesterday, 3:30 PM",
+        completed: true,
+        current: false,
+      },
+      {
+        status: "in_transit",
+        label: "Dispatched from Mumbai Hub via BlueDart Air Cargo",
+        date: "Today, 6:45 AM",
+        completed: true,
+        current: true,
+      },
+      {
+        status: "out_for_delivery",
+        label: "Out for Courier Hand-Delivery",
+        date: "Tomorrow Morning",
+        completed: false,
+        current: false,
+      },
+      {
+        status: "delivered",
+        label: "Delivered to Residence",
+        date: "Estimated Tomorrow, 2:00 PM",
+        completed: false,
+        current: false,
+      },
+    ],
+  });
+
+  // Initialize with dummy cart, wishlist & orders for realistic look on first load
+>>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
   useEffect(() => {
     try {
       const savedCurrency = localStorage.getItem("shopnest_currency") as Currency;
@@ -262,7 +394,22 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
       } else {
         setWishlist([DEFAULT_PRODUCTS[1], DEFAULT_PRODUCTS[4]]);
       }
+<<<<<<< HEAD
     } catch { }
+=======
+
+      const savedOrders = localStorage.getItem("shopnest_orders");
+      if (savedOrders) {
+        const parsed = JSON.parse(savedOrders);
+        setPlacedOrders(parsed);
+        if (parsed.length > 0) setActiveTrackingOrder(parsed[0]);
+      } else {
+        const demoOrder = createDefaultOrder();
+        setPlacedOrders([demoOrder]);
+        setActiveTrackingOrder(demoOrder);
+      }
+    } catch {}
+>>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
   }, []);
 
   // Save to localStorage whenever state changes
@@ -302,6 +449,7 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     } catch { }
   }, [wishlist]);
 
+<<<<<<< HEAD
   // Product Management Actions
   const addProduct = (newProductData: Omit<Product, "id"> & { id?: string }): Product => {
     const id = newProductData.id || `prod-${Date.now()}`;
@@ -484,6 +632,14 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
   };
 
   // Toast notifications
+=======
+  useEffect(() => {
+    try {
+      localStorage.setItem("shopnest_orders", JSON.stringify(placedOrders));
+    } catch {}
+  }, [placedOrders]);
+
+>>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
   const addToast = (
     title: string,
     message: string,
@@ -594,6 +750,7 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     0
   );
 
+<<<<<<< HEAD
   // Indian Rupee & Multi-currency formatted prices
   const formatPrice = (amountInINR: number) => {
     const rateInfo = CURRENCY_RATES[currency] || CURRENCY_RATES.INR;
@@ -610,6 +767,8 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     })}`;
   };
 
+=======
+>>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
   const applyCoupon = (code: string) => {
     const cleanCode = code.trim().toUpperCase();
     const found = promoCodes.find((p) => p.code === cleanCode);
@@ -631,18 +790,134 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
       );
       addToast(
         "Code Applied",
+<<<<<<< HEAD
         `Code ${cleanCode} applied: ${found.discountPercent}% off.`,
+=======
+        `Code ${cleanCode} applied: 20% concession.`,
+>>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
         "success"
       );
       return { success: true, message: `${found.discountPercent}% discount applied.` };
     }
+<<<<<<< HEAD
 
     return { success: false, message: "Invalid promo code. Try 'NEST20'" };
+=======
+    if (cleanCode === "WELCOME10") {
+      setAppliedCoupon({ code: cleanCode, discountPercent: 10 });
+      addToast(
+        "Code Applied",
+        "Code WELCOME10 applied: 10% concession.",
+        "success"
+      );
+      return { success: true, message: "10% discount applied." };
+    }
+    if (cleanCode === "FREESHIP") {
+      setAppliedCoupon({ code: cleanCode, discountPercent: 0, isFreeShipping: true });
+      addToast(
+        "Code Applied",
+        "Free Express Delivery across India unlocked.",
+        "success"
+      );
+      return { success: true, message: "Free Express Delivery unlocked." };
+    }
+    return { success: false, message: "Invalid code. Try 'NEST20' or 'VIP20'" };
+>>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
   };
 
   const removeCoupon = () => {
     setAppliedCoupon(null);
     addToast("Code Removed", "Discount removed.", "info");
+  };
+
+  const placeOrder = (orderData: Omit<Order, "id" | "date" | "status" | "trackingNumber" | "estimatedDelivery" | "timeline">): Order => {
+    const randomNum = Math.floor(100000 + Math.random() * 900000);
+    const orderId = `SN-${randomNum}`;
+    const trackingNumber = `BD-IN-${randomNum + 420}`;
+    const today = new Date().toLocaleDateString("en-IN", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+
+    const newOrder: Order = {
+      ...orderData,
+      id: orderId,
+      date: today,
+      status: "confirmed",
+      trackingNumber,
+      estimatedDelivery: "Within 2-3 Business Days",
+      timeline: [
+        {
+          status: "confirmed",
+          label: "Order Confirmed & Payment Verified",
+          date: "Just now",
+          completed: true,
+          current: true,
+        },
+        {
+          status: "processing",
+          label: "Precision Inspection & White-Glove Packaging",
+          date: "Scheduled Today",
+          completed: false,
+          current: false,
+        },
+        {
+          status: "in_transit",
+          label: "BlueDart Air Cargo Dispatch",
+          date: "Tomorrow",
+          completed: false,
+          current: false,
+        },
+        {
+          status: "out_for_delivery",
+          label: "Out for Local Hand-Delivery",
+          date: "Estimated 2 Days",
+          completed: false,
+          current: false,
+        },
+        {
+          status: "delivered",
+          label: "Delivered to Customer Doorstep",
+          date: "Estimated 3 Days",
+          completed: false,
+          current: false,
+        },
+      ],
+    };
+
+    setPlacedOrders((prev) => [newOrder, ...prev]);
+    setActiveTrackingOrder(newOrder);
+    clearCart();
+    setAppliedCoupon(null);
+
+    return newOrder;
+  };
+
+  const trackOrderByNumber = (trackingOrId: string): Order | null => {
+    const clean = trackingOrId.trim().toUpperCase();
+    if (!clean) return null;
+
+    const found = placedOrders.find(
+      (o) =>
+        o.id.toUpperCase() === clean ||
+        o.trackingNumber.toUpperCase() === clean ||
+        o.id.toUpperCase().includes(clean)
+    );
+
+    if (found) {
+      setActiveTrackingOrder(found);
+      return found;
+    }
+
+    // Default fallback order if searching default test code
+    if (clean === "SN-982410" || clean === "BD-IN-9842019" || clean === "DEMO") {
+      const demo = createDefaultOrder();
+      setActiveTrackingOrder(demo);
+      return demo;
+    }
+
+    return null;
   };
 
   return (
@@ -696,7 +971,19 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
         removeCoupon,
         theme,
         toggleTheme,
+<<<<<<< HEAD
         resetToDefaultData,
+=======
+        isCheckoutOpen,
+        setIsCheckoutOpen,
+        isOrderTrackerOpen,
+        setIsOrderTrackerOpen,
+        placedOrders,
+        activeTrackingOrder,
+        setActiveTrackingOrder,
+        placeOrder,
+        trackOrderByNumber,
+>>>>>>> 113c4554795eef8ca5397910adfb72efd4561b0a
       }}
     >
       {children}
