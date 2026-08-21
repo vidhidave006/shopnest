@@ -295,29 +295,17 @@ export function InformationalHome() {
 
   const faqs = [
     {
-<<<<<<< HEAD
       question: "Why does Cherry focus exclusively on monochrome design?",
-=======
-      question: "What makes ShopNest different from standard e-commerce marketplaces?",
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
       answer:
-        "ShopNest is a curated design atelier rather than an open marketplace. Every single item across our 6 categories (Electronics, Fashion, Beauty, Home Appliances, Kids & Toys, Furniture) is directly verified for structural purity, certified materials, zero-plastic packaging, and enduring performance.",
+        "Cherry is a curated design atelier rather than an open marketplace. Every single item across our 6 categories (Electronics, Fashion, Beauty, Home Appliances, Kids & Toys, Furniture) is directly verified for structural purity, certified materials, zero-plastic packaging, and enduring performance.",
     },
     {
-<<<<<<< HEAD
       question: "Where are Cherry products designed and manufactured?",
-=======
-      question: "How can I inspect full technical specifications of any product?",
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
       answer:
         "Each product card in our catalog includes a technical specification summary table. You can click on 'Read Technical Dossier' or view any product's page to inspect dimensions, weight, battery capacity, material grades, and certified standards.",
     },
     {
-<<<<<<< HEAD
       question: "What is the Cherry Concierge Warranty policy?",
-=======
-      question: "What does the ShopNest 2-Year Concierge Warranty cover?",
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
       answer:
         "All hardware essentials (Electronics, Home Appliances, and Furniture) include our 2-Year Direct Concierge Warranty with doorstep pickup across India, genuine modular component servicing, and priority technical support.",
     },
@@ -368,13 +356,8 @@ export function InformationalHome() {
             </h1>
 
             {/* Subtext */}
-<<<<<<< HEAD
             <p className="mt-6 text-base sm:text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl font-normal leading-relaxed">
               Cherry is an independent design laboratory exploring the convergence of aerospace metallurgy, acoustic fidelity, and radical minimalism. Built for those who find clarity in black and white.
-=======
-            <p className="mt-6 text-base sm:text-lg text-zinc-600 dark:text-zinc-400 max-w-3xl font-normal leading-relaxed">
-              Welcome to the official informational portal for ShopNest. Explore the design principles, material science, and technical specifications behind our curated catalog of spatial audio electronics, technical apparel, clean botanicals, culinary machines, Montessori play, and solid oak furniture.
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
             </p>
 
             {/* Fast Anchor Navigation */}
@@ -461,7 +444,7 @@ export function InformationalHome() {
           </div>
         </section>
 
-        {/* Section 1: The 6 Disciplines of ShopNest (Interactive Taxonomy) */}
+        {/* Section 1: The 6 Disciplines of Cherry (Interactive Taxonomy) */}
         <section id="pillars" className="py-20 bg-zinc-50/70 dark:bg-zinc-950/70 border-b border-zinc-200 dark:border-zinc-800 transition-colors">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <div className="text-center max-w-2xl mx-auto mb-14">
@@ -469,11 +452,7 @@ export function InformationalHome() {
                 CURATORIAL TAXONOMY
               </span>
               <h2 className="text-3xl sm:text-4xl font-black uppercase text-black dark:text-white tracking-tight mt-1">
-<<<<<<< HEAD
-                The Three Pillars of Cherry
-=======
-                The 6 ShopNest Categories
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
+                The 6 Cherry Categories
               </h2>
               <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-2">
                 Click across our 6 core store categories to inspect their engineering specifications, material makeup, and curation standards.
@@ -798,11 +777,7 @@ export function InformationalHome() {
                   Material Science &amp; Purity
                 </h2>
                 <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1 max-w-xl">
-<<<<<<< HEAD
                   Inspect the physical elements that constitute the Cherry monochrome hardware universe.
-=======
-                  Inspect the physical elements that constitute the ShopNest hardware universe.
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
                 </p>
               </div>
             </div>
@@ -918,7 +893,6 @@ export function InformationalHome() {
           </div>
         </section>
 
-<<<<<<< HEAD
         {/* Section 5: Press & Acclaim */}
         <section className="py-16 bg-zinc-900 text-white border-b border-zinc-800">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -961,9 +935,6 @@ export function InformationalHome() {
             </div>
           </div>
         </section>
-
-=======
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
         {/* Section 6: Interactive FAQ */}
         <section id="faq" className="py-20 bg-white dark:bg-black border-b border-zinc-200 dark:border-zinc-800 transition-colors">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">

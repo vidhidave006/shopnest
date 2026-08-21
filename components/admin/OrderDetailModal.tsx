@@ -231,11 +231,7 @@ export function OrderDetailModal({
                 </button>
               </div>
               <p className="text-zinc-700 dark:text-zinc-300 text-xs leading-relaxed">
-<<<<<<< HEAD
                 {order.shippingAddress || order.customer?.address || "No address provided"}
-=======
-                {order.shippingAddress || order.customer?.address}
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
               </p>
               <div className="flex items-center gap-1 text-[10px] text-zinc-400 pt-1">
                 <ShieldCheck className="w-3 h-3 text-zinc-400" />

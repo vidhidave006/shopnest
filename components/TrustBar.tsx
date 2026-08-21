@@ -7,13 +7,8 @@ export function TrustBar() {
   const items = [
     {
       icon: Truck,
-<<<<<<< HEAD
       title: "FREE EXPRESS DELIVERY",
       description: "Priority expedited dispatch on all orders over ₹2,999",
-=======
-      title: "COMPLIMENTARY AIR COURIER",
-      description: "Priority expedited dispatch on orders over $50",
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
     },
     {
       icon: RotateCcw,

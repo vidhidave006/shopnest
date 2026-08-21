@@ -36,13 +36,15 @@ export const CURRENCY_RATES: Record<
   GBP: { symbol: "£", rate: 0.0095, label: "GBP (£ - British Pound)" },
 };
 
-<<<<<<< HEAD
-=======
 function createDefaultOrder(): Order {
   return {
     id: "SN-982410",
     orderNumber: "SN-982410",
-    date: new Date().toLocaleDateString("en-IN", {
+    customerName: "Aarav Sharma",
+    customerEmail: "patron@cherry.in",
+    customerPhone: "+91 98201 44821",
+    shippingAddress: "42 Altamount Road, Cumballa Hill, Mumbai, Maharashtra 400026",
+    date: new Date(Date.now() - 3600 * 1000 * 24).toLocaleDateString("en-IN", {
       month: "short",
       day: "numeric",
       year: "numeric",
@@ -51,32 +53,33 @@ function createDefaultOrder(): Order {
     trackingNumber: "BD-IN-9842019",
     estimatedDelivery: "Tomorrow, by 7:00 PM",
     customer: {
-      fullName: "Ananya Deshmukh",
-      email: "ananya.d@concierge.in",
-      phone: "+91 98201 44521",
-      address: "Penthouse 14, Prestige Ocean Heights, Worli",
+      fullName: "Aarav Sharma",
+      email: "patron@cherry.in",
+      phone: "+91 98201 44821",
+      address: "42 Altamount Road, Cumballa Hill",
       city: "Mumbai",
-      postalCode: "400018",
+      postalCode: "400026",
       country: "India",
     },
     shippingMethod: "BlueDart Priority Carbon-Neutral Express",
-    paymentMethod: "Razorpay (Credit Card Ending 4022)",
+    paymentMethod: "Razorpay / UPI Platinum",
+    paymentStatus: "paid",
     items: [
       {
         id: "item-1",
         productId: "prod-1",
         name: "Aura Studio Pro Wireless ANC Headphones",
-        price: 289,
+        price: 23999.00,
         quantity: 1,
         selectedColor: "Matte Black",
         image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&auto=format&fit=crop&q=80",
       },
     ],
-    subtotal: 289,
+    subtotal: 23999.00,
     discount: 0,
     shipping: 0,
-    tax: 26.01,
-    total: 315.01,
+    tax: 1679.93,
+    total: 25678.93,
     timeline: [
       {
         status: "confirmed",
@@ -101,7 +104,7 @@ function createDefaultOrder(): Order {
       },
       {
         status: "out_for_delivery",
-        label: "Out for Local Hand-Delivery",
+        label: "Out for Courier Dispatch",
         date: "Tomorrow Morning",
         completed: false,
         current: false,
@@ -109,7 +112,7 @@ function createDefaultOrder(): Order {
       {
         status: "delivered",
         label: "Delivered to Customer Doorstep",
-        date: "Tomorrow, 7:00 PM",
+        date: "Tomorrow by 7 PM",
         completed: false,
         current: false,
       },
@@ -117,11 +120,10 @@ function createDefaultOrder(): Order {
   };
 }
 
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
 interface ShopContextType {
-  // Store Products
+  // Product Catalog
   products: Product[];
-  addProduct: (newProduct: Omit<Product, "id"> & { id?: string }) => Product;
+  addProduct: (product: Omit<Product, "id"> & { id?: string }) => Product;
   updateProduct: (id: string, updated: Partial<Product>) => void;
   deleteProduct: (id: string) => void;
   updateStock: (id: string, count: number) => void;
@@ -130,9 +132,9 @@ interface ShopContextType {
   cart: CartItem[];
   addToCart: (
     product: Product,
-    quantity?: number,
-    selectedColor?: string,
-    selectedSize?: string
+    arg2?: string | number,
+    arg3?: string | number,
+    arg4?: string | number
   ) => void;
   removeFromCart: (itemId: string) => void;
   updateCartQuantity: (itemId: string, quantity: number) => void;
@@ -165,12 +167,9 @@ interface ShopContextType {
   addPromoCode: (promo: Omit<PromoCode, "id" | "usageCount">) => PromoCode;
   togglePromoCode: (id: string) => void;
   deletePromoCode: (id: string) => void;
-<<<<<<< HEAD
-=======
   appliedCoupon: { code: string; discountPercent: number; isFreeShipping?: boolean } | null;
   applyCoupon: (code: string) => { success: boolean; message: string };
   removeCoupon: () => void;
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
 
   // Reviews
   reviews: CustomerReview[];
@@ -198,29 +197,13 @@ interface ShopContextType {
   setSearchQuery: (q: string) => void;
   selectedCategory: string;
   setSelectedCategory: (cat: string) => void;
-<<<<<<< HEAD
-
-  // Coupon application
-  appliedCoupon: {
-    code: string;
-    discountPercent: number;
-    isFreeShipping?: boolean;
-  } | null;
-  applyCoupon: (code: string) => { success: boolean; message: string };
-  removeCoupon: () => void;
 
   // Theme
-=======
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
   theme: Theme;
   toggleTheme: () => void;
   resetToDefaultData: () => void;
 
-<<<<<<< HEAD
-  // Checkout & Tracker Modals
-=======
   // Checkout & Tracking
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
   isCheckoutOpen: boolean;
   setIsCheckoutOpen: (open: boolean) => void;
   isOrderTrackerOpen: boolean;
@@ -291,92 +274,6 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
   const [placedOrders, setPlacedOrders] = useState<Order[]>([]);
   const [activeTrackingOrder, setActiveTrackingOrder] = useState<Order | null>(null);
 
-<<<<<<< HEAD
-  // Sample default Indian order for instant testing
-  const createDefaultOrder = (): Order => ({
-    id: "SN-982410",
-    orderNumber: "SN-982410",
-    customerName: "Aarav Sharma",
-    customerEmail: "aarav.sharma@atelier.in",
-    customerPhone: "+91 98201 44821",
-    shippingAddress: "42 Altamount Road, Cumballa Hill, Mumbai, Maharashtra 400026",
-    date: new Date(Date.now() - 3600 * 1000 * 24).toLocaleDateString("en-IN", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    }),
-    status: "in_transit",
-    items: [
-      {
-        id: "prod-1-matte-black",
-        productId: DEFAULT_PRODUCTS[0].id,
-        name: DEFAULT_PRODUCTS[0].name,
-        price: DEFAULT_PRODUCTS[0].price,
-        quantity: 1,
-        selectedColor: "Matte Black",
-        image: DEFAULT_PRODUCTS[0].images[0],
-      },
-    ],
-    subtotal: DEFAULT_PRODUCTS[0].price,
-    discount: 4799.8,
-    shipping: 0,
-    tax: 1618,
-    total: 20817.2,
-    customer: {
-      fullName: "Aarav Sharma",
-      email: "aarav.sharma@atelier.in",
-      phone: "+91 98201 44821",
-      address: "42 Altamount Road, Cumballa Hill",
-      city: "Mumbai, Maharashtra",
-      postalCode: "400026",
-      country: "India",
-    },
-    shippingMethod: "BlueDart Aviation Priority Express (Free)",
-    paymentMethod: "UPI / HDFC Infinia Black (•••• 8421)",
-    paymentStatus: "paid",
-    trackingNumber: "BD-IN-9842019",
-    estimatedDelivery: "Tomorrow by 2:00 PM",
-    timeline: [
-      {
-        status: "confirmed",
-        label: "Order Confirmed & UPI Payment Verified",
-        date: "Yesterday, 10:14 AM",
-        completed: true,
-        current: false,
-      },
-      {
-        status: "processing",
-        label: "Atelier Inspection & White-Glove Packaging",
-        date: "Yesterday, 3:30 PM",
-        completed: true,
-        current: false,
-      },
-      {
-        status: "in_transit",
-        label: "Dispatched from Mumbai Hub via BlueDart Air Cargo",
-        date: "Today, 6:45 AM",
-        completed: true,
-        current: true,
-      },
-      {
-        status: "out_for_delivery",
-        label: "Out for Courier Hand-Delivery",
-        date: "Tomorrow Morning",
-        completed: false,
-        current: false,
-      },
-      {
-        status: "delivered",
-        label: "Delivered to Residence",
-        date: "Estimated Tomorrow, 2:00 PM",
-        completed: false,
-        current: false,
-      },
-    ],
-  });
-
-=======
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
   // Sync theme with document element
   useEffect(() => {
     try {
@@ -391,11 +288,7 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
       } else {
         document.documentElement.classList.add("dark");
       }
-<<<<<<< HEAD
     } catch {}
-=======
-    } catch { }
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
   }, []);
 
   const toggleTheme = () => {
@@ -408,11 +301,7 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
       }
       try {
         localStorage.setItem("shopnest_theme", nextTheme);
-<<<<<<< HEAD
       } catch {}
-=======
-      } catch { }
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
       return nextTheme;
     });
   };
@@ -422,11 +311,7 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     setCurrencyState(newCurrency);
     try {
       localStorage.setItem("shopnest_currency", newCurrency);
-<<<<<<< HEAD
     } catch {}
-=======
-    } catch { }
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
   };
 
   // Load initial data from localStorage on client mount
@@ -478,11 +363,7 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
       if (savedWishlist) {
         setWishlist(JSON.parse(savedWishlist));
       }
-<<<<<<< HEAD
     } catch {}
-=======
-    } catch { }
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
   }, []);
 
   // Save to localStorage whenever state changes
@@ -522,19 +403,11 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     } catch {}
   }, [wishlist]);
 
-<<<<<<< HEAD
   // Product CRUD actions (Admin)
-  const addProduct = (newProduct: Omit<Product, "id"> & { id?: string }): Product => {
-    const id = newProduct.id || `prod-${Date.now()}`;
-    const product: Product = {
-      ...newProduct,
-=======
-  // Product Management Actions
   const addProduct = (newProductData: Omit<Product, "id"> & { id?: string }): Product => {
     const id = newProductData.id || `prod-${Date.now()}`;
-    const newProduct: Product = {
+    const product: Product = {
       ...newProductData,
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
       id,
     };
     setProducts((prev) => [product, ...prev]);
@@ -570,21 +443,136 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     );
   };
 
-  // Order Management Actions (Admin)
-  const addOrder = (orderData: Omit<Order, "id" | "date">): Order => {
-    const id = `ord-${Date.now()}`;
-    const now = new Date();
-    const date = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
-    const newOrder: Order = {
-      ...orderData,
+  // Cart actions
+  const addToCart = (
+    product: Product,
+    arg2?: string | number,
+    arg3?: string | number,
+    arg4?: string | number
+  ) => {
+    let qty = 1;
+    let selectedColor = product.colors[0]?.name;
+    let selectedSize = product.sizes ? product.sizes[0] : undefined;
+
+    if (typeof arg2 === "number") {
+      qty = arg2;
+      if (typeof arg3 === "string") selectedColor = arg3;
+      if (typeof arg4 === "string") selectedSize = arg4;
+    } else if (typeof arg2 === "string") {
+      selectedColor = arg2;
+      if (typeof arg3 === "string") selectedSize = arg3;
+      if (typeof arg3 === "number") qty = arg3;
+      if (typeof arg4 === "number") qty = arg4;
+    }
+
+    const cartItemId = `${product.id}-${selectedColor || "default"}-${selectedSize || "default"}`;
+
+    setCart((prev) => {
+      const existing = prev.find((item) => item.id === cartItemId);
+      if (existing) {
+        return prev.map((item) =>
+          item.id === cartItemId
+            ? { ...item, quantity: item.quantity + qty }
+            : item
+        );
+      }
+      return [
+        ...prev,
+        {
+          id: cartItemId,
+          product,
+          quantity: qty,
+          selectedColor,
+          selectedSize,
+        },
+      ];
+    });
+
+    addToast(
+      "Item Added to Cart",
+      `${product.name} (${selectedColor || "Standard"}${selectedSize ? ` - ${selectedSize}` : ""})`,
+      "success",
+      product.images[0]
+    );
+  };
+
+  const removeFromCart = (itemId: string) => {
+    setCart((prev) => {
+      const item = prev.find((i) => i.id === itemId);
+      if (item) {
+        addToast("Item Removed", `${item.product.name} removed from your cart.`, "info");
+      }
+      return prev.filter((i) => i.id !== itemId);
+    });
+  };
+
+  const updateCartQuantity = (itemId: string, quantity: number) => {
+    if (quantity <= 0) {
+      removeFromCart(itemId);
+      return;
+    }
+    setCart((prev) =>
+      prev.map((item) => (item.id === itemId ? { ...item, quantity } : item))
+    );
+  };
+
+  const clearCart = () => {
+    setCart([]);
+  };
+
+  const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+
+  const cartSubtotal = cart.reduce(
+    (total, item) => total + item.product.price * item.quantity,
+    0
+  );
+
+  // Wishlist actions
+  const toggleWishlist = (product: Product) => {
+    setWishlist((prev) => {
+      const exists = prev.some((p) => p.id === product.id);
+      if (exists) {
+        addToast("Removed from Wishlist", product.name, "info", product.images[0]);
+        return prev.filter((p) => p.id !== product.id);
+      } else {
+        addToast("Saved to Wishlist", product.name, "success", product.images[0]);
+        return [...prev, product];
+      }
+    });
+  };
+
+  const isInWishlist = (productId: string) => {
+    return wishlist.some((p) => p.id === productId);
+  };
+
+  // Quick View actions
+  const openQuickView = (product: Product) => {
+    setQuickViewProduct(product);
+  };
+
+  const closeQuickView = () => {
+    setQuickViewProduct(null);
+  };
+
+  // Order actions (Admin)
+  const addOrder = (newOrderData: Omit<Order, "id" | "date">): Order => {
+    const id = `SN-${Math.floor(10000 + Math.random() * 90000)}`;
+    const date = new Date().toISOString().split("T")[0] + " " + new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    const order: Order = {
+      ...newOrderData,
       id,
       date,
     };
-    setOrders((prev) => [newOrder, ...prev]);
-    return newOrder;
+    setOrders((prev) => [order, ...prev]);
+    addToast("Order Logged", `Order #${id} added to the system.`, "success");
+    return order;
   };
 
-  const updateOrderStatus = (id: string, status: OrderStatus, trackingNumber?: string) => {
+  const updateOrderStatus = (
+    id: string,
+    status: OrderStatus,
+    trackingNumber?: string
+  ) => {
     setOrders((prev) =>
       prev.map((o) =>
         o.id === id
@@ -607,56 +595,65 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
           : o
       )
     );
-    addToast("Order Status Updated", `Order #${id} marked as ${status.toUpperCase()}.`, "info");
+    addToast("Status Updated", `Order #${id} marked as ${status.replace("_", " ").toUpperCase()}.`, "info");
   };
 
   const deleteOrder = (id: string) => {
     setOrders((prev) => prev.filter((o) => o.id !== id));
-    setPlacedOrders((prev) => prev.filter((o) => o.id !== id));
-    addToast("Order Removed", `Order #${id} deleted from records.`, "info");
+    addToast("Order Removed", `Order record #${id} has been removed.`, "info");
   };
 
-  // Promo Code Management Actions (Admin)
-  const addPromoCode = (promoData: Omit<PromoCode, "id" | "usageCount">): PromoCode => {
+  // Promo Code actions (Admin)
+  const addPromoCode = (
+    newPromoData: Omit<PromoCode, "id" | "usageCount">
+  ): PromoCode => {
     const id = `promo-${Date.now()}`;
-    const newPromo: PromoCode = {
-      ...promoData,
+    const promo: PromoCode = {
+      ...newPromoData,
       id,
+      code: newPromoData.code.toUpperCase().trim(),
       usageCount: 0,
-      code: promoData.code.trim().toUpperCase(),
     };
-    setPromoCodes((prev) => [newPromo, ...prev]);
-    addToast("Promo Code Created", `Code ${newPromo.code} (${newPromo.discountPercent}% OFF) is live.`, "success");
-    return newPromo;
+    setPromoCodes((prev) => [promo, ...prev]);
+    addToast("Coupon Created", `Coupon "${promo.code}" created successfully.`, "success");
+    return promo;
   };
 
   const togglePromoCode = (id: string) => {
     setPromoCodes((prev) =>
       prev.map((p) => (p.id === id ? { ...p, isActive: !p.isActive } : p))
     );
+    addToast("Coupon Updated", "Promo code availability status updated.", "info");
   };
 
   const deletePromoCode = (id: string) => {
     setPromoCodes((prev) => prev.filter((p) => p.id !== id));
-    addToast("Promo Deleted", "Discount code removed.", "info");
+    addToast("Coupon Deleted", "Promo code removed from the database.", "info");
   };
 
-  // Review Moderation Actions
-  const addReview = (reviewData: Omit<CustomerReview, "id" | "date" | "helpfulCount">) => {
+  // Review actions (Admin & Frontend)
+  const addReview = (
+    newReviewData: Omit<CustomerReview, "id" | "date" | "helpfulCount">
+  ) => {
     const id = `rev-${Date.now()}`;
-    const newRev: CustomerReview = {
-      ...reviewData,
+    const date = new Date().toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+    const review: CustomerReview = {
+      ...newReviewData,
       id,
-      date: "Just now",
+      date,
       helpfulCount: 0,
     };
-    setReviews((prev) => [newRev, ...prev]);
-    addToast("Review Submitted", "Thank you for reviewing this product.", "success");
+    setReviews((prev) => [review, ...prev]);
+    addToast("Review Submitted", "Thank you for sharing your experience.", "success");
   };
 
   const deleteReview = (id: string) => {
     setReviews((prev) => prev.filter((r) => r.id !== id));
-    addToast("Review Deleted", "Customer testimonial removed.", "info");
+    addToast("Review Removed", "Review record has been deleted.", "info");
   };
 
   const toggleReviewVerified = (id: string) => {
@@ -665,138 +662,34 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     );
   };
 
-  // Reset to default demo data
-  const resetToDefaultData = () => {
-    setProducts(DEFAULT_PRODUCTS);
-    setOrders(INITIAL_ORDERS);
-    setPromoCodes(INITIAL_PROMOS);
-    setReviews(DEFAULT_REVIEWS);
-    setCurrencyState("INR");
-    localStorage.removeItem("shopnest_products");
-    localStorage.removeItem("shopnest_orders");
-    localStorage.removeItem("shopnest_promos");
-    localStorage.removeItem("shopnest_reviews");
-    localStorage.setItem("shopnest_currency", "INR");
-    addToast("Data Reset", "Store demo data restored to factory defaults in INR (₹).", "info");
-  };
-
-  // Toast notifications
+  // Toast actions
   const addToast = (
     title: string,
     message: string,
     type: "success" | "info" | "error" = "success",
     image?: string
   ) => {
-    const id = Date.now().toString() + Math.random().toString(36).substring(2, 5);
-    setToasts((prev) => [...prev, { id, title, message, type, image }]);
+    const id = `toast-${Date.now()}-${Math.random()}`;
+    const newToast: ToastNotification = { id, title, message, type, image };
+
+    setToasts((prev) => [...prev.slice(-4), newToast]);
+
     setTimeout(() => {
-      setToasts((prev) => prev.filter((t) => t.id !== id));
-    }, 4000);
+      removeToast(id);
+    }, 4500);
   };
 
   const removeToast = (id: string) => {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   };
 
-  // Cart operations
-  const addToCart = (
-    product: Product,
-    quantity: number = 1,
-    selectedColor?: string,
-    selectedSize?: string
-  ) => {
-    const color = selectedColor || product.colors[0]?.name || "Standard";
-    const size = selectedSize || product.sizes?.[0] || "";
-    const itemId = `${product.id}-${color}-${size}`;
-
-    setCart((prev) => {
-      const existing = prev.find((item) => item.id === itemId);
-      if (existing) {
-        return prev.map((item) =>
-          item.id === itemId
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
-        );
-      }
-      return [
-        ...prev,
-        {
-          id: itemId,
-          product,
-          quantity,
-          selectedColor: color,
-          selectedSize: size,
-        },
-      ];
-    });
-
-    setIsCartOpen(true);
-    addToast(
-      "Item Added to Cart",
-      `${product.name} (x${quantity}) added to cart.`,
-      "success",
-      product.images[0]
-    );
-  };
-
-  const removeFromCart = (itemId: string) => {
-    setCart((prev) => prev.filter((item) => item.id !== itemId));
-  };
-
-  const updateCartQuantity = (itemId: string, quantity: number) => {
-    if (quantity <= 0) {
-      removeFromCart(itemId);
-      return;
-    }
-    setCart((prev) =>
-      prev.map((item) => (item.id === itemId ? { ...item, quantity } : item))
-    );
-  };
-
-  const clearCart = () => {
-    setCart([]);
-  };
-
-  const toggleWishlist = (product: Product) => {
-    const exists = wishlist.some((p) => p.id === product.id);
-    if (exists) {
-      setWishlist((prev) => prev.filter((p) => p.id !== product.id));
-      addToast("Removed from Wishlist", `${product.name} was removed.`, "info");
-    } else {
-      setWishlist((prev) => [...prev, product]);
-      addToast(
-        "Saved to Wishlist",
-        `${product.name} saved to wishlist.`,
-        "success",
-        product.images[0]
-      );
-    }
-  };
-
-  const isInWishlist = (productId: string) => {
-    return wishlist.some((p) => p.id === productId);
-  };
-
-  const openQuickView = (product: Product) => {
-    setQuickViewProduct(product);
-  };
-
-  const closeQuickView = () => {
-    setQuickViewProduct(null);
-  };
-
-  const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
-  const cartSubtotal = cart.reduce(
-    (total, item) => total + item.product.price * item.quantity,
-    0
-  );
-
-  // Indian Rupee & Multi-currency formatted prices
-  const formatPrice = (amountInINR: number) => {
+  // Currency Converter & Formatter
+  const formatPrice = (amountInINR: number): string => {
     const rateInfo = CURRENCY_RATES[currency] || CURRENCY_RATES.INR;
-    const converted = (amountInINR || 0) * rateInfo.rate;
+    const converted = amountInINR * rateInfo.rate;
+
     if (currency === "INR") {
-      return `₹${converted.toLocaleString("en-IN", {
+      return `₹${Math.round(converted).toLocaleString("en-IN", {
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
       })}`;
@@ -827,35 +720,19 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
       );
       addToast(
         "Code Applied",
-<<<<<<< HEAD
         `Code ${cleanCode} applied: ${found.discountPercent}% discount.`,
-=======
-        `Code ${cleanCode} applied: ${found.discountPercent}% off.`,
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
         "success"
       );
       return { success: true, message: `${found.discountPercent}% discount applied.` };
     }
 
-<<<<<<< HEAD
-=======
-    if (cleanCode === "WELCOME10") {
-      setAppliedCoupon({ code: cleanCode, discountPercent: 10 });
-      addToast("Code Applied", "Code WELCOME10 applied: 10% off.", "success");
-      return { success: true, message: "10% discount applied." };
-    }
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
     if (cleanCode === "FREESHIP") {
       setAppliedCoupon({ code: cleanCode, discountPercent: 0, isFreeShipping: true });
       addToast("Code Applied", "Free Express Delivery unlocked.", "success");
       return { success: true, message: "Free Express Delivery unlocked." };
     }
 
-<<<<<<< HEAD
     return { success: false, message: "Invalid promo code. Try 'NEST20' or 'WELCOME10'" };
-=======
-    return { success: false, message: "Invalid promo code. Try 'NEST20' or 'VIP20'" };
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
   };
 
   const removeCoupon = () => {
@@ -946,10 +823,7 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     const found = placedOrders.find(
       (o) =>
         o.id.toUpperCase() === clean ||
-<<<<<<< HEAD
         (o.orderNumber && o.orderNumber.toUpperCase() === clean) ||
-=======
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
         (o.trackingNumber && o.trackingNumber.toUpperCase() === clean) ||
         o.id.toUpperCase().includes(clean)
     );
@@ -966,6 +840,24 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     }
 
     return null;
+  };
+
+  const resetToDefaultData = () => {
+    setProducts(DEFAULT_PRODUCTS);
+    setOrders(INITIAL_ORDERS);
+    setPromoCodes(INITIAL_PROMOS);
+    setReviews(DEFAULT_REVIEWS);
+    setCart([]);
+    setWishlist([]);
+    try {
+      localStorage.removeItem("shopnest_products");
+      localStorage.removeItem("shopnest_orders");
+      localStorage.removeItem("shopnest_promos");
+      localStorage.removeItem("shopnest_reviews");
+      localStorage.removeItem("shopnest_cart");
+      localStorage.removeItem("shopnest_wishlist");
+    } catch {}
+    addToast("Store Reset", "Demo data restored to initial atelier defaults.", "info");
   };
 
   return (

@@ -65,13 +65,8 @@ export const PRODUCTS: Product[] = [
     slug: "aura-studio-pro-wireless-anc-headphones",
     brand: "SonicWave",
     category: "Electronic",
-<<<<<<< HEAD
     price: 23999.00,
     originalPrice: 28999.00,
-=======
-    price: 289,
-    originalPrice: 349,
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
     rating: 4.9,
     reviewsCount: 328,
     inStock: true,
@@ -111,13 +106,8 @@ export const PRODUCTS: Product[] = [
     slug: "lumina-apex-smartwatch-ultra",
     brand: "ChronosTech",
     category: "Electronic",
-<<<<<<< HEAD
     price: 32999.00,
     originalPrice: 39999.00,
-=======
-    price: 399,
-    originalPrice: 479,
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
     rating: 4.85,
     reviewsCount: 215,
     inStock: true,
@@ -197,13 +187,8 @@ export const PRODUCTS: Product[] = [
     slug: "cloudstride-neo-pulse-running-sneakers",
     brand: "AeroForm",
     category: "Fashion",
-<<<<<<< HEAD
     price: 13999.00,
     originalPrice: 16999.00,
-=======
-    price: 165,
-    originalPrice: 195,
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
     rating: 4.92,
     reviewsCount: 440,
     inStock: true,
@@ -241,13 +226,8 @@ export const PRODUCTS: Product[] = [
     slug: "heritage-full-grain-leather-weekender-bag",
     brand: "Vanguard Craft",
     category: "Fashion",
-<<<<<<< HEAD
     price: 18499.00,
     originalPrice: 22999.00,
-=======
-    price: 345,
-    originalPrice: 420,
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
     rating: 4.95,
     reviewsCount: 189,
     inStock: true,
@@ -284,13 +264,8 @@ export const PRODUCTS: Product[] = [
     slug: "atelier-organic-raw-linen-shirt",
     brand: "Maison Blanc",
     category: "Fashion",
-<<<<<<< HEAD
     price: 8999.00,
     originalPrice: 11499.00,
-=======
-    price: 110,
-    originalPrice: 140,
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
     rating: 4.82,
     reviewsCount: 156,
     inStock: true,
@@ -443,13 +418,8 @@ export const PRODUCTS: Product[] = [
     slug: "aetheria-ultrasonic-ceramic-aroma-diffuser",
     brand: "Aura Home",
     category: "Beauty",
-<<<<<<< HEAD
     price: 6499.00,
     originalPrice: 8499.00,
-=======
-    price: 88,
-    originalPrice: 110,
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
     rating: 4.86,
     reviewsCount: 198,
     inStock: true,
@@ -516,11 +486,7 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
-<<<<<<< HEAD
     id: "prod-17",
-=======
-    id: "prod-12",
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
     name: "AeroPure HEPA Silent Smart Air Purifier",
     slug: "aeropure-hepa-silent-smart-air-purifier",
     brand: "Luce Studio",
@@ -852,11 +818,7 @@ export const INITIAL_ORDERS: Order[] = [
         price: 399,
         quantity: 1,
         image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=80",
-<<<<<<< HEAD
         selectedColor: "Titanium Silver",
-=======
-        selectedColor: "Stealth Black",
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
       },
     ],
     subtotal: 399,
@@ -869,7 +831,6 @@ export const INITIAL_ORDERS: Order[] = [
     paymentStatus: "paid",
     trackingNumber: "TRK-74198234",
   },
-<<<<<<< HEAD
   {
     id: "ord-1003",
     orderNumber: "SN-98243",
@@ -937,8 +898,6 @@ export const INITIAL_ORDERS: Order[] = [
     paymentMethod: "UPI Instant",
     paymentStatus: "paid",
   },
-=======
->>>>>>> d3d3555ca4bf9ab32161337377cbdeb50c5209db
 ];
 
 export const INITIAL_PROMOS: PromoCode[] = [
